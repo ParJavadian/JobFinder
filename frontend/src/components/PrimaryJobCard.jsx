@@ -9,7 +9,7 @@ import {
 import * as Unicons from "@iconscout/react-unicons";
 
 export default function PrimaryJobCard({
-  job: { Title, Company, Field, Salary, Location, Logosrc },
+  job: { Title, Company, Field, Salary, Location, Logosrc, Time, Remote },
 }) {
   return (
     <>
@@ -29,26 +29,49 @@ export default function PrimaryJobCard({
           <Typography variant="h4" color="blue-gray" className="mb-2 pl-0">
             {Title}
           </Typography>
-          <Typography variant="lead">{Company}</Typography>
-          <div className="pt-5 flex items-center justify-center">
+          <Typography variant="lead" className="text-base font-light">
+            {Company}
+          </Typography>
+          <div className="pt-7 flex items-center justify-center">
             <Typography style={{ display: "inline-block" }}>
-              <Unicons.UilBox />
+              <Unicons.UilBox className="w-4" />
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
-              className="whitespace-break-spaces"
+              className="whitespace-break-spaces text-sm"
             >
               {Field}
               {"    "}
             </Typography>
             <Typography style={{ display: "inline-block" }}>
-              <Unicons.UilLocationPoint />
+              <Unicons.UilLocationPoint className="w-4" />
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
-              className="whitespace-break-spaces"
+              className="whitespace-break-spaces text-sm"
             >
               {Location}
+              {"    "}
+            </Typography>
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilClock className="w-4" />
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              className="whitespace-break-spaces text-sm"
+            >
+              {Time}
+              {"    "}
+            </Typography>
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilMap className="w-4" />
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              className="whitespace-break-spaces text-sm"
+            >
+              {Remote}
+              {"    "}
             </Typography>
           </div>
           {/* <Typography style={{ display: "inline-block" }}>
@@ -72,11 +95,11 @@ export default function PrimaryJobCard({
           </div>
           <div className="flex items-center justify-center absolute left-0">
             <Typography style={{ display: "inline-block" }}>
-              <Unicons.UilUsdCircle />{" "}
+              <Unicons.UilUsdCircle className="w-4" />{" "}
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
-              className="whitespace-break-spaces"
+              className="whitespace-break-spaces text-sm"
             >
               {" "}
               {Salary}

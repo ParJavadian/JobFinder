@@ -16,6 +16,8 @@ export default function Home() {
     Location: "Tehran",
     Logosrc:
       "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    Time: "Full-time",
+    Remote: "In-person",
   };
   const myJobs = [
     myJob,
