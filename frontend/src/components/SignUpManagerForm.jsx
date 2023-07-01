@@ -8,7 +8,7 @@ import {
 
 export default function SignUpManagerForm() {
   return (
-    <Card color="transparent" shadow={false}>
+    <Card color="transparent" shadow={false} className="w-96">
       <Typography variant="h4" color="blue-gray">
         Sign Up as a Company
       </Typography>
