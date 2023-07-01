@@ -5,17 +5,12 @@ import {
   Typography,
   Textarea,
 } from "@material-tailwind/react";
-import { useCountries } from "use-react-countries";
-import React from "react";
 
 export default function SignUpSeekerForm() {
-  const { countries } = useCountries();
-  const [country, setCountry] = React.useState(0);
-  const { name, flags, countryCallingCode } = countries[country];
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
-        Sign Up
+        Sign Up as a Job Seeker
       </Typography>
       <Typography color="gray" className="mt-1 font-normal">
         Create a job seeker account.

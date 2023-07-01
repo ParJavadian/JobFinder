@@ -10,7 +10,7 @@ export default function SignUpManagerForm() {
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
-        Sign Up
+        Sign Up as a Company
       </Typography>
       <Typography color="gray" className="mt-1 font-normal">
         Create a company account.
