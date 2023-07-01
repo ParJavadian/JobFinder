@@ -12,7 +12,7 @@ export default function PrimaryJobCard({
 }) {
   return (
     <>
-      <Card className="mt-6 w-96">
+      <Card className="m-6 w-96">
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             {Title}
