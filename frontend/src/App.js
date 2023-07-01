@@ -10,6 +10,8 @@ import "./App.css";
 import MyNavbar from "./components/MyNavBar";
 import SearchInput from "./components/SearchInput";
 import PrimaryJobCard from "./components/PrimaryJobCard";
+import SignUpSeekerForm from "./components/SignUpSeekerForm";
+import SignUpManagerForm from "./components/SignUpManagerForm";
 
 library.add(
   fas
@@ -33,6 +35,8 @@ const App = () => {
       <MyNavbar />
       <SearchInput />
       <PrimaryJobCard job={myJob} />
+      <SignUpSeekerForm />
+      <SignUpManagerForm />
     </>
   );
 };
