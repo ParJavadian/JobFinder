@@ -18,9 +18,8 @@ export default function SignUpManagerForm() {
       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-4 flex flex-col gap-6">
           <Input size="lg" label="Company Name" required />
-          <Input size="lg" label="Email" required />
+          <Input type="email" size="lg" label="Email" required />
           <Input type="tel" size="lg" label="Phone number" required />
-          <Input size="lg" label="Username" required />
           <Input type="password" size="lg" label="Password" required />
           <Input size="lg" label="What is your company's field?" />
           <Input size="lg" label="Where is the company located?" />

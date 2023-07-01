@@ -18,10 +18,9 @@ export default function SignUpSeekerForm() {
       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-4 flex flex-col gap-6">
           <Input size="lg" label="Name" required />
-          <Input type="email" size="lg" label="Last Name" required />
-          <Input size="lg" label="Email" required />
+          <Input size="lg" label="Last Name" required />
+          <Input type="email" size="lg" label="Email" required />
           <Input type="tel" size="lg" label="Phone number" required />
-          <Input size="lg" label="Username" required />
           <Input type="password" size="lg" label="Password" required />
         </div>
         <Button className="mt-6" fullWidth>
