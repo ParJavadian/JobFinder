@@ -13,6 +13,7 @@ import PrimaryJobCard from "./components/PrimaryJobCard";
 import SignUpSeekerForm from "./components/SignUpSeekerForm";
 import SignUpManagerForm from "./components/SignUpManagerForm";
 import Home from "./pages/Home";
+import AllRoutes from "./routes/Allroutes";
 
 // library.add(
 //   fas
@@ -25,7 +26,7 @@ import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <Home />
+    <AllRoutes />
     // <>
     //   <MyNavbar />
     //   <SearchInput />
