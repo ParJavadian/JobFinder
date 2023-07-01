@@ -14,6 +14,8 @@ export default function Home() {
     Field: "Tech",
     Salary: "3000$",
     Location: "Tehran",
+    Logosrc:
+      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
   };
   const myJobs = [
     myJob,
@@ -30,8 +32,9 @@ export default function Home() {
   ];
   return (
     <>
+      <MyNavbar />
+
       <Container>
-        <MyNavbar />
         <img class="w-full h-64" src={SampleImgUrl} alt="sample" />
         <SearchInput />
         {myJobs?.length > 0 ? (

@@ -1,5 +1,6 @@
 import {
   Card,
+  CardHeader,
   CardBody,
   CardFooter,
   Typography,
@@ -8,38 +9,49 @@ import {
 import * as Unicons from "@iconscout/react-unicons";
 
 export default function PrimaryJobCard({
-  job: { Title, Company, Field, Salary, Location },
+  job: { Title, Company, Field, Salary, Location, Logosrc },
 }) {
   return (
     <>
-      <Card className="m-6 w-96">
-        <CardBody>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+      <Card className="h-40 mr-8 ml-8 mt-4 mb-4 w-full flex-row max-w-[48rem]">
+        <CardHeader
+          shadow={false}
+          floated={false}
+          className="w-40 shrink-0 m-0 rounded-r-none flex items-center justify-center"
+        >
+          <img
+            className="p-3 h-32 w-32 rounded-lg border-blue-300 border"
+            src={Logosrc}
+            alt="logo"
+          />
+        </CardHeader>
+        <CardBody className="pl-0 flex flex-col justify-center">
+          <Typography variant="h4" color="blue-gray" className="mb-2 pl-0">
             {Title}
           </Typography>
-          <Typography style={{ display: "inline-block" }}>
-            <Unicons.UilBuilding />
-          </Typography>
-          <Typography
-            className="whitespace-break-spaces"
-            style={{ display: "inline-block" }}
-          >
-            {" "}
-            {Company}
-          </Typography>
-          <Typography></Typography>
-          <Typography style={{ display: "inline-block" }}>
-            <Unicons.UilBox />
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            className="whitespace-break-spaces"
-          >
-            {" "}
-            {Field}
-          </Typography>
-          <Typography></Typography>
-          <Typography style={{ display: "inline-block" }}>
+          <Typography variant="lead">{Company}</Typography>
+          <div className="pt-5 flex items-center justify-center">
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilBox />
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              className="whitespace-break-spaces"
+            >
+              {Field}
+              {"    "}
+            </Typography>
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilLocationPoint />
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              className="whitespace-break-spaces"
+            >
+              {Location}
+            </Typography>
+          </div>
+          {/* <Typography style={{ display: "inline-block" }}>
             <Unicons.UilUsdCircle />{" "}
           </Typography>
           <Typography
@@ -49,21 +61,27 @@ export default function PrimaryJobCard({
             {" "}
             {Salary}
           </Typography>
-          <Typography></Typography>
-          <Typography style={{ display: "inline-block" }}>
-            <Unicons.UilLocationPoint />
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            className="whitespace-break-spaces"
-          >
-            {" "}
-            {Location}
-          </Typography>
-          <Typography></Typography>
+          <Typography></Typography> */}
         </CardBody>
-        <CardFooter className="pt-0">
-          <Button>Details</Button>
+        <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
+          <div className="flex flex-col space-y-2">
+            <Button className="w-40">Apply</Button>
+            <Button variant="outlined" className="w-40">
+              Details
+            </Button>
+          </div>
+          <div className="flex items-center justify-center absolute left-0">
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilUsdCircle />{" "}
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              className="whitespace-break-spaces"
+            >
+              {" "}
+              {Salary}
+            </Typography>
+          </div>
         </CardFooter>
       </Card>
     </>

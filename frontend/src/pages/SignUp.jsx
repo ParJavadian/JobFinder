@@ -29,33 +29,35 @@ export default function SignUp() {
     },
   ];
   return (
-    <Container>
+    <>
       <MyNavbar />
-      <Tabs value={activeTab}>
-        <TabsHeader>
-          {data.map(({ label, value, icon }) => (
-            <Tab key={value} value={value}>
-              <div className="flex items-center gap-2">
-                {React.createElement(icon, { className: "w-5 h-5" })}
-                {label}
+      <Container>
+        <Tabs value={activeTab}>
+          <TabsHeader>
+            {data.map(({ label, value, icon }) => (
+              <Tab key={value} value={value}>
+                <div className="flex items-center gap-2">
+                  {React.createElement(icon, { className: "w-5 h-5" })}
+                  {label}
+                </div>
+              </Tab>
+            ))}
+          </TabsHeader>
+          <TabsBody>
+            {data.map(({ value, desc }) => (
+              <div>
+                <TabPanel
+                  key={value}
+                  value={value}
+                  className="flex items-center justify-center"
+                >
+                  {desc}
+                </TabPanel>
               </div>
-            </Tab>
-          ))}
-        </TabsHeader>
-        <TabsBody>
-          {data.map(({ value, desc }) => (
-            <div>
-              <TabPanel
-                key={value}
-                value={value}
-                className="flex items-center justify-center"
-              >
-                {desc}
-              </TabPanel>
-            </div>
-          ))}
-        </TabsBody>
-      </Tabs>
-    </Container>
+            ))}
+          </TabsBody>
+        </Tabs>
+      </Container>
+    </>
   );
 }

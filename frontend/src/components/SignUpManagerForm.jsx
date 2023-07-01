@@ -23,9 +23,7 @@ export default function SignUpManagerForm() {
           <Input size="lg" label="Username" required />
           <Input type="password" size="lg" label="Password" required />
           <Input size="lg" label="What is your company's field?" />
-          <Input size="lg" label="How many employees do you have?" />
           <Input size="lg" label="Where is the company located?" />
-          <Textarea size="lg" label="Add any more details here" />
         </div>
         <Button className="mt-6" fullWidth>
           Register

@@ -23,11 +23,6 @@ export default function SignUpSeekerForm() {
           <Input type="tel" size="lg" label="Phone number" required />
           <Input size="lg" label="Username" required />
           <Input type="password" size="lg" label="Password" required />
-          <Input size="lg" label="What is your profession field?" />
-          <Input size="lg" label="What is your last degree?" />
-          <Input size="lg" label="Location" />
-          <Input size="lg" label="What languages can you speak?" />
-          <Textarea size="lg" label="Add any more details here" />
         </div>
         <Button className="mt-6" fullWidth>
           Register

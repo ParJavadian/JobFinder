@@ -6,8 +6,8 @@ export default function AllRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<HomePage />} /> */}
-        <Route path="/" element={<SignUp />} />
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/" element={<SignUp />} /> */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
