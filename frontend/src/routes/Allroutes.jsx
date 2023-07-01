@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
+import DashboardSeeker from "../pages/DashboardSeeker";
 
 export default function AllRoutes() {
   return (
@@ -9,8 +10,8 @@ export default function AllRoutes() {
       <Routes>
         {/* <Route path="/" element={<HomePage />} /> */}
         {/* <Route path="/" element={<SignUp />} /> */}
-        <Route path="/" element={<Login />} />
-
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<DashboardSeeker />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>

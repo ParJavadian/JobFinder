@@ -6,11 +6,10 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import Container from "../components/Container";
 import MyNavbar from "../components/MyNavBar";
 import LoginCard from "../components/LoginCard";
 
-export default function SignUp() {
+export default function Login() {
   return (
     <>
       <MyNavbar />
