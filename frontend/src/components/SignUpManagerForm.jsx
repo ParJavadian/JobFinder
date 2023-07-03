@@ -30,7 +30,7 @@ export default function SignUpManagerForm() {
         <Typography color="gray" className="mt-4 text-center font-normal">
           Already have an account?{" "}
           <a
-            href="#"
+            href="/Login"
             className="font-medium text-blue-500 transition-colors hover:text-blue-700"
           >
             Sign In
