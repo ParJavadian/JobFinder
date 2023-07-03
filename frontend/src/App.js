@@ -15,6 +15,7 @@ import SignUpManagerForm from "./components/SignUpManagerForm";
 import Home from "./pages/Home";
 import AllRoutes from "./routes/Allroutes";
 
+
 // library.add(
 //   fas
 //   // faTwitter,

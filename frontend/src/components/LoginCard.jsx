@@ -8,8 +8,12 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
+import SignUp from "../pages/SignUp";
+import SignIn from "../pages/Login";
+
 
 export default function LoginCard() {
+
   return (
     <Card className="w-96">
       <CardHeader
@@ -17,7 +21,7 @@ export default function LoginCard() {
         color="blue"
         className="mb-4 grid h-28 place-items-center"
       >
-        <Typography variant="h3" color="white">
+        <Typography variant="h3" color="white"  >
           Sign In
         </Typography>
       </CardHeader>
@@ -29,7 +33,8 @@ export default function LoginCard() {
         </div> */}
       </CardBody>
       <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth>
+        
+        <Button variant="gradient" fullWidth  >
           Sign In
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
