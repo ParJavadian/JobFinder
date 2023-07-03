@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { IconButton, Input } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
+import { Select, Option } from "@material-tailwind/react";
+import { getCategoryById, jobCategories } from "../constants/Categories";
 
 export default function SearchInput() {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState(null);
+  const [category, setCategory] = useState(null);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -15,15 +18,21 @@ export default function SearchInput() {
   };
 
   const doSearch = () => {
-//search...
-//values are in jobTitle and location and category
-    console.log("Search:", jobTitle, location, category);
+    //search...
+    //values are in jobTitle and location and category
+    console.log("Search:", jobTitle, location, category, categoryId);
+  };
+
+  const handleChange = (e) => {
+    setCategoryId(e);
+    setCategory(getCategoryById(e));
   };
 
   return (
     <div className="flex items-center justify-center">
       <div className="flex bg-blue-50	flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
         <Input
+          onKeyDown={handleKeyDown}
           variant="outlined"
           label="Job Title"
           type="search"
@@ -32,6 +41,7 @@ export default function SearchInput() {
           onChange={(e) => setJobTitle(e.target.value)}
         />
         <Input
+          onKeyDown={handleKeyDown}
           variant="outlined"
           label="Location"
           type="search"
@@ -39,15 +49,16 @@ export default function SearchInput() {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
-        <Input
-          onKeyDown={handleKeyDown}
-          variant="outlined"
+        <Select
           label="Category"
-          type="search"
+          value={categoryId}
+          onChange={handleChange}
           className="bg-white"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+        >
+          {jobCategories.map((job) => (
+            <Option value={job.value}>{job.label}</Option>
+          ))}
+        </Select>
         <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
           <Unicons.UilSearch />
         </IconButton>
