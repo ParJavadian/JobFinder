@@ -28,19 +28,19 @@ export default function Example() {
       <List>
         <ListItem>
           <ListItemPrefix>
-            <Unicons.UilUserCircle className="h-5 w-5" />
+            <Unicons.UilUserCircle color="blue" className="mb-5 custom-header" />
           </ListItemPrefix>
           Profile Settings
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <Unicons.UilCrosshair className="h-5 w-5" />
+            <Unicons.UilCrosshair color="blue" className="mb-5 custom-header" />
           </ListItemPrefix>
           Seek opportunities
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <Unicons.UilHistory className="h-5 w-5" />
+            <Unicons.UilHistory color="blue" className="mb-5 custom-header" />
           </ListItemPrefix>
           Application History
         </ListItem>
@@ -48,13 +48,13 @@ export default function Example() {
 
         <ListItem>
           <ListItemPrefix>
-            <Unicons.UilKeySkeleton className="h-5 w-5" />
+            <Unicons.UilKeySkeleton color="blue" className="mb-5 custom-header" />
           </ListItemPrefix>
           Change Password
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <Unicons.UilSignout className="h-5 w-5" />
+            <Unicons.UilSignout color="blue" className="mb-5 custom-header" />
           </ListItemPrefix>
           Log Out
         </ListItem>

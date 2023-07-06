@@ -39,10 +39,35 @@ export default function ExampleComponent() {
       field: job.Field,
       status: job.Status,
     },
+    {
+      title: job.Title,
+      field: job.Field,
+      status: job.Status,
+    },
+    {
+      title: job.Title,
+      field: job.Field,
+      status: job.Status,
+    },
+    {
+      title: job.Title,
+      field: job.Field,
+      status: job.Status,
+    },
+    {
+      title: job.Title,
+      field: job.Field,
+      status: job.Status,
+    },
+        {
+      title: job.Title,
+      field: job.Field,
+      status: job.Status,
+    },
   ];
 
   return (
-    <div className="max-h-72 overflow-y-auto">
+    <div style={{ maxHeight: 'calc(100vh - 150px)', overflowY: 'auto' }}>
       <List>
         {cards.map((card, index) => (
           <ListItem key={index}>
@@ -56,8 +81,7 @@ export default function ExampleComponent() {
                 </div>
               </div>
               <div className="p-4 mt-auto">
-              <Typography color="blue">Status: {card.status}</Typography>
-
+                <Typography color="blue">Status: {card.status}</Typography>
                 <div className="space-x-4">
                   <Button color="blue">Details</Button>
                   <Button color="purple">Application</Button>

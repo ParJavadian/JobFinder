@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Card,
-  CardHeader,
-  Typography,
-  Avatar,
-  List,
-  ListItem,
-  ListItemPrefix,
   Input,
   Button,
 } from "@material-tailwind/react";
-import * as Unicons from "@iconscout/react-unicons";
-import AvatarImg from "../images/avatar.webp";
+import {  Alert } from "@material-tailwind/react";
 
 export default function Form() {
 
@@ -26,25 +18,37 @@ export default function Form() {
         location: 'location',
         details: 'details'
       });
-const handleChange = (e) => {
+
+
+  const [changesApplied, setChangesApplied] = useState(false);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value
     }));
+    setChangesApplied(false); 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform actions with the form data
-    console.log("formDataaaa: ",formData);
+    console.log("formData: ", formData);
+    setChangesApplied(true);  
+        // disapear after 3 seconds
+    setTimeout(() => {
+          setChangesApplied(false);
+        }, 3000);
   };
-
 
 
     
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <>
+        {/* <div className="h-screen  items-center justify-center"> */}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+
         <h4>
           <span className="bullet-point"></span>Name
         </h4>
@@ -126,9 +130,21 @@ const handleChange = (e) => {
           onChange={handleChange}
           size="lg"
         />
-        <Button variant="gradient" fullWidth onClick={handleSubmit}>
+        <Button font-size='xl'className="text-black" variant="gradient" fullWidth onClick={handleSubmit}>
           Save changes
         </Button>
       </form>
+      
+      {changesApplied && (
+          <Alert
+          color="green"
+          size="sm"
+          className="fixed top-4 right-4 rounded-md bg-green-500 text-white py-6 px-4 text-lg w-68"
+        >
+          Changes applied successfully!
+        </Alert>
+      )}
+      {/* </div> */}
+      </>
     );
   }

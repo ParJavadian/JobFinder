@@ -24,8 +24,8 @@ export default function Dashboard() {
   };
 
   return (
-    <Card className="w-full">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+    <Card className="h-screen flex">
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-0">
         <div className="md:col-span-1">
           <div className="p-4">
             <div className="mb-2">
@@ -33,45 +33,46 @@ export default function Dashboard() {
               <Typography color="blue-black" size="h5" className="mt-3">
                 Name Lastname
               </Typography>
-              <Typography color="blue-gray" size="paragraph" className="font-light mt-3">
+              <Typography  color="blue-gray" size="paragraph" className="font-light mt-3">
                 email@gmail.com
               </Typography>
             </div>
             <List>
               <ListItem onClick={handleProfileSettingClick}>
                 <ListItemPrefix>
-                  <Unicons.UilUserCircle className="h-5 w-5" />
+                  <Unicons.UilUserCircle color="blue" className="mb-5 custom-header" />
                 </ListItemPrefix>
                 Profile Settings
               </ListItem>
               <ListItem onClick={handleApplicationHistoryClick}>
-                <ListItemPrefix>
-                  <Unicons.UilHistory className="h-5 w-5" />
+                <ListItemPrefix >
+                  <Unicons.UilHistory color="blue"  className="mb-5 custom-header"/>
                 </ListItemPrefix>
                 Application History
               </ListItem>
               <hr className="my-2 border-blue-gray-50" />
-              <ListItem>
-                <ListItemPrefix>
-                  <Unicons.UilKeySkeleton className="h-5 w-5" />
+              <ListItem >
+                <ListItemPrefix >
+                  <Unicons.UilKeySkeleton color="blue" className="mb-5 custom-header"/>
                 </ListItemPrefix>
                 Change Password
               </ListItem>
               <ListItem onClick={handleLogoutClick}>
                 <ListItemPrefix>
-                  <Unicons.UilSignout className="h-5 w-5" />
+                  <Unicons.UilSignout  color="blue" className="mb-5 custom-header" />
                 </ListItemPrefix>
                 Log Out
               </ListItem>
             </List>
           </div>
         </div>
-        <div className="md:col-span-1">
+        <div className="md:col-span-2"></div>
+        <div className="md:col-span-5">
           <div className="p-8">
             <CardHeader color="blue" className="mb-5 custom-header">
               <Typography color="black" style={{ fontSize: '24px' }}>
                
-                {activeComponentTitle === 'form' ? ' Account Details' : ' Account History'}
+                {activeComponentTitle === 'form' ? ' Account Details' : ' Application History'}
 
               </Typography>
             </CardHeader>
