@@ -7,10 +7,15 @@ import {
   Button,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
+import { useNavigate } from "react-router-dom";
 
 export default function PrimaryJobCard({
   job: { Title, Company, Field, Salary, Location, Logosrc, Time, Remote },
 }) {
+  const navigate = useNavigate();
+  const handleDetails = () => {
+    navigate("/CompanyDashbordDetails");
+  };
   return (
     <>
       <Card className="h-40 mr-8 ml-8 mt-4 mb-4 w-full flex-row max-w-[48rem]">
@@ -89,7 +94,7 @@ export default function PrimaryJobCard({
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
             <Button className="w-40">Apply</Button>
-            <Button variant="outlined" className="w-40">
+            <Button variant="outlined" className="w-40"  onClick={handleDetails}>
               Details
             </Button>
           </div>

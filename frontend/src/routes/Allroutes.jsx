@@ -4,6 +4,7 @@ import HomePage from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 import DashboardSeeker from "../pages/DashboardSeeker";
+import CompanyDashbord from "../pages/CompanyDashbordDetails";
 import history from "./history";
 
 export default function AllRoutes() {
@@ -12,6 +13,7 @@ export default function AllRoutes() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/CompanyDashbordDetails" element={<CompanyDashbord />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboardseeker" element={<DashboardSeeker />} />
       </Routes>
