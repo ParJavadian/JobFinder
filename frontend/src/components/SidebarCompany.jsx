@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   Typography,
@@ -9,19 +8,19 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
-import AvatarImg from "../images/avatar-1.jpg";
+const AvatarImg =
+  "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
 
-export default function SidebarSeeker() {
+export default function SidebarCompany() {
   const logout = () => {
     window.location.href = "/";
   };
-
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Avatar src={AvatarImg} alt="avatar" size="xl" />
         <Typography variant="h5" color="blue-black" className="mt-3">
-          Name Lastname
+          Company Name
         </Typography>
         <Typography
           variant="paragraph"
@@ -32,51 +31,25 @@ export default function SidebarSeeker() {
         </Typography>
       </div>
       <List>
-        <Link to="/seeker-dashboard">
-          <ListItem
-          // onClick={() => {
-          //   window.location.href = "/seeker-dashboard";
-          // }}
-          >
+        <Link to="/company-dashboard">
+          <ListItem>
             <ListItemPrefix>
               <Unicons.UilUserCircle className="h-5 w-5" />
             </ListItemPrefix>
             Profile Settings
           </ListItem>
         </Link>
-
-        <Link to="/seeker-dashboard/seek">
-          <ListItem
-          // onClick={() => {
-          //   window.location.href = "/seeker-dashboard/seek";
-          // }}
-          >
-            <ListItemPrefix>
-              <Unicons.UilCrosshair className="h-5 w-5" />
-            </ListItemPrefix>
-            Seek opportunities
-          </ListItem>
-        </Link>
-        <Link to="/seeker-dashboard/history">
-          <ListItem
-          // onClick={() => {
-          //   window.location.href = "/seeker-dashboard/history";
-          // }}
-          >
+        <Link to="/company-dashboard/history">
+          <ListItem>
             <ListItemPrefix>
               <Unicons.UilHistory className="h-5 w-5" />
             </ListItemPrefix>
             Application History
           </ListItem>
         </Link>
-
         <hr className="my-2 border-blue-gray-50" />
-        <Link to="/seeker-dashboard/change-password">
-          <ListItem
-          // onClick={() => {
-          //   window.location.href = "/seeker-dashboard/change-password";
-          // }}
-          >
+        <Link to="/company-dashboard/change-password">
+          <ListItem>
             <ListItemPrefix>
               <Unicons.UilKeySkeleton className="h-5 w-5" />
             </ListItemPrefix>
