@@ -5,6 +5,7 @@ import LoginCard from "../components/LoginCard";
 import SearchInput from "../components/SearchInput";
 import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsSeeker from "../components/DetailsSeeker";
+import SeekOpInDash from "../components/SeekOpInDashboard";
 
 export default function SeekerDashboard() {
   return (
@@ -14,7 +15,7 @@ export default function SeekerDashboard() {
         <div className="pl-16 w-full">
           <Routes>
             <Route path="/" element={<DetailsSeeker />}></Route>
-            <Route path="/seek" element={<SearchInput />}></Route>
+            <Route path="/seek" element={<SeekOpInDash />}></Route>
             <Route path="/history" element={<LoginCard />}></Route>
             <Route
               path="/change-password"
