@@ -1,0 +1,109 @@
+package services
+
+import (
+	"JobFinder/backend/persistence"
+	"errors"
+	"time"
+)
+
+// UserService handles user-related operations
+type UserService struct {
+	userRepository persistence.UserRepository
+}
+
+// NewUserService creates a new instance of UserService
+func NewUserService(userRepository persistence.UserRepository) *UserService {
+	return &UserService{
+		userRepository: userRepository,
+	}
+}
+
+// RegisterAccount registers a new user account
+func (s *UserService) RegisterAccount(user *models.User) error {
+	// Check if the email is already registered
+	existingUser, _ := s.userRepository.GetUserByEmail(user.Email)
+	if existingUser != nil {
+		return errors.New("email is already registered")
+	}
+
+	// Hash the user's password
+	hashedPassword, err := utils.HashPassword(user.Password)
+	if err != nil {
+		return err
+	}
+
+	// Set the hashed password and other necessary fields
+	user.Password = hashedPassword
+	user.CreatedAt = time.Now()
+
+	// Save the user to the database
+	err = s.userRepository.CreateUser(user)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Login performs user login and returns a JWT token
+func (s *UserService) Login(email, password string) (string, error) {
+	// Get the user by email
+	user, err := s.userRepository.GetUserByEmail(email)
+	if err != nil {
+		return "", err
+	}
+
+	// Verify the user's password
+	passwordMatch := utils.CheckPasswordHash(password, user.Password)
+	if !passwordMatch {
+		return "", errors.New("incorrect password")
+	}
+
+	// Generate and return a JWT token
+	token, err := utils.GenerateJWTToken(user.ID, user.Role)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
+}
+
+// DeleteAccount deletes a user account
+func (s *UserService) DeleteAccount(userID uint) error {
+	// Delete the user from the database
+	err := s.userRepository.DeleteUser(userID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ChangePassword changes the password for a user account
+func (s *UserService) ChangePassword(userID uint, currentPassword, newPassword string) error {
+	// Get the user by ID
+	user, err := s.userRepository.GetUserByID(userID)
+	if err != nil {
+		return err
+	}
+
+	// Verify the user's current password
+	passwordMatch := utils.CheckPasswordHash(currentPassword, user.Password)
+	if !passwordMatch {
+		return errors.New("incorrect current password")
+	}
+
+	// Hash the new password
+	hashedPassword, err := utils.HashPassword(newPassword)
+	if err != nil {
+		return err
+	}
+
+	// Update the user's password in the database
+	err = s.userRepository.UpdateUserPassword(userID, hashedPassword)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
