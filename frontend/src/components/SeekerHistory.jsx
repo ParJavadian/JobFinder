@@ -6,10 +6,10 @@ import {
   ListItem,
   Button,
 } from "@material-tailwind/react";
-import ViewApplicationsJobCard from "./ViewApplicationsJobCard";
+import ViewAppsSeekerCard from "./ViewAppsSeekerCard";
 import * as Unicons from "@iconscout/react-unicons";
 
-export default function CompanyHistory() {
+export default function SeekerHistory() {
   // Define a list of cards
   const jobOpen = {
     // Default values
@@ -23,6 +23,7 @@ export default function CompanyHistory() {
     Time: "Full-time",
     Remote: "In-person",
     Status: "Open",
+    YourStatus: "Pending",
   };
   const jobClosed = {
     // Default values
@@ -36,16 +37,31 @@ export default function CompanyHistory() {
     Time: "Full-time",
     Remote: "In-person",
     Status: "Closed",
+    YourStatus: "Accepted",
+  };
+  const jobClosedRejected = {
+    // Default values
+    Title: "Manager",
+    Company: "Company 1",
+    Field: "Tech",
+    Salary: "3000$",
+    Location: "Tehran",
+    Logosrc:
+      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    Time: "Full-time",
+    Remote: "In-person",
+    Status: "Closed",
+    YourStatus: "Rejected",
   };
 
   const cards = [
     jobOpen,
     jobClosed,
-    jobOpen,
+    jobClosedRejected,
     jobOpen,
     jobClosed,
     jobOpen,
-    jobOpen,
+    jobClosedRejected,
     jobOpen,
     jobClosed,
   ];
@@ -68,13 +84,13 @@ export default function CompanyHistory() {
           </Typography>
         </div>
         <Typography variant="paragraph" className="pb-6">
-          History of positions posted by your company and their status
+          Your applications' history and their status
         </Typography>
         {cards.map((card) =>
-          card.Status === "Open" ? (
+          card.YourStatus === "Pending" ? (
             <Card
               className="p-0 m-4 max-w-[48rem]"
-              style={{ backgroundColor: "rgb(8 145 178)" }}
+              style={{ backgroundColor: "rgb(148 163 184)" }}
             >
               <div className="flex flex-row items-center">
                 <Typography
@@ -82,18 +98,36 @@ export default function CompanyHistory() {
                   className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
                   color="white"
                 >
-                  Open
+                  Pending
                 </Typography>
-                <ViewApplicationsJobCard
+                <ViewAppsSeekerCard job={card} colorIn={"rgb(241 245 249)"} />
+              </div>
+            </Card>
+          ) : card.YourStatus === "Accepted" ? (
+            <Card
+              className="p-0 m-4 max-w-[48rem]"
+              style={{ backgroundColor: "rgb(77 124 15)" }}
+            >
+              <div className="flex flex-row items-center">
+                <Typography
+                  variant="h6"
+                  className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
+                  color="white"
+                >
+                  Accepted
+                </Typography>
+                <ViewAppsSeekerCard
                   job={card}
-                  colorIn={"rgb(236 254 255)"}
+                  colorIn={"rgb(247 254 231)"}
+                  // style={{ display: "inline-block" }}
+                  // className="flex-none"
                 />
               </div>
             </Card>
           ) : (
             <Card
               className="p-0 m-4 max-w-[48rem]"
-              style={{ backgroundColor: "rgb(71 85 105)" }}
+              style={{ backgroundColor: "rgb(153 27 27)" }}
             >
               <div className="flex flex-row items-center">
                 <Typography
@@ -101,11 +135,11 @@ export default function CompanyHistory() {
                   className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
                   color="white"
                 >
-                  Closed
+                  Rejected
                 </Typography>
-                <ViewApplicationsJobCard
+                <ViewAppsSeekerCard
                   job={card}
-                  colorIn={"rgb(226 232 240)"}
+                  colorIn={"rgb(254 242 242)"}
                   // style={{ display: "inline-block" }}
                   // className="flex-none"
                 />

@@ -6,6 +6,7 @@ import SearchInput from "../components/SearchInput";
 import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsSeeker from "../components/DetailsSeeker";
 import SeekOpInDash from "../components/SeekOpInDashboard";
+import SeekerHistory from "../components/SeekerHistory";
 
 export default function SeekerDashboard() {
   return (
@@ -16,7 +17,7 @@ export default function SeekerDashboard() {
           <Routes>
             <Route path="/" element={<DetailsSeeker />}></Route>
             <Route path="/seek" element={<SeekOpInDash />}></Route>
-            <Route path="/history" element={<LoginCard />}></Route>
+            <Route path="/history" element={<SeekerHistory />}></Route>
             <Route
               path="/change-password"
               element={<SignUpSeekerForm />}
