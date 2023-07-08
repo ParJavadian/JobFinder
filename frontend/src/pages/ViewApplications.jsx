@@ -6,8 +6,22 @@ import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
 
+// export default function ViewApplications({
+//   job: {
+//     Title,
+//     Company,
+//     Field,
+//     Salary,
+//     Location,
+//     Logosrc,
+//     Time,
+//     Remote,
+//     Status,
+//   },
+// }) {
 export default function ViewApplications() {
   const [searchValue, setSearchValue] = useState("");
+  const Title = "Manager";
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -44,7 +58,14 @@ export default function ViewApplications() {
   return (
     <>
       <Container>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center space-y-8">
+          <Typography
+            variant="h3"
+            // style={{ display: "inline-block" }}
+            className="whitespace-break-spaces"
+          >
+            Applicants for position {Title}
+          </Typography>
           <div className="flex bg-blue-50	flex-row gap-2 rounded-lg border-blue-300 border p-4">
             {" "}
             <div className="w-72">
