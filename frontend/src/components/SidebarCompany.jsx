@@ -44,13 +44,13 @@ export default function SidebarCompany() {
             <ListItemPrefix>
               <Unicons.UilHistory className="h-5 w-5" />
             </ListItemPrefix>
-            Application History
+            Position History
           </ListItem>
         </Link>
         <Link to="/company-dashboard/new-position">
           <ListItem>
             <ListItemPrefix>
-              <Unicons.UilHistory className="h-5 w-5" />
+              <Unicons.UilPlusCircle className="h-5 w-5" />
             </ListItemPrefix>
             Create New Job Position
           </ListItem>
