@@ -47,6 +47,14 @@ export default function SidebarCompany() {
             Application History
           </ListItem>
         </Link>
+        <Link to="/company-dashboard/new-position">
+          <ListItem>
+            <ListItemPrefix>
+              <Unicons.UilHistory className="h-5 w-5" />
+            </ListItemPrefix>
+            Create New Job Position
+          </ListItem>
+        </Link>
         <hr className="my-2 border-blue-gray-50" />
         <Link to="/company-dashboard/change-password">
           <ListItem>

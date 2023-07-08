@@ -106,7 +106,7 @@ export default function SeekerHistory() {
           ) : card.YourStatus === "Accepted" ? (
             <Card
               className="p-0 m-4 max-w-[48rem]"
-              style={{ backgroundColor: "rgb(77 124 15)" }}
+              style={{ backgroundColor: "rgb(13 148 136)" }}
             >
               <div className="flex flex-row items-center">
                 <Typography
@@ -118,7 +118,7 @@ export default function SeekerHistory() {
                 </Typography>
                 <ViewAppsSeekerCard
                   job={card}
-                  colorIn={"rgb(247 254 231)"}
+                  colorIn={"rgb(240 253 250)"}
                   // style={{ display: "inline-block" }}
                   // className="flex-none"
                 />

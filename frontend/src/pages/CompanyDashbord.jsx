@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsCompany from "../components/DetailsCompany";
 import CompanyHistory from "../components/CompanyHistory";
+import AddJob from "../components/AddJob";
 
 export default function CompanyDashbord() {
   return (
@@ -14,6 +15,7 @@ export default function CompanyDashbord() {
           <Routes>
             <Route path="/" element={<DetailsCompany />}></Route>
             <Route path="/history" element={<CompanyHistory />}></Route>
+            <Route path="/new-position" element={<AddJob />}></Route>
             <Route
               path="/change-password"
               element={<SignUpSeekerForm />}
