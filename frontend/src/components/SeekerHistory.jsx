@@ -69,7 +69,7 @@ export default function SeekerHistory() {
   return (
     <>
       <div className="pt-8 pb-8 pl-16 pr-16 ">
-        <div className="flex items-center pb-4">
+        <div className="flex items-center pb-4 text-blue-700">
           <Typography style={{ display: "inline-block" }}>
             <Unicons.UilHistory className="h-8 w-8" />
           </Typography>

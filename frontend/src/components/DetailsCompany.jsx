@@ -7,8 +7,10 @@ export default function DetailsCompany() {
   //get values of navigation
   const { email, password } = location.state || {};
   return (
-    <div className="space-y-10 w-full p-10">
-      <Typography variant="h3">Account Details</Typography>
+    <div className="space-y-10 pt-8 pb-8 pl-16 pr-16 text-blue-700">
+      <Typography variant="h3" className="text-blue-700">
+        Account Details
+      </Typography>
       <DetailFormCompany />
     </div>
   );

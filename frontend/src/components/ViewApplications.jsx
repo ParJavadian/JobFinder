@@ -19,6 +19,8 @@ import { Link, useNavigate } from "react-router-dom";
 //   },
 // }) {
 export default function ViewApplications() {
+  const navigate = useNavigate();
+
   const [searchValue, setSearchValue] = useState("");
   const Title = "Manager";
 
@@ -54,13 +56,12 @@ export default function ViewApplications() {
     myPerson,
     myPerson,
   ];
-  const navigate = useNavigate();
 
   return (
     <>
       <div className="pt-8 pb-8 pl-16 pr-16 ">
         <div className="flex flex-col  space-y-12 ">
-          <div className="flex items-center -ml-6">
+          <div className="flex items-center -ml-6 ">
             <Link
               onClick={() => {
                 navigate(-1);
@@ -70,20 +71,10 @@ export default function ViewApplications() {
                 <Unicons.UilAngleLeftB className="w-10 h-10" />
               </Typography>
             </Link>
-            {/* <Typography
-                            style={{ display: "inline-block" }}
-                            className="whitespace-break-spaces text-sm"
-                          >
-                            {Field}
-                            {"    "}
-                          </Typography>
-                          <Typography style={{ display: "inline-block" }}>
-                            <Unicons.UilLocationPoint className="w-4" />
-                          </Typography> */}
             <Typography
               variant="h3"
               style={{ display: "inline-block" }}
-              className="whitespace-break-spaces ml-6"
+              className="whitespace-break-spaces ml-6 text-blue-700"
             >
               Applicants for position {Title}
             </Typography>

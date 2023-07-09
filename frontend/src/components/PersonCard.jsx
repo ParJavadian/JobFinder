@@ -24,7 +24,7 @@ export default function PersonCard({
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/CompanyDashbordDetails");
+    navigate("/company-dashboard/person-detail");
   };
   return (
     <>
@@ -83,7 +83,9 @@ export default function PersonCard({
         </CardBody>
         <CardFooter className="absolute right-0 pt-6 mt-20 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
-            <Button className="w-40">View Details</Button>
+            <Button className="w-40" onClick={handleDetails}>
+              View Details
+            </Button>
             {/* <Button variant="outlined" className="w-40">
               Details
             </Button> */}

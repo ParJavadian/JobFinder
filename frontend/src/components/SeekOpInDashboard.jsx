@@ -39,7 +39,7 @@ export default function SeekOpInDash() {
   ];
   return (
     <>
-      <div className="pt-8 pb-8 pl-16 pr-16 text-blue-600">
+      <div className="pt-8 pb-8 pl-16 pr-16 text-blue-700">
         <div className="flex items-center pb-4">
           <Typography style={{ display: "inline-block" }}>
             <Unicons.UilCrosshair className="h-8 w-8" />
@@ -51,7 +51,7 @@ export default function SeekOpInDash() {
             className="whitespace-break-spaces"
           >
             {" "}
-            Seek Opurtunities
+            Seek Opportunities
           </Typography>
         </div>
         <Typography variant="paragraph" className="pb-6">
