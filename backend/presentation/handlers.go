@@ -8,14 +8,23 @@ import (
 )
 
 type Handler struct {
-	userService    *services.UserService
-	companyService *services.CompanyService
+	userService        *services.UserService
+	companyService     *services.CompanyService
+	jobService         *services.JobService
+	applicationService *services.ApplicationService
 }
 
-func NewHandler(userService *services.UserService, companyService *services.CompanyService) *Handler {
+func NewHandler(
+	userService *services.UserService,
+	companyService *services.CompanyService,
+	jobService *services.JobService,
+	applicationService *services.ApplicationService,
+) *Handler {
 	return &Handler{
-		userService:    userService,
-		companyService: companyService,
+		userService:        userService,
+		companyService:     companyService,
+		jobService:         jobService,
+		applicationService: applicationService,
 	}
 }
 
@@ -126,29 +135,154 @@ func (h *Handler) LoginCompany(context *gin.Context) {
 }
 
 func (h *Handler) CreateApplication(context *gin.Context) {
-	// todo
+	request := context.Request
+	role, _ := context.Get("role")
+	if role != "user" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	userId, _ := context.Get("id")
+	jobId := request.FormValue("job-id")
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = h.applicationService.CreateApplication(uintJobId, userId.(uint))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "application created successfully"})
 }
 
 func (h *Handler) GetUserApplications(context *gin.Context) {
-	// todo
+	role, _ := context.Get("role")
+	if role != "user" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	userId, _ := context.Get("id")
+	applications, err := h.applicationService.GetApplicationsByUserID(userId.(uint))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	jsonResponse := getJsonResponseFromApplications(applications)
+	context.JSON(200, jsonResponse)
 }
 
 func (h *Handler) GetJobApplications(context *gin.Context) {
-	// todo
+	request := context.Request
+	// read jobId from request url param
+	jobId := request.URL.Query().Get("job-id")
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	applications, err := h.applicationService.GetApplicationsByJobID(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	jsonResponse := getJsonResponseFromApplications(applications)
+	context.JSON(200, jsonResponse)
+
 }
 
 func (h *Handler) UpdateApplicationStatus(context *gin.Context) {
-	// todo
+	request := context.Request
+	role, _ := context.Get("role")
+	if role != "company" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	applicationId, err := getUintFromString(request.FormValue("application-id"))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+	}
+
+	status := request.FormValue("status")
+	if status != "accepted" && status != "rejected" && status != "pending" {
+		context.JSON(400, gin.H{"error": "invalid status"})
+		return
+	}
+
+	err = h.applicationService.UpdateApplicationStatus(applicationId, status)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "application status updated successfully"})
+
 }
 
 func (h *Handler) DeleteApplication(context *gin.Context) {
-	// todo
+	request := context.Request
+	role, _ := context.Get("role")
+	if role != "user" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	applicationId, err := getUintFromString(request.FormValue("application-id"))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	err = h.applicationService.DeleteApplication(applicationId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "application deleted successfully"})
 }
 
 func (h *Handler) GetApplicationByID(context *gin.Context) {
-	// todo
+	request := context.Request
+	applicationId, err := getUintFromString(request.URL.Query().Get("application-id"))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	application, err := h.applicationService.GetApplicationByID(applicationId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":         application.ID,
+		"job-id":     application.JobID,
+		"user-id":    application.UserID,
+		"status":     application.Status,
+		"created-at": application.CreatedAt,
+	}
+	context.JSON(200, jsonResponse)
 }
 
 func (h *Handler) CreateJob(context *gin.Context) {
 	// todo
+}
+
+func getJsonResponseFromApplications(applications []*persistence.Application) []gin.H {
+	jsonResponse := make([]gin.H, len(applications))
+	for i, application := range applications {
+		jsonResponse[i] = gin.H{
+			"id":         application.ID,
+			"job-id":     application.JobID,
+			"user-id":    application.UserID,
+			"status":     application.Status,
+			"created-at": application.CreatedAt,
+		}
+	}
+	return jsonResponse
+}
+
+func getUintFromString(str string) (uint, error) {
+	uintStr, err := strconv.Atoi(str)
+	if err != nil {
+		return 0, err
+	}
+	return uint(uintStr), nil
 }
