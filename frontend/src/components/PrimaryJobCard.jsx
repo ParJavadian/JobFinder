@@ -14,7 +14,17 @@ export default function PrimaryJobCard({
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/details");
+    navigate("/details", {
+      state: {
+        title: Title,
+        company: Company,
+        field:Field,
+        location:Location,
+        time:Time,
+        remote:Remote,
+
+      },
+    });
   };
   return (
     <>
