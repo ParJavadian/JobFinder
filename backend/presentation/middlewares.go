@@ -7,11 +7,20 @@ import (
 
 func AuthMiddleware(c *gin.Context) {
 	// check if token should be provided based on the route
-	// todo other paths should be added here if needed
-	if c.FullPath() == "/register" || c.FullPath() == "/login" {
-		c.Next()
-		return
+	nonAuthUrls := []string{
+		"/register/user",
+		"/login/user",
+		"/register/company",
+		"/login/company",
+		// todo other paths should be added here if needed
 	}
+	for _, url := range nonAuthUrls {
+		if url == c.Request.URL.Path {
+			c.Next()
+			return
+		}
+	}
+
 	token := c.Request.Header.Get("Authorization")
 	if token == "" {
 		c.JSON(401, gin.H{"error": "token not provided"})
