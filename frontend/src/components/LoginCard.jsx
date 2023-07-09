@@ -11,16 +11,19 @@ import {
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/Login";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
 
 export default function LoginCard() {
   const navigate = useNavigate();
+
   const handleSignIn = () => {
     navigate("/Login");
+
   };
-  const handleSignUp = () => {
-    navigate("/SignUp");
-  };
+
+
  
   return (
     <Card className="w-96">
@@ -34,8 +37,8 @@ export default function LoginCard() {
         </Typography>
       </CardHeader>
       <CardBody className="flex flex-col gap-4">
-        <Input label="Email" size="lg" />
-        <Input label="Password" size="lg" />
+        <Input label="Email" size="lg" onChange={e => setEmaill(e.target.value)}/>
+        <Input label="Password" size="lg" onChange={e => setPassword(e.target.value)}/>
         {/* <div className="-ml-2.5">
           <Checkbox label="Remember Me" />
         </div> */}
