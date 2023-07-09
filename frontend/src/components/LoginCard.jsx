@@ -9,10 +9,14 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+import { useNavigate } from "react-router-dom";
+
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     let timer;
     if (error) {
@@ -39,9 +43,17 @@ export default function LoginCard() {
 
       if (response.ok) {
         // Login successful, retrieve the token from the response
+        //should say in token that user is company or jobseeker
         const { token } = await response.json();
         localStorage.setItem("token", token);
         console.log("token:", token);
+        if (token === "company") {
+          navigate("/company-dashboard", { state: { email, password } });
+        } else if (token === "jobseeker") {
+          navigate("/seeker-dashboard", { state: { email, password } });
+  } else {
+    setError("Invalid token");
+  }
       } else {
         // const errorResponse = await response.text();
         setError("Please enter valid Email and Password");

@@ -14,7 +14,7 @@ export default function PrimaryJobCard({
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/CompanyDashbordDetails");
+    navigate("/details");
   };
   return (
     <>

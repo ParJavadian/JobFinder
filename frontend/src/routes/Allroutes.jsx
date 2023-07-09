@@ -18,6 +18,7 @@ export default function AllRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/seeker-dashboard/*" element={<SeekerDashboard />} />
         <Route path="/applicants" element={<ViewApplications />} />
+
       </Routes>
     </Router>
   );
