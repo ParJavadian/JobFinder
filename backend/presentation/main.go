@@ -13,6 +13,7 @@ import (
 func main() {
 	// initialize router
 	router := initRouter()
+	router.Use(AuthMiddleware)
 
 	// initialize db, repositories and the services
 	db := initDB()

@@ -61,7 +61,7 @@ func (s *UserService) Login(email, password string) (string, error) {
 	}
 
 	// Generate and return a JWT token
-	token, err := authService.GenerateJWTToken(user.ID)
+	token, err := GenerateJWTToken(user.ID, "user")
 	if err != nil {
 		return "", err
 	}
