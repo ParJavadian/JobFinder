@@ -3,11 +3,10 @@ package services
 import (
 	"JobFinder/backend/persistence"
 	"errors"
-	"time"
 )
 
 type JobService struct {
-    jobRepository persistence.JobRepository
+	jobRepository persistence.JobRepository
 }
 
 func NewJobService(jobRepository persistence.JobRepository) *JobService {
@@ -24,12 +23,9 @@ func (s *JobService) CreateJob(job *persistence.Job) error {
 	}
 
 	// Save the job to the database
-	err = s.jobRepository.CreateJob(job)
+	err := s.jobRepository.CreateJob(job)
 	if err != nil {
 		return err
 	}
 	return nil
 }
-
-
-

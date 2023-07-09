@@ -80,9 +80,9 @@ func (s *UserService) DeleteAccount(userID uint) error {
 }
 
 // ChangePassword changes the password for a user account
-func (s *UserService) ChangePassword(userID uint, currentPassword, newPassword string) error {
+func (s *UserService) ChangePassword(email, currentPassword, newPassword string) error {
 	// Get the user by ID
-	user, err := s.userRepository.GetUserByID(userID)
+	user, err := s.userRepository.GetUserByEmail(email)
 	if err != nil {
 		return err
 	}
@@ -100,7 +100,7 @@ func (s *UserService) ChangePassword(userID uint, currentPassword, newPassword s
 	}
 
 	// Update the user's password in the database
-	err = s.userRepository.UpdateUserPassword(userID, hashedPassword)
+	err = s.userRepository.UpdateUserPassword(user.ID, hashedPassword)
 	if err != nil {
 		return err
 	}
