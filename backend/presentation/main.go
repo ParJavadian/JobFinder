@@ -1,18 +1,26 @@
 package presentation
 
-// initialize database, router, and server
-
 import (
+	"JobFinder/backend/persistence"
+	"JobFinder/backend/services"
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"log"
 	"net/http"
 )
 
 func main() {
-	// todo initialize database
-
 	// initialize router
 	router := initRouter()
+
+	// initialize db, repositories and the services
+	db := initDB()
+	userRepository := persistence.NewUserRepository(db)
+	userService := services.NewUserService(*userRepository)
+
+	handler := NewHandler(userService)
+	handler.RegisterRoutes(router)
 
 	// initialize server
 	log.Println("Starting server on port 8080...")
@@ -24,17 +32,16 @@ func main() {
 
 func initRouter() *gin.Engine {
 	router := gin.Default()
+	return router
+}
 
-	router.POST("/login", loginHandler)
-	router.GET("/jobs", getJobsHandler)
+func initDB() *gorm.DB {
+	dsn := "host=localhost user=admin password=admin dbname=JobFinder port=5432 sslmode=disable"
 
-	// Authenticated routes
-	authRoutes := router.Group("/api")
-	authRoutes.Use(authMiddleware)
-	{
-		authRoutes.POST("/jobs", createJobHandler)
-		authRoutes.GET("/applications", getApplicationsHandler)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	return router
+	return db
 }

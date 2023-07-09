@@ -1,7 +1,6 @@
 package persistence
 
 import (
-	"container/list"
 	"errors"
 	"gorm.io/gorm"
 	"time"
@@ -16,8 +15,8 @@ type User struct {
 	Profession string
 	Degree     string
 	Location   string
-	Languages  list.List
-	CVText     string
+	Language   string
+	Details    string
 	Password   string
 	CreatedAt  time.Time
 }
