@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import SeekerDashboard from "../pages/SeekerDashboard";
 import CompanyDashbord from "../pages/CompanyDashbord";
 import history from "./history";
+import JobDetails from "../components/JobDetails";
 
 export default function AllRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AllRoutes() {
         <Route path="/company-dashboard/*" element={<CompanyDashbord />} />
         <Route path="/login" element={<Login />} />
         <Route path="/seeker-dashboard/*" element={<SeekerDashboard />} />
+        <Route path="/details/*" element={<JobDetails />} />
       </Routes>
     </Router>
   );
