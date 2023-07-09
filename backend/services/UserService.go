@@ -3,7 +3,6 @@ package services
 import (
 	"JobFinder/backend/persistence"
 	"errors"
-	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
@@ -107,18 +106,4 @@ func (s *UserService) ChangePassword(userID uint, currentPassword, newPassword s
 	}
 
 	return nil
-}
-
-func hashPassword(password string) (string, error) {
-	hashedPassword := []byte(password)
-	hashedPassword, err := bcrypt.GenerateFromPassword(hashedPassword, bcrypt.DefaultCost)
-	if err != nil {
-		return "", err
-	}
-	return string(hashedPassword), nil
-}
-
-func checkPasswordHash(password string, password2 string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(password2), []byte(password))
-	return err == nil
 }

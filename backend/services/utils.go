@@ -1,6 +1,9 @@
 package services
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"github.com/dgrijalva/jwt-go"
+	"golang.org/x/crypto/bcrypt"
+)
 
 func GenerateJWTToken(id uint, role string) (string, error) {
 	// Create the token
@@ -27,4 +30,18 @@ func VerifyJWTToken(tokenString string) (uint, string, error) {
 		return 0, "", err
 	}
 	return uint(token.Claims.(jwt.MapClaims)["id"].(float64)), token.Claims.(jwt.MapClaims)["role"].(string), nil
+}
+
+func hashPassword(password string) (string, error) {
+	hashedPassword := []byte(password)
+	hashedPassword, err := bcrypt.GenerateFromPassword(hashedPassword, bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hashedPassword), nil
+}
+
+func checkPasswordHash(password string, password2 string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(password2), []byte(password))
+	return err == nil
 }

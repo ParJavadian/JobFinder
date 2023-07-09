@@ -9,9 +9,9 @@ import (
 // User represents a user account
 type User struct {
 	gorm.Model
+	Email      string `gorm:"uniqueIndex"`
 	Firstname  string
 	Lastname   string
-	Email      string
 	Profession string
 	Degree     string
 	Location   string
