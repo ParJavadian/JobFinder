@@ -28,7 +28,7 @@ export default function ViewApplicationsJobCard({
     // navigate("/CompanyDashbordDetails");
   };
   const viewApplicants = () => {
-    navigate("/applicants");
+    navigate("/company-dashboard/applicants");
   };
   return (
     <>

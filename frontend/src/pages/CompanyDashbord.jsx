@@ -5,6 +5,7 @@ import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsCompany from "../components/DetailsCompany";
 import CompanyHistory from "../components/CompanyHistory";
 import AddJob from "../components/AddJob";
+import ViewApplications from "../components/ViewApplications";
 
 export default function CompanyDashbord() {
   return (
@@ -16,6 +17,7 @@ export default function CompanyDashbord() {
             <Route path="/" element={<DetailsCompany />}></Route>
             <Route path="/history" element={<CompanyHistory />}></Route>
             <Route path="/new-position" element={<AddJob />}></Route>
+            <Route path="/applicants" element={<ViewApplications />}></Route>
             <Route
               path="/change-password"
               element={<SignUpSeekerForm />}

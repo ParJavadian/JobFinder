@@ -6,7 +6,6 @@ import Login from "../pages/Login";
 import SeekerDashboard from "../pages/SeekerDashboard";
 import CompanyDashbord from "../pages/CompanyDashbord";
 import history from "./history";
-import ViewApplications from "../pages/ViewApplications";
 
 export default function AllRoutes() {
   return (
@@ -17,7 +16,6 @@ export default function AllRoutes() {
         <Route path="/company-dashboard/*" element={<CompanyDashbord />} />
         <Route path="/login" element={<Login />} />
         <Route path="/seeker-dashboard/*" element={<SeekerDashboard />} />
-        <Route path="/applicants" element={<ViewApplications />} />
       </Routes>
     </Router>
   );
