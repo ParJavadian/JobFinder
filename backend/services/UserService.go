@@ -19,7 +19,7 @@ func NewUserService(userRepository persistence.UserRepository) *UserService {
 }
 
 // RegisterAccount registers a new user account
-func (s *UserService) RegisterAccount(user *models.User) error {
+func (s *UserService) RegisterAccount(user *persistence.User) error {
 	// Check if the email is already registered
 	existingUser, _ := s.userRepository.GetUserByEmail(user.Email)
 	if existingUser != nil {
@@ -27,7 +27,7 @@ func (s *UserService) RegisterAccount(user *models.User) error {
 	}
 
 	// Hash the user's password
-	hashedPassword, err := utils.HashPassword(user.Password)
+	hashedPassword, err := hashPassword(user.Password)
 	if err != nil {
 		return err
 	}
@@ -54,13 +54,13 @@ func (s *UserService) Login(email, password string) (string, error) {
 	}
 
 	// Verify the user's password
-	passwordMatch := utils.CheckPasswordHash(password, user.Password)
+	passwordMatch := checkPasswordHash(password, user.Password)
 	if !passwordMatch {
 		return "", errors.New("incorrect password")
 	}
 
 	// Generate and return a JWT token
-	token, err := utils.GenerateJWTToken(user.ID, user.Role)
+	token, err := GenerateJWTToken(user.ID, "user")
 	if err != nil {
 		return "", err
 	}
@@ -88,13 +88,13 @@ func (s *UserService) ChangePassword(userID uint, currentPassword, newPassword s
 	}
 
 	// Verify the user's current password
-	passwordMatch := utils.CheckPasswordHash(currentPassword, user.Password)
+	passwordMatch := checkPasswordHash(currentPassword, user.Password)
 	if !passwordMatch {
 		return errors.New("incorrect current password")
 	}
 
 	// Hash the new password
-	hashedPassword, err := utils.HashPassword(newPassword)
+	hashedPassword, err := hashPassword(newPassword)
 	if err != nil {
 		return err
 	}
