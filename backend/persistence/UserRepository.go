@@ -3,7 +3,6 @@ package persistence
 import (
 	"errors"
 	"gorm.io/gorm"
-	"time"
 )
 
 // User represents a user account
@@ -18,7 +17,6 @@ type User struct {
 	Language   string
 	Details    string
 	Password   string
-	CreatedAt  time.Time
 }
 
 // UserRepository handles user-related data operations

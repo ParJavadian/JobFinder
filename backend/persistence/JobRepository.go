@@ -3,7 +3,7 @@ package persistence
 import "gorm.io/gorm"
 
 type Job struct {
-	ID           uint `gorm:"primaryKey"`
+	gorm.Model
 	CompanyID    uint
 	Title        string
 	Field        string
