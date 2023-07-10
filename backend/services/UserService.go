@@ -107,3 +107,11 @@ func (s *UserService) ChangePassword(email, currentPassword, newPassword string)
 
 	return nil
 }
+
+func (s *UserService) EditProfile(userId uint, firstname, lastname, profession, degree, location, language, details string) error {
+	err := s.userRepository.EditProfile(userId, firstname, lastname, profession, degree, location, language, details)
+	if err != nil {
+		return err
+	}
+	return nil
+}

@@ -34,6 +34,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	// user service apis
 	router.POST("/register/user", h.RegisterUser)
 	router.POST("/change-password", h.ChangePassword)
+	router.POST("/edit-profile/user", h.EditUserProfile)
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
@@ -69,6 +70,32 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 		return
 	}
 	context.JSON(200, gin.H{"message": "account created successfully"})
+}
+
+func (h *Handler) EditUserProfile(context *gin.Context) {
+	request := context.Request
+	role, _ := context.Get("role")
+	if role != "user" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	id, _ := context.Get("id")
+	userId, _ := getUintFromString(id.(string))
+	err := h.userService.EditProfile(
+		userId,
+		request.FormValue("firstname"),
+		request.FormValue("lastname"),
+		request.FormValue("profession"),
+		request.FormValue("degree"),
+		request.FormValue("location"),
+		request.FormValue("languages"),
+		request.FormValue("details"),
+	)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "profile updated successfully"})
 }
 
 func (h *Handler) Login(context *gin.Context) {

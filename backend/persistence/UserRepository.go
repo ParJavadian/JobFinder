@@ -83,3 +83,47 @@ func (r *UserRepository) UpdateUserPassword(userID uint, hashedPassword string) 
 	}
 	return nil
 }
+
+func (r *UserRepository) EditProfile(
+	id uint,
+	firstname,
+	lastname,
+	profession,
+	degree,
+	location,
+	language,
+	details string,
+) error {
+	// Get the user by ID
+	user, err := r.GetUserByID(id)
+	if err != nil {
+		return err
+	}
+	// Update the user's profile in the database based on the non-empty fields
+	if firstname != "" {
+		user.Firstname = firstname
+	}
+	if lastname != "" {
+		user.Lastname = lastname
+	}
+	if profession != "" {
+		user.Profession = profession
+	}
+	if degree != "" {
+		user.Degree = degree
+	}
+	if location != "" {
+		user.Location = location
+	}
+	if language != "" {
+		user.Language = language
+	}
+	if details != "" {
+		user.Details = details
+	}
+	result := r.db.Save(&user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
