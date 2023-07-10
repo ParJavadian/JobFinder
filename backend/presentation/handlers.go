@@ -38,6 +38,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
+	router.POST("/edit-profile/company", h.EditCompanyProfile)
 
 	// application apis
 	router.POST("/application", h.CreateApplication)
@@ -159,6 +160,35 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 		return
 	}
 	context.JSON(200, gin.H{"message": "company account created successfully"})
+}
+
+func (h *Handler) EditCompanyProfile(context *gin.Context) {
+	request := context.Request
+	role, _ := context.Get("role")
+	if role != "company" {
+		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+		return
+	}
+	id, _ := context.Get("id")
+	companyId, _ := getUintFromString(id.(string))
+	employees, err := strconv.Atoi(request.FormValue("employees"))
+	if err != nil {
+		employees = -1
+	}
+	err = h.companyService.EditProfile(
+		companyId,
+		request.FormValue("name"),
+		request.FormValue("field"),
+		request.FormValue("founded"),
+		request.FormValue("location"),
+		employees,
+		request.FormValue("details"),
+	)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "profile updated successfully"})
 }
 
 func (h *Handler) LoginCompany(context *gin.Context) error {
