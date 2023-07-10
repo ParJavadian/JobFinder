@@ -13,7 +13,7 @@ func NewApplicationService(applicationRepository persistence.ApplicationReposito
 }
 
 func (s *ApplicationService) CreateApplication(jobID uint, userId uint) error {
-	// check if JobId and UserID are valid
+	// check if JobId and UserID are valid todo what the hell is this
 	_, err := s.applicationRepository.GetApplicationByID(jobID)
 	if err != nil {
 		return err
