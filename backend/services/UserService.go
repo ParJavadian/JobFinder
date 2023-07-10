@@ -3,6 +3,7 @@ package services
 import (
 	"JobFinder/backend/persistence"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -52,6 +53,7 @@ func (s *UserService) Login(email, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Println("user:", user)
 
 	// Verify the user's password
 	passwordMatch := checkPasswordHash(password, user.Password)

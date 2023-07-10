@@ -3,6 +3,7 @@ package presentation
 import (
 	"JobFinder/backend/persistence"
 	"JobFinder/backend/services"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -13,6 +14,7 @@ import (
 func InitServices() {
 	// initialize router
 	router := initRouter()
+	router.Use(cors.Default())
 	router.Use(AuthMiddleware)
 
 	// initialize db, repositories and the services
@@ -46,7 +48,7 @@ func initRouter() *gin.Engine {
 }
 
 func initDB() *gorm.DB {
-	dsn := "host=localhost user=admin password=admin dbname=JobFinder port=5432 sslmode=disable"
+	dsn := "host=localhost user=postgres password=12345 dbname=JobFinder port=5432 sslmode=disable"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

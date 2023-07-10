@@ -372,22 +372,21 @@ func getJsonResponseFromApplications(applications []*persistence.Application) []
 }
 
 func getJsonResponseFromJobs(jobs []*persistence.Job) []gin.H {
-	jsonResponse := make([]gin.H, len(job))
-	for i, job := range applications {
+	jsonResponse := make([]gin.H, len(jobs))
+	for i, job := range jobs {
 		jsonResponse[i] = gin.H{
-			"id":               job.ID,
-			"title":            job.Title,
-			"field":            job.Field,
-			"time":             job.Time,
-			"remoteStatus":     job.RemoteStatus,
-            "salary":           job.Salary,
-   			"details":          job.Details,
-			"created-at":       job.CreatedAt,
+			"id":           job.ID,
+			"title":        job.Title,
+			"field":        job.Field,
+			"time":         job.Time,
+			"remoteStatus": job.RemoteStatus,
+			"salary":       job.Salary,
+			"details":      job.Details,
+			"created-at":   job.CreatedAt,
 		}
 	}
 	return jsonResponse
 }
-
 
 func getUintFromString(str string) (uint, error) {
 	uintStr, err := strconv.Atoi(str)
@@ -398,13 +397,11 @@ func getUintFromString(str string) (uint, error) {
 }
 
 func (h *Handler) GetJobs(context *gin.Context) {
-	request := context.Request
 	jobs, err := h.jobService.GetJobs()
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	jsonResponse := getJsonResponseFromJobs(applications)
+	jsonResponse := getJsonResponseFromJobs(jobs)
 	context.JSON(200, jsonResponse)
 }
-
