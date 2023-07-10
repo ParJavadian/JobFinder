@@ -22,6 +22,7 @@ export default function PrimaryJobCard({
         location:Location,
         time:Time,
         remote:Remote,
+        salary:Salary,
 
       },
     });
