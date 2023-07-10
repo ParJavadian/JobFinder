@@ -73,3 +73,41 @@ func (s *CompanyService) Login(email, password string) (string, error) {
 
 	return GenerateJWTToken(company.ID, "company")
 }
+
+func (s *CompanyService) EditProfile(
+	companyId uint,
+	name string,
+	field string,
+	founded string,
+	location string,
+	employees int,
+	details string,
+) error {
+	company, err := s.companyRepository.GetCompanyByID(companyId)
+	if company == nil || err != nil {
+		return errors.New("company not found")
+	}
+	if name != "" {
+		company.Name = name
+	}
+	if field != "" {
+		company.Field = field
+	}
+	if founded != "" {
+		company.Founded = founded
+	}
+	if location != "" {
+		company.Location = location
+	}
+	if employees != 0 {
+		company.Employees = employees
+	}
+	if details != "" {
+		company.Details = details
+	}
+	err = s.companyRepository.UpdateCompany(company)
+	if err != nil {
+		return err
+	}
+	return nil
+}
