@@ -73,11 +73,11 @@ func (r *JobRepository) DeleteJobsByCompanyID(companyID uint) error {
 	return nil
 }
 
-type JobSearchQuery struct {
-	// todo
-}
-
-func (r *JobRepository) SearchJobs(jobSearchQuery JobSearchQuery) ([]*Job, error) {
-	// todo
-	return nil, nil
+func (r *JobRepository) SearchJobs() ([]*Job, error) {
+	var jobs []*Job
+    result := r.db.Find(&jobs)
+  	if result.Error != nil {
+  		return nil, result.Error
+    }
+    return jobs, nil
 }

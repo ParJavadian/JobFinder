@@ -301,7 +301,26 @@ func (h *Handler) GetApplicationByID(context *gin.Context) {
 }
 
 func (h *Handler) CreateJob(context *gin.Context) {
-	// todo
+	request := context.Request
+    	role, _ := context.Get("role")
+    	if role != "company" {
+    		context.JSON(401, gin.H{"error": "you are not allowed to do this action"})
+    		return
+    	}
+    	companyId, _ := context.Get("id")
+    	jobId := request.FormValue("job-id")
+    	uintJobId, err := getUintFromString(jobId)
+    	if err != nil {
+    		context.JSON(400, gin.H{"error": err.Error()})
+    		return
+    	}
+
+    	err = h.jobService.CreateJob(uintJobId, companyId.(uint))
+    	if err != nil {
+    		context.JSON(400, gin.H{"error": err.Error()})
+    		return
+    	}
+    	context.JSON(200, gin.H{"message": "job created successfully"})
 }
 
 func getJsonResponseFromApplications(applications []*persistence.Application) []gin.H {

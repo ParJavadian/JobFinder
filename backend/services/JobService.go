@@ -29,3 +29,21 @@ func (s *JobService) CreateJob(job *persistence.Job) error {
 	}
 	return nil
 }
+
+
+func (s *JobService) GetJobsByCompany(companyID uint) ([]*persistence.Job, error) {
+	jobs, err := s.jobRepository.GetJobsByCompanyID(companyID)
+	if err != nil {
+		return nil, err
+	}
+	return jobs, nil
+}
+
+func (s *JobService) GetJobs() ([]*persistence.Job, error) {
+	jobs, err := s.jobRepository.SearchJobs()
+	if err != nil {
+		return nil, err
+	}
+	return jobs, nil
+}
+
