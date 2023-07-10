@@ -29,14 +29,14 @@ func NewHandler(
 }
 
 func (h *Handler) RegisterRoutes(router *gin.Engine) {
+	router.POST("/login", h.Login)
+
 	// user service apis
 	router.POST("/register/user", h.RegisterUser)
-	router.POST("/login/user", h.LoginUser)
 	router.POST("/change-password", h.ChangePassword)
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
-	router.POST("/login/company", h.LoginCompany)
 
 	// application apis
 	router.POST("/application", h.CreateApplication)
@@ -71,16 +71,28 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 	context.JSON(200, gin.H{"message": "account created successfully"})
 }
 
-func (h *Handler) LoginUser(context *gin.Context) {
+func (h *Handler) Login(context *gin.Context) {
+	// check if it can be a user
+	err := h.LoginUser(context)
+	if err != nil {
+		err = h.LoginCompany(context)
+		if err != nil {
+			context.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+	}
+}
+
+func (h *Handler) LoginUser(context *gin.Context) error {
 	request := context.Request
 	password := request.FormValue("password")
 	email := request.FormValue("email")
 	token, err := h.userService.Login(email, password)
 	if err != nil {
-		context.JSON(400, gin.H{"error": err.Error()})
-		return
+		return err
 	}
-	context.JSON(200, gin.H{"token": token})
+	context.JSON(200, gin.H{"token": token, "role": "user"})
+	return nil
 }
 
 func (h *Handler) ChangePassword(context *gin.Context) {
@@ -122,16 +134,16 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 	context.JSON(200, gin.H{"message": "company account created successfully"})
 }
 
-func (h *Handler) LoginCompany(context *gin.Context) {
+func (h *Handler) LoginCompany(context *gin.Context) error {
 	request := context.Request
 	password := request.FormValue("password")
 	email := request.FormValue("email")
 	token, err := h.companyService.Login(email, password)
 	if err != nil {
-		context.JSON(400, gin.H{"error": err.Error()})
-		return
+		return err
 	}
-	context.JSON(200, gin.H{"token": token})
+	context.JSON(200, gin.H{"token": token, "role": "company"})
+	return nil
 }
 
 func (h *Handler) CreateApplication(context *gin.Context) {
