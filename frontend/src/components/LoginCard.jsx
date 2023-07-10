@@ -44,12 +44,12 @@ export default function LoginCard() {
       if (response.ok) {
         // Login successful, retrieve the token from the response
         //should say in token that user is company or jobseeker
-        const { token } = await response.json();
+        const { token,role } = await response.json();
         localStorage.setItem("token", token);
         console.log("token:", token);
-        if (token === "company") {
+        if (role === "company") {
           navigate("/company-dashboard", { state: { email, password } });
-        } else if (token === "jobseeker") {
+        } else if (role === "user") {
           navigate("/seeker-dashboard", { state: { email, password } });
   } else {
     setError("Invalid token");
