@@ -9,9 +9,8 @@ func AuthMiddleware(c *gin.Context) {
 	// check if token should be provided based on the route
 	nonAuthUrls := []string{
 		"/register/user",
-		"/login/user",
+		"/login",
 		"/register/company",
-		"/login/company",
 		// todo other paths should be added here if needed
 	}
 	for _, url := range nonAuthUrls {
