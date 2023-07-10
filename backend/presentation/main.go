@@ -20,7 +20,16 @@ func main() {
 	userRepository := persistence.NewUserRepository(db)
 	userService := services.NewUserService(*userRepository)
 
-	handler := NewHandler(userService)
+	companyRepository := persistence.NewCompanyRepository(db)
+	companyService := services.NewCompanyService(*companyRepository)
+
+	jobRepository := persistence.NewJobRepository(db)
+	jobService := services.NewJobService(*jobRepository)
+
+	applicationRepository := persistence.NewApplicationRepository(db)
+	applicationService := services.NewApplicationService(*applicationRepository)
+
+	handler := NewHandler(userService, companyService, jobService, applicationService)
 	handler.RegisterRoutes(router)
 
 	// initialize server
