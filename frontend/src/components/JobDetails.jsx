@@ -3,19 +3,12 @@ import { Typography } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import JobDetailCard from "./JobDetailCard";
+import { useLocation } from "react-router-dom";
 
 export default function JobDetails() {
   const navigate = useNavigate();
 
-  const myJob = {
-    Title: "Manager",
-    Company: "Company 1",
-    Field: "Tech",
-    Salary: "3000$",
-    Location: "Tehran",
-    Time: "Full-time",
-    Remote: "In-person",
-  };
+
   const myCompany = {
     //defualt values
     name: "Google",
@@ -27,6 +20,17 @@ export default function JobDetails() {
     details: "We used to be a good company before kianoosh left us...",
     Logosrc:
       "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+  };
+  const location1 = useLocation();
+  const { title, company, field,salary,location,time,remote} = location1.state || {};
+    const myJob = {
+    Title: title,
+    Company: company,
+    Field: field,
+    Salary: salary,
+    Location: location,
+    Time: time,
+    Remote: remote,
   };
   return (
     <>

@@ -9,23 +9,20 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
-import { useLocation } from "react-router-dom";
 
 export default function JobDetailCard({
-  job: {  Detail },
+  job: { Title, Company, Field, Salary, Location, Time, Remote, Detail },
   company: {
     name,
     email,
-    // field,
+    field,
     founded,
     employees,
-    // location,
+    location,
     details,
     Logosrc,
   },
 }) {
-  const location1 = useLocation();
-  const { title, company,field ,location,time,remote,salary} = location1.state || {};
   return (
     <>
       <div className="w-96">
@@ -43,10 +40,10 @@ export default function JobDetailCard({
             <div className="flex w-full flex-col gap-0.5">
               <div className="flex items-center justify-between">
                 <Typography variant="h5" color="blue-gray">
-                  {title}
+                  {Title}
                 </Typography>
               </div>
-              <Typography color="blue-gray">{company}</Typography>
+              <Typography color="blue-gray">{Company}</Typography>
             </div>
           </CardHeader>
           <CardBody className="mb-6 p-0">
@@ -55,31 +52,31 @@ export default function JobDetailCard({
                 <ListItemPrefix>
                   <Unicons.UilBox className="h-5 w-5" />
                 </ListItemPrefix>
-                {field}
+                {Field}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilDollarSignAlt className="h-5 w-5" />
                 </ListItemPrefix>
-                {salary}
+                {Salary}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilLocationPoint className="h-5 w-5" />
                 </ListItemPrefix>
-                {location}
+                {Location}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilHourglass className="h-5 w-5" />
                 </ListItemPrefix>
-                {time}
+                {Time}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilMap className="h-5 w-5" />
                 </ListItemPrefix>
-                {remote}
+                {Remote}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
