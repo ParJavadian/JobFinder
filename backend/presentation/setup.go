@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func main() {
+func InitServices() {
 	// initialize router
 	router := initRouter()
 	router.Use(AuthMiddleware)
