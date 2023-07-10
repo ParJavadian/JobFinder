@@ -11,10 +11,24 @@ import * as Unicons from "@iconscout/react-unicons";
 import SearchInput from "./SearchInput";
 import HorizContainer from "./HorizContainer";
 import PrimaryJobCard from "./PrimaryJobCard";
+import { useLocation } from "react-router-dom";
 
 export default function SeekOpInDash() {
+  // const location1 = useLocation();
+  // const { title, company ,field,salary,location,logosrc,time,remote} = location1.state || {};
+  // const myJob = {
+  //   Title:title,
+  //   Company: company,
+  //   Field: field,
+  //   Salary: salary,
+  //   Location: location,
+  //   Logosrc:logosrc,
+  //   Time: time,
+  //   Remote: remote,
+  // };
+  
   const myJob = {
-    Title: "Manager",
+    Title: "Managerqqqqqqqqqqqqqq",
     Company: "Company 1",
     Field: "Tech",
     Salary: "3000$",
