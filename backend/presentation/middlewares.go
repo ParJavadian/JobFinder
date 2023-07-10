@@ -11,6 +11,8 @@ func AuthMiddleware(c *gin.Context) {
 		"/register/user",
 		"/login",
 		"/register/company",
+		"/getjobs",
+
 		// todo other paths should be added here if needed
 	}
 	for _, url := range nonAuthUrls {
