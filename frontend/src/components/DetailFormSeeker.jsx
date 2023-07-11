@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
+import {
+  Input,
+  Button,
+  Textarea,
+  Alert,
+  Typography,
+} from "@material-tailwind/react";
+import { useLocation } from "react-router-dom";
 
 export default function Form() {
-  const [formData, setFormData] = useState({
+  const { state } = useLocation();
+  // console.log("in form:", state);
+  /*const [formData, setFormData] = useState({
     //defualt values
     name: "Parmida",
     lastname: "Javadian",
@@ -12,6 +21,15 @@ export default function Form() {
     location: "Tehran",
     languages: "Persian, English, Italian",
     details: "If you don't hire me, may stone be at your head.",
+  });*/
+  const [formData, setFormData] = useState({
+    firstname: state.user.firstname,
+    lastname: state.user.lastname,
+    profession: state.user.profession,
+    degree: state.user.degree,
+    location: state.user.location,
+    languages: state.user.languages,
+    details: state.user.details,
   });
 
   const [changesApplied, setChangesApplied] = useState(false);
@@ -25,9 +43,24 @@ export default function Form() {
     setChangesApplied(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("formData: ", formData);
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/edit-profile/user", {
+      headers: { Authorization: localStorage.token },
+      method: "POST",
+      body: formDataForm,
+    });
+    console.log(response);
+    // let result = await response.json();
+    // if (response.ok) {
     setChangesApplied(true);
     // disapear after 3 seconds
     setTimeout(() => {
@@ -39,10 +72,10 @@ export default function Form() {
     <>
       <form onSubmit={handleSubmit} className="space-y-10">
         <Input
-          name="name"
+          name="firstname"
           variant="static"
           placeholder="Name"
-          value={formData.name}
+          value={formData.firstname}
           label="Name"
           onChange={handleChange}
           size="lg"
@@ -56,15 +89,23 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        <Input
-          name="email"
-          placeholder="Email Address"
+        {/* <label class="flex w-full h-full select-none pointer-events-none font-normal truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all text-sm peer-focus:text-sm after:content[' '] after:block after:w-full after:absolute after:-bottom-2.5 after:border-b-2 after:scale-x-0 peer-focus:after:scale-x-100 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight text-blue-gray-500 peer-focus:text-blue-500 after:border-blue-500 peer-focus:after:border-blue-500">
+          Email Address
+        </label> */}
+        {/* <Typography variant="paragraph" color="blue-gray" className="text-sm">
+          Email Address
+        </Typography> */}
+        {/* <Input
+          // name="email"
+          // placeholder="Email Address"
           value={formData.email}
-          onChange={handleChange}
-          variant="static"
-          label="Email Address"
-          size="lg"
-        />
+          // onChange={handleChange}
+          // variant="standard"
+          label="Email Address - non-changable"
+          // size="lg"
+          disabled
+          // className="bg-rose-950"
+        /> */}
         <Input
           name="profession"
           placeholder="Profession"

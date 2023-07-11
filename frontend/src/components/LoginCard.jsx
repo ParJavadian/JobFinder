@@ -53,12 +53,24 @@ export default function LoginCard() {
         console.log(response);
         console.log(result);
         const { token, role } = result;
+        const user = {
+          id: 6,
+          firstname: "Name1",
+          lastname: "Name2",
+          email: "email@gmail.comaefv",
+          profession: "myprof",
+          degree: "medeg",
+          location: "myloc",
+          languages: "mylang",
+          details: "mydet",
+          password: "mypass",
+        };
         localStorage.setItem("token", token);
         console.log("token:", token, "token end");
         if (role === "company") {
           navigate("/company-dashboard", { state: { email, password } });
         } else if (role === "user") {
-          navigate("/seeker-dashboard", { state: { email, password } });
+          navigate("/seeker-dashboard", { state: { user } });
         } else {
           setError("Invalid token");
         }

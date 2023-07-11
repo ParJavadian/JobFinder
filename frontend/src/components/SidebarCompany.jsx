@@ -56,14 +56,14 @@ export default function SidebarCompany() {
           </ListItem>
         </Link>
         <hr className="my-2 border-blue-gray-50" />
-        <Link to="/company-dashboard/change-password">
+        {/* <Link to="/company-dashboard/change-password">
           <ListItem>
             <ListItemPrefix>
               <Unicons.UilKeySkeleton className="h-5 w-5" />
             </ListItemPrefix>
             Change Password
           </ListItem>
-        </Link>
+        </Link> */}
         <ListItem onClick={logout}>
           <ListItemPrefix>
             <Unicons.UilSignout className="h-5 w-5" />

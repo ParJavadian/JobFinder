@@ -10,29 +10,38 @@ import {
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
+import { useLocation } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SidebarSeeker() {
+  const { state } = useLocation();
+  console.log("in sidebar:", state);
   const logout = () => {
     window.location.href = "/";
   };
+
+  const user = state.user;
+
+  // const { state } = useLocation();
+  // console.log("in sidebar:", state);
 
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Avatar src={AvatarImg} alt="avatar" size="xl" />
         <Typography variant="h5" color="blue-black" className="mt-3">
-          Name Lastname
+          {user.firsname} {user.lastname}
         </Typography>
         <Typography
           variant="paragraph"
           color="blue-gray"
           className="font-light mt-3"
         >
-          email@gmail.com
+          {user.email}
         </Typography>
       </div>
       <List>
-        <Link to="/seeker-dashboard">
+        <Link to="/seeker-dashboard" state={user}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard";
@@ -45,7 +54,7 @@ export default function SidebarSeeker() {
           </ListItem>
         </Link>
 
-        <Link to="/seeker-dashboard/seek">
+        <Link to="/seeker-dashboard/seek" state={user}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard/seek";
@@ -57,7 +66,7 @@ export default function SidebarSeeker() {
             Seek opportunities
           </ListItem>
         </Link>
-        <Link to="/seeker-dashboard/history">
+        <Link to="/seeker-dashboard/history" state={user}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard/history";
@@ -71,7 +80,7 @@ export default function SidebarSeeker() {
         </Link>
 
         <hr className="my-2 border-blue-gray-50" />
-        <Link to="/seeker-dashboard/change-password">
+        {/* <Link to="/seeker-dashboard/change-password">
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard/change-password";
@@ -82,7 +91,7 @@ export default function SidebarSeeker() {
             </ListItemPrefix>
             Change Password
           </ListItem>
-        </Link>
+        </Link> */}
         <ListItem onClick={logout}>
           <ListItemPrefix>
             <Unicons.UilSignout className="h-5 w-5" />

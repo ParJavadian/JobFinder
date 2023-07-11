@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"JobFinder/backend/services"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,6 +24,7 @@ func AuthMiddleware(c *gin.Context) {
 	}
 
 	token := c.Request.Header.Get("Authorization")
+	fmt.Println("token recieved:", token)
 	if token == "" {
 		c.JSON(401, gin.H{"error": "token not provided"})
 		c.Abort()

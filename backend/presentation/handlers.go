@@ -82,9 +82,8 @@ func (h *Handler) EditUserProfile(context *gin.Context) {
 		return
 	}
 	id, _ := context.Get("id")
-	userId, _ := getUintFromString(id.(string))
 	err := h.userService.EditProfile(
-		userId,
+		id.(uint),
 		request.FormValue("firstname"),
 		request.FormValue("lastname"),
 		request.FormValue("profession"),
@@ -171,13 +170,13 @@ func (h *Handler) EditCompanyProfile(context *gin.Context) {
 		return
 	}
 	id, _ := context.Get("id")
-	companyId, _ := getUintFromString(id.(string))
+	//companyId, _ := getUintFromString(id.(string))
 	employees, err := strconv.Atoi(request.FormValue("employees"))
 	if err != nil {
 		employees = -1
 	}
 	err = h.companyService.EditProfile(
-		companyId,
+		id.(uint),
 		request.FormValue("name"),
 		request.FormValue("field"),
 		request.FormValue("founded"),
