@@ -46,6 +46,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.DELETE("/application", h.DeleteApplication)
 	router.GET("/application", h.GetApplicationByID)
 	router.GET("/get-company-info", h.GetCompanyInfo)
+	router.GET("/get-user-info", h.GetUserInfo)
 	router.GET("/applications/user", h.GetUserApplications)
 	router.GET("/applications/job", h.GetJobApplications)
 	router.POST("/application/status", h.UpdateApplicationStatus)
@@ -464,11 +465,6 @@ func (h *Handler) GetCompanyInfo(context *gin.Context) {
 		context.JSON(400, gin.H{"error": "company id is required"})
 		return
 	}
-	//uintCompanyId, err := getUintFromString(companyId)
-	//if err != nil {
-	//	context.JSON(400, gin.H{"error": err.Error()})
-	//	return
-	//}
 	company, err := h.companyService.GetCompanyByID(companyId.(uint))
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
@@ -487,6 +483,36 @@ func (h *Handler) GetCompanyInfo(context *gin.Context) {
 		"founded":   company.Founded,
 		"employees": company.Employees,
 		"details":   company.Details,
+	}
+	context.JSON(200, jsonResponse)
+}
+
+
+func (h *Handler) GetUserInfo(context *gin.Context) {
+	userId, _ := context.Get("id")
+	if userId == "" {
+		context.JSON(400, gin.H{"error": "user id is required"})
+		return
+	}
+	user, err := h.userService.GetUserByID(companyId.(uint))
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if user == nil {
+		context.JSON(400, gin.H{"error": "user not found"})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":        user.ID,
+		"email":      user.Email,
+		"firstname":     user.Firstname,
+		"lastname":  user.Lastname,
+		"profession":     user.Profession,
+		"degree":   user.Degree,
+		"location": user.Location,
+		"languages":   user.Language,
+		"details":   user.Details,
 	}
 	context.JSON(200, jsonResponse)
 }

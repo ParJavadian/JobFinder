@@ -131,3 +131,11 @@ func (s *UserService) EditProfile(userId uint, firstname, lastname, profession, 
 func (s *UserService) ExistsByEmail(email string) bool {
 	return s.userRepository.ExistsByEmail(email)
 }
+
+func (s *UserService) GetUserByID(userID uint) (*persistence.User, error) {
+	user, err := s.userRepository.GetUserByID(companyID)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
