@@ -69,3 +69,9 @@ func (r *CompanyRepository) DeleteCompany(company *Company) error {
 	}
 	return nil
 }
+
+func (r *CompanyRepository) ExistsCompanyByEmail(email string) bool {
+	var count int64
+	r.db.Model(&Company{}).Where("email = ?", email).Count(&count)
+	return count > 0
+}

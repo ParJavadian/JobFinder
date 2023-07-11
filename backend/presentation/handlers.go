@@ -67,6 +67,12 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 		Language:   request.FormValue("languages"),
 		Details:    request.FormValue("details"),
 	}
+
+	if h.companyService.ExistsByEmail(user.Email) {
+		context.JSON(400, gin.H{"error": "email already exists"})
+		return
+	}
+
 	err := h.userService.RegisterAccount(&user)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
@@ -156,6 +162,12 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 		Location:  request.FormValue("location"),
 		Details:   request.FormValue("details"),
 	}
+
+	if h.userService.ExistsByEmail(company.Email) {
+		context.JSON(400, gin.H{"error": "email already exists"})
+		return
+	}
+
 	err = h.companyService.RegisterCompany(&company)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})

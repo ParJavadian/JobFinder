@@ -127,3 +127,7 @@ func (s *UserService) EditProfile(userId uint, firstname, lastname, profession, 
 	}
 	return nil
 }
+
+func (s *UserService) ExistsByEmail(email string) bool {
+	return s.userRepository.ExistsByEmail(email)
+}

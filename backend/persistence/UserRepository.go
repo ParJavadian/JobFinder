@@ -134,3 +134,9 @@ func (r *UserRepository) EditProfile(
 	}
 	return nil
 }
+
+func (r *UserRepository) ExistsByEmail(email string) bool {
+	var count int64
+	r.db.Model(&User{}).Where("email = ?", email).Count(&count)
+	return count > 0
+}

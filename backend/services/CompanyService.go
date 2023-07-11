@@ -118,3 +118,7 @@ func (s *CompanyService) EditProfile(
 	}
 	return nil
 }
+
+func (s *CompanyService) ExistsByEmail(email string) bool {
+	return s.companyRepository.ExistsCompanyByEmail(email)
+}
