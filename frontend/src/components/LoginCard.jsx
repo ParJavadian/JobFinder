@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -14,6 +14,10 @@ import { useNavigate } from "react-router-dom";
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const jsonData = {
+    email: email,
+    password: password,
+  };
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -30,34 +34,79 @@ export default function LoginCard() {
     };
   }, [error]);
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
     try {
+      e.preventDefault();
       // Send login request to the backend
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const formData = new FormData();
 
+      for (var key in jsonData) {
+        formData.append(key, jsonData[key]);
+      }
+      e.preventDefault();
+
+      let response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        body: formData,
+      });
+      let result = await response.json();
       if (response.ok) {
-        // Login successful, retrieve the token from the response
-        //should say in token that user is company or jobseeker
-        const { token,role } = await response.json();
+        console.log(response);
+        console.log(result);
+        const { token, role } = result;
+        const user = {
+          id: 6,
+          firstname: "Name1",
+          lastname: "Name2",
+          email: "email@gmail.comaefv",
+          profession: "myprof",
+          degree: "medeg",
+          location: "myloc",
+          languages: "mylang",
+          details: "mydet",
+          password: "mypass",
+        };
+        const company = {
+          id: 3,
+          name: "Good Company",
+          field: "EE",
+          founded: "2002",
+          location: "Baku",
+          employees: "23",
+          details: "very good ha.",
+          email: "email.",
+        };
         localStorage.setItem("token", token);
-        console.log("token:", token);
+        console.log("token:", token, "token end");
         if (role === "company") {
-          navigate("/company-dashboard", { state: { email, password } });
+          navigate("/company-dashboard", { state: { company } });
         } else if (role === "user") {
-          navigate("/seeker-dashboard", { state: { email, password } });
-  } else {
-    setError("Invalid token");
-  }
+          navigate("/seeker-dashboard", { state: { user } });
+        } else {
+          setError("Invalid token");
+        }
       } else {
-        // const errorResponse = await response.text();
+        console.log(result.error);
         setError("Please enter valid Email and Password");
       }
+
+      // if (response.ok) {
+      //   // Login successful, retrieve the token from the response
+      //   //should say in token that user is company or jobseeker
+      //   const { token, role } = await response.json();
+      //   localStorage.setItem("token", token);
+      //   console.log("token:", token);
+      //   if (role === "company") {
+      //     navigate("/company-dashboard", { state: { email, password } });
+      //   } else if (role === "user") {
+      //     navigate("/seeker-dashboard", { state: { email, password } });
+      //   } else {
+      //     setError("Invalid token");
+      //   }
+      // } else {
+      //   // const errorResponse = await response.text();
+      //   setError("Please enter valid Email and Password");
+      // }
     } catch (error) {
       console.log("An error occurred", error);
     }
@@ -111,17 +160,13 @@ export default function LoginCard() {
         </Typography>
       </CardFooter>
       {error && (
-  <div className="fixed top-16 right-4 bg-red-300 text-white px-4 py-2 rounded">
-    <span>{error}</span>
-    <button
-      className="ml-2 text-white font-bold"
-      onClick={closeAlert}
-    >
-      X
-    </button>
-  </div>
-)}
-
+        <div className="fixed top-16 right-4 bg-red-300 text-white px-4 py-2 rounded">
+          <span>{error}</span>
+          <button className="ml-2 text-white font-bold" onClick={closeAlert}>
+            X
+          </button>
+        </div>
+      )}
     </Card>
   );
 }

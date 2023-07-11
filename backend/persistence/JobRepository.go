@@ -1,9 +1,12 @@
 package persistence
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Job struct {
-	gorm.Model
+	ID           uint `gorm:"primaryKey;autoIncrement"`
 	CompanyID    uint
 	Title        string
 	Field        string
@@ -11,6 +14,7 @@ type Job struct {
 	RemoteStatus string // remote, in-office, both
 	Salary       int64
 	Details      string
+	CreatedAt    time.Time
 }
 
 type JobRepository struct {
@@ -75,9 +79,9 @@ func (r *JobRepository) DeleteJobsByCompanyID(companyID uint) error {
 
 func (r *JobRepository) SearchJobs() ([]*Job, error) {
 	var jobs []*Job
-    result := r.db.Find(&jobs)
-  	if result.Error != nil {
-  		return nil, result.Error
-    }
-    return jobs, nil
+	result := r.db.Find(&jobs)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return jobs, nil
 }

@@ -2,12 +2,14 @@ package persistence
 
 import (
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
+	"time"
 )
 
 // User represents a user account
 type User struct {
-	gorm.Model
+	ID         uint   `gorm:"primaryKey;autoIncrement"`
 	Email      string `gorm:"uniqueIndex"`
 	Firstname  string
 	Lastname   string
@@ -17,6 +19,7 @@ type User struct {
 	Language   string
 	Details    string
 	Password   string
+	CreatedAt  time.Time
 }
 
 // UserRepository handles user-related data operations
@@ -58,6 +61,7 @@ func (r *UserRepository) GetUserByEmail(email string) (*User, error) {
 	var user User
 	result := r.db.Where("email = ?", email).First(&user)
 	if result.Error != nil {
+		fmt.Println(result)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
@@ -99,6 +103,9 @@ func (r *UserRepository) EditProfile(
 	if err != nil {
 		return err
 	}
+	if user == nil {
+		return errors.New("user not found")
+	}
 	// Update the user's profile in the database based on the non-empty fields
 	if firstname != "" {
 		user.Firstname = firstname
@@ -126,4 +133,10 @@ func (r *UserRepository) EditProfile(
 		return result.Error
 	}
 	return nil
+}
+
+func (r *UserRepository) ExistsByEmail(email string) bool {
+	var count int64
+	r.db.Model(&User{}).Where("email = ?", email).Count(&count)
+	return count > 0
 }

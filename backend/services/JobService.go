@@ -2,7 +2,6 @@ package services
 
 import (
 	"JobFinder/backend/persistence"
-	"errors"
 )
 
 type JobService struct {
@@ -16,12 +15,6 @@ func NewJobService(jobRepository persistence.JobRepository) *JobService {
 }
 
 func (s *JobService) CreateJob(job *persistence.Job) error {
-	// Check if the ID is already registered
-	existingJob, _ := s.jobRepository.GetJobByID(job.ID)
-	if existingJob != nil {
-		return errors.New("there is already a job with this ID")
-	}
-
 	// Save the job to the database
 	err := s.jobRepository.CreateJob(job)
 	if err != nil {
@@ -29,7 +22,6 @@ func (s *JobService) CreateJob(job *persistence.Job) error {
 	}
 	return nil
 }
-
 
 func (s *JobService) GetJobsByCompany(companyID uint) ([]*persistence.Job, error) {
 	jobs, err := s.jobRepository.GetJobsByCompanyID(companyID)
@@ -46,4 +38,3 @@ func (s *JobService) GetJobs() ([]*persistence.Job, error) {
 	}
 	return jobs, nil
 }
-

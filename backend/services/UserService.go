@@ -49,9 +49,16 @@ func (s *UserService) RegisterAccount(user *persistence.User) error {
 // Login performs user login and returns a JWT token
 func (s *UserService) Login(email, password string) (string, error) {
 	// Get the user by email
+	//TODO please check this I might have made a joob. Parmida
 	user, err := s.userRepository.GetUserByEmail(email)
+	if user == nil {
+		return "", errors.New("account is not registered")
+	}
 	if err != nil {
 		return "", err
+	}
+	if user == nil {
+		return "", errors.New("user not found")
 	}
 	fmt.Println("user:", user)
 
@@ -88,6 +95,9 @@ func (s *UserService) ChangePassword(email, currentPassword, newPassword string)
 	if err != nil {
 		return err
 	}
+	if user == nil {
+		return errors.New("user not found")
+	}
 
 	// Verify the user's current password
 	passwordMatch := checkPasswordHash(currentPassword, user.Password)
@@ -116,4 +126,16 @@ func (s *UserService) EditProfile(userId uint, firstname, lastname, profession, 
 		return err
 	}
 	return nil
+}
+
+func (s *UserService) ExistsByEmail(email string) bool {
+	return s.userRepository.ExistsByEmail(email)
+}
+
+func (s *UserService) GetUserByID(userID uint) (*persistence.User, error) {
+	user, err := s.userRepository.GetUserByID(companyID)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }
