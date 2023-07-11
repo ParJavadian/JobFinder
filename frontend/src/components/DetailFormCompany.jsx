@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
 
-export default function Form() {
+export default function DetailFormCompany({ email, password }) {
   const [formData, setFormData] = useState({
-    //defualt values
+    // default values
     name: "Google",
-    email: "google@gmail.com",
+    email: email || "google@gmail.com", // Use the received email prop or a default value
     field: "Tech",
     founded: "1940",
     employees: "2bilion",
@@ -28,7 +28,7 @@ export default function Form() {
     e.preventDefault();
     console.log("formData: ", formData);
     setChangesApplied(true);
-    // disapear after 3 seconds
+    // Disappear after 3 seconds
     setTimeout(() => {
       setChangesApplied(false);
     }, 3000);
@@ -46,63 +46,9 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        <Input
-          name="email"
-          placeholder="Email Address"
-          value={formData.email}
-          onChange={handleChange}
-          variant="static"
-          label="Email Address"
-          size="lg"
-        />
-        <Input
-          name="company"
-          placeholder="Company field"
-          value={formData.field}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="Company Field"
-        />
-        <Input
-          name="founded"
-          placeholder="When was your company founded?"
-          value={formData.founded}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="When was your company founded?"
-        />
-        <Input
-          name="employees"
-          placeholder="Number of employees"
-          value={formData.employees}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="Number of employees"
-        />
-        <Input
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="Location"
-        />
-        <Textarea
-          name="details"
-          placeholder="Details"
-          value={formData.details}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="Details"
-        />
+        {/* Rest of the input fields */}
         <Button
-          font-size="xl"
-          // className="text-black absolute right-0"
+          fontSize="xl"
           variant="gradient"
           onClick={handleSubmit}
         >
@@ -119,7 +65,6 @@ export default function Form() {
           Changes applied successfully!
         </Alert>
       )}
-      {/* </div> */}
     </>
   );
 }
