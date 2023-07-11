@@ -3,6 +3,7 @@ package persistence
 import (
 	"errors"
 	"gorm.io/gorm"
+	"time"
 )
 
 // User represents a user account
@@ -17,6 +18,7 @@ type User struct {
 	Language   string
 	Details    string
 	Password   string
+	CreatedAt  time.Time
 }
 
 // UserRepository handles user-related data operations
@@ -98,6 +100,9 @@ func (r *UserRepository) EditProfile(
 	user, err := r.GetUserByID(id)
 	if err != nil {
 		return err
+	}
+	if user == nil {
+		return errors.New("user not found")
 	}
 	// Update the user's profile in the database based on the non-empty fields
 	if firstname != "" {

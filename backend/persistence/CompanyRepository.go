@@ -2,10 +2,11 @@ package persistence
 
 import (
 	"gorm.io/gorm"
+	"time"
 )
 
 type Company struct {
-	gorm.Model
+	ID        uint `gorm:"primaryKey;autoIncrement"`
 	Name      string
 	Email     string `gorm:"uniqueIndex"`
 	Password  string
@@ -14,6 +15,7 @@ type Company struct {
 	Employees int
 	Location  string
 	Details   string
+	CreatedAt time.Time
 }
 
 type CompanyRepository struct {

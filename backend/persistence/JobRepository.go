@@ -1,9 +1,12 @@
 package persistence
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Job struct {
-	gorm.Model
+	ID           uint `gorm:"primaryKey;autoIncrement"`
 	CompanyID    uint
 	Title        string
 	Field        string
@@ -11,6 +14,7 @@ type Job struct {
 	RemoteStatus string // remote, in-office, both
 	Salary       int64
 	Details      string
+	CreatedAt    time.Time
 }
 
 type JobRepository struct {

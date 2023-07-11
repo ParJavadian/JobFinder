@@ -64,6 +64,9 @@ func (s *CompanyService) Login(email, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	if company == nil {
+		return "", errors.New("company not found")
+	}
 
 	// Verify the company's password
 	passwordMatch := checkPasswordHash(password, company.Password)
