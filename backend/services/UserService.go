@@ -49,7 +49,11 @@ func (s *UserService) RegisterAccount(user *persistence.User) error {
 // Login performs user login and returns a JWT token
 func (s *UserService) Login(email, password string) (string, error) {
 	// Get the user by email
+	//TODO please check this I might have made a joob. Parmida
 	user, err := s.userRepository.GetUserByEmail(email)
+	if user == nil {
+		return "", errors.New("account is not registered")
+	}
 	if err != nil {
 		return "", err
 	}

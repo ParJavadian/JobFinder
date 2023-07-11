@@ -2,6 +2,7 @@ package persistence
 
 import (
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"time"
 )
@@ -60,6 +61,7 @@ func (r *UserRepository) GetUserByEmail(email string) (*User, error) {
 	var user User
 	result := r.db.Where("email = ?", email).First(&user)
 	if result.Error != nil {
+		fmt.Println(result)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
