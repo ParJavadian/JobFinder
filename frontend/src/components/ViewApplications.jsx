@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Input, IconButton } from "@material-tailwind/react";
 import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
@@ -22,10 +22,87 @@ import { useLocation } from "react-router-dom";
 export default function ViewApplications() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  const Title = "Manager";
+  // const Title = "Manager";
 
   const location = useLocation();
-  const {comapny } = location.state || {};
+  const {
+    Title,
+    Company,
+    Field,
+    Salary,
+    Location,
+    Logosrc,
+    Time,
+    Remote,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
+  } = location.state || {};
+
+  const [applications, setApplications] = useState([]);
+  useEffect(() => {
+    getApplications();
+  }, []);
+
+  const getApplications = async () => {
+    let params = {
+      "job-id": ID,
+    };
+
+    let query = Object.keys(params)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
+      .join("&");
+
+    let url = "http://localhost:8080/applications/job?" + query;
+    let response2 = await fetch(url, {
+      headers: { Authorization: localStorage.token },
+    });
+    let applications = await response2.json();
+    console.log(applications);
+    // const newApplications = await Promise.all(
+    //   applications.map(async (application) => {
+    //     let params = {
+    //       "company-id": application.company_id,
+    //     };
+
+    //     let query = Object.keys(params)
+    //       .map(
+    //         (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
+    //       )
+    //       .join("&");
+
+    //     let url = "http://localhost:8080/company?" + query;
+    //     let response2 = await fetch(url, {
+    //       headers: { Authorization: localStorage.token },
+    //     });
+    //     let company = await response2.json();
+    //     const newJob = {
+    //       Title: application.title,
+    //       Field: application.field,
+    //       Salary: application.salary,
+    //       Location: company.location,
+    //       Company: company.name,
+    //       Logosrc:
+    //         "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    //       Time: application.time,
+    //       Remote: application.remoteStatus,
+    //       Detail: application.details,
+    //       CompField: company.field,
+    //       CompFounded: company.founded,
+    //       CompEmployees: company.employees,
+    //       CompDetails: company.details,
+    //       ID: application.id,
+    //       CompEmail: company.email,
+    //     };
+    //     return newJob;
+    //   })
+    // );
+    // setApplications(newApplications);
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -41,7 +118,7 @@ export default function ViewApplications() {
   };
 
   const myPerson = {
-    Name: "Parmida",
+    Name: "p",
     Lastname: "Javadian",
     Email: "parjavadian@gmail.com",
     Profession: "Front-end Developer",

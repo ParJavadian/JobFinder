@@ -35,18 +35,18 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/register/user", h.RegisterUser)
 	router.POST("/change-password", h.ChangePassword)
 	router.POST("/edit-profile/user", h.EditUserProfile)
+	router.GET("/get-user-info", h.GetUserInfo)
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
 	router.POST("/edit-profile/company", h.EditCompanyProfile)
 	router.GET("/company", h.GetCompanyByID)
+	router.GET("/get-company-info", h.GetCompanyInfo)
 
 	// application apis
 	router.POST("/application", h.CreateApplication)
 	router.DELETE("/application", h.DeleteApplication)
 	router.GET("/application", h.GetApplicationByID)
-	router.GET("/get-company-info", h.GetCompanyInfo)
-	router.GET("/get-user-info", h.GetUserInfo)
 	router.GET("/applications/user", h.GetUserApplications)
 	router.GET("/applications/job", h.GetJobApplications)
 	router.POST("/application/status", h.UpdateApplicationStatus)

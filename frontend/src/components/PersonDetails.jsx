@@ -9,17 +9,27 @@ import { useLocation } from "react-router-dom";
 export default function DetailsCompany() {
   const navigate = useNavigate();
   const location1 = useLocation();
-  const {  name, lastname ,avatarSrc,profession,location,degree,email,languages,detail} = location1.state || {};
+  const {
+    Name,
+    Lastname,
+    Email,
+    Profession,
+    Degree,
+    AvatarSrc,
+    Location,
+    Languages,
+    Detail,
+  } = location1.state || {};
   const person = {
-    Name: name,
-    Lastname: lastname,
-    Email: email,
-    Profession:profession,
-    Degree: degree,
-    AvatarSrc: avatarSrc,
-    Location: location,
-    Languages: languages,
-    Detail:detail
+    Name,
+    Lastname,
+    Email,
+    Profession,
+    Degree,
+    AvatarSrc,
+    Location,
+    Languages,
+    Detail,
   };
   return (
     <div className="pt-8 pb-8 pl-16 pr-16 ">

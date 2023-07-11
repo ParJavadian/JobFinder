@@ -9,37 +9,71 @@ import {
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 
-export default function ViewApplicationsJobCard({
-  job: {
-    Title,
-    Company,
-    Field,
-    Salary,
-    Location,
-    Logosrc,
-    Time,
-    Remote,
-    Status,
+export default function ViewApplicationsJobCard(
+  {
+    job: {
+      Title,
+      Company,
+      Field,
+      Salary,
+      Location,
+      Logosrc,
+      Time,
+      Remote,
+      Detail,
+      CompField,
+      CompFounded,
+      CompEmployees,
+      CompDetails,
+      ID,
+      CompEmail,
+    },
+    colorIn,
   },
-  colorIn,
-},
-company) {
+  company
+) {
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/details", {
-      info: {
-        title: Title,
-        company: Company,
-        field: Field,
-        location: Location,
-        time: Time,
-        remote: Remote,
-        salary: Salary,
+      state: {
+        Title,
+        Company,
+        Field,
+        Salary,
+        Location,
+        Logosrc,
+        Time,
+        Remote,
+        Detail,
+        CompField,
+        CompFounded,
+        CompEmployees,
+        CompDetails,
+        ID,
+        CompEmail,
       },
     });
   };
   const viewApplicants = () => {
-    navigate("/company-dashboard/applicants", { state: { company } });
+    navigate("/company-dashboard/applicants", {
+      state: {
+        Title,
+        Company,
+        Field,
+        Salary,
+        Location,
+        Logosrc,
+        Time,
+        Remote,
+        Detail,
+        CompField,
+        CompFounded,
+        CompEmployees,
+        CompDetails,
+        ID,
+        CompEmail,
+      },
+    });
   };
   return (
     <>
