@@ -4,7 +4,6 @@ import (
 	"JobFinder/backend/persistence"
 	"errors"
 	"fmt"
-	"time"
 )
 
 // UserService handles user-related operations
@@ -35,7 +34,7 @@ func (s *UserService) RegisterAccount(user *persistence.User) error {
 
 	// Set the hashed password and other necessary fields
 	user.Password = hashedPassword
-	user.CreatedAt = time.Now()
+	//user.CreatedAt = time.Now()
 
 	// Save the user to the database
 	err = s.userRepository.CreateUser(user)

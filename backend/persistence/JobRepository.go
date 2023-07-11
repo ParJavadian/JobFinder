@@ -75,9 +75,9 @@ func (r *JobRepository) DeleteJobsByCompanyID(companyID uint) error {
 
 func (r *JobRepository) SearchJobs() ([]*Job, error) {
 	var jobs []*Job
-    result := r.db.Find(&jobs)
-  	if result.Error != nil {
-  		return nil, result.Error
-    }
-    return jobs, nil
+	result := r.db.Find(&jobs)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return jobs, nil
 }

@@ -24,7 +24,7 @@ export default function PersonCard({
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/company-dashboard/person-detail");
+    navigate("/company-dashboard/person-detail", { state: { Name, Lastname ,AvatarSrc,Profession,Location,Degree,Email,Languages,Detail} });
   };
   return (
     <>
