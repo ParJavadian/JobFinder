@@ -29,6 +29,7 @@ func InitServices() {
 	// initialize router
 	router := initRouter()
 	router.Use(CORSMiddleware())
+	router.Use(LogMiddleware)
 	router.Use(AuthMiddleware)
 
 	// initialize db, repositories and the services

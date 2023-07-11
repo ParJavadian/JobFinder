@@ -4,6 +4,7 @@ import (
 	"JobFinder/backend/services"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 func AuthMiddleware(c *gin.Context) {
@@ -12,7 +13,8 @@ func AuthMiddleware(c *gin.Context) {
 		"/register/user",
 		"/login",
 		"/register/company",
-		"/getjobs",
+		"/jobs",
+		"/company",
 
 		// todo other paths should be added here if needed
 	}
@@ -39,5 +41,12 @@ func AuthMiddleware(c *gin.Context) {
 	}
 	c.Set("id", id)
 	c.Set("role", role)
+	c.Next()
+}
+
+func LogMiddleware(c *gin.Context) {
+	// log the request received
+	request := c.Request
+	log.Println("Request received: ", request.Method, request.URL.Path, request.URL.RawQuery, request.Body)
 	c.Next()
 }

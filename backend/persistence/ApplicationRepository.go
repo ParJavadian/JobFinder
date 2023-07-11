@@ -1,12 +1,16 @@
 package persistence
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Application struct {
-	gorm.Model
-	JobID  uint
-	UserID uint
-	Status string // pending, accepted, rejected
+	ID        uint `gorm:"primaryKey;autoIncrement"`
+	JobID     uint
+	UserID    uint
+	Status    string // pending, accepted, rejected
+	CreatedAt time.Time
 }
 
 type ApplicationRepository struct {

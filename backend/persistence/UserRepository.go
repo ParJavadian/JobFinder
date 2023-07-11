@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"gorm.io/gorm"
+	"time"
 )
 
 // User represents a user account
@@ -18,6 +19,7 @@ type User struct {
 	Language   string
 	Details    string
 	Password   string
+	CreatedAt  time.Time
 }
 
 // UserRepository handles user-related data operations
@@ -101,6 +103,9 @@ func (r *UserRepository) EditProfile(
 	if err != nil {
 		return err
 	}
+	if user == nil {
+		return errors.New("user not found")
+	}
 	// Update the user's profile in the database based on the non-empty fields
 	if firstname != "" {
 		user.Firstname = firstname
@@ -128,4 +133,10 @@ func (r *UserRepository) EditProfile(
 		return result.Error
 	}
 	return nil
+}
+
+func (r *UserRepository) ExistsByEmail(email string) bool {
+	var count int64
+	r.db.Model(&User{}).Where("email = ?", email).Count(&count)
+	return count > 0
 }
