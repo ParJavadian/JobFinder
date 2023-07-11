@@ -52,6 +52,7 @@ export default function Home() {
           CompEmployees: company.employees,
           CompDetails: company.details,
           ID: job.id,
+          CompEmail: company.email,
         };
         return newJob;
       })
