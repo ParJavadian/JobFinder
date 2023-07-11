@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
+import { useLocation } from "react-router-dom";
 
 export default function AddJobForm() {
-  const [formData, setFormData] = useState();
+  const { state } = useLocation();
+  console.log(state);
+  const [formData, setFormData] = useState(state.company);
   //   {
   //   //defualt values
   //   name: "Google",

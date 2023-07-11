@@ -36,6 +36,7 @@ export default function LoginCard() {
 
   const handleSignIn = async (e) => {
     try {
+      e.preventDefault();
       // Send login request to the backend
       const formData = new FormData();
 
@@ -65,10 +66,20 @@ export default function LoginCard() {
           details: "mydet",
           password: "mypass",
         };
+        const company = {
+          id: 3,
+          name: "Good Company",
+          field: "EE",
+          founded: "2002",
+          location: "Baku",
+          employees: "23",
+          details: "very good ha.",
+          email: "email.",
+        };
         localStorage.setItem("token", token);
         console.log("token:", token, "token end");
         if (role === "company") {
-          navigate("/company-dashboard", { state: { email, password } });
+          navigate("/company-dashboard", { state: { company } });
         } else if (role === "user") {
           navigate("/seeker-dashboard", { state: { user } });
         } else {

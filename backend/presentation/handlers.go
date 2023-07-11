@@ -458,19 +458,18 @@ func (h *Handler) GetJobs(context *gin.Context) {
 	context.JSON(200, jsonResponse)
 }
 
-
 func (h *Handler) GetCompanyInfo(context *gin.Context) {
 	companyId, _ := context.Get("id")
 	if companyId == "" {
 		context.JSON(400, gin.H{"error": "company id is required"})
 		return
 	}
-	uintCompanyId, err := getUintFromString(companyId)
-	if err != nil {
-		context.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	company, err := h.companyService.GetCompanyByID(uintCompanyId)
+	//uintCompanyId, err := getUintFromString(companyId)
+	//if err != nil {
+	//	context.JSON(400, gin.H{"error": err.Error()})
+	//	return
+	//}
+	company, err := h.companyService.GetCompanyByID(companyId.(uint))
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -491,4 +490,3 @@ func (h *Handler) GetCompanyInfo(context *gin.Context) {
 	}
 	context.JSON(200, jsonResponse)
 }
-

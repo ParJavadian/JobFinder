@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
+import { useLocation } from "react-router-dom";
 
 export default function Form() {
+  const { state } = useLocation();
+
+  // const [formData, setFormData] = useState({
+  //   //defualt values
+  //   name: "Google",
+  //   email: "google@gmail.com",
+  //   field: "Tech",
+  //   founded: "1940",
+  //   employees: "2bilion",
+  //   location: "Silicon Valley",
+  //   details: "We used to be a good company before kianoosh left us...",
+  // });
   const [formData, setFormData] = useState({
-    //defualt values
-    name: "Google",
-    email: "google@gmail.com",
-    field: "Tech",
-    founded: "1940",
-    employees: "2bilion",
-    location: "Silicon Valley",
-    details: "We used to be a good company before kianoosh left us...",
+    name: state.company.name,
+    field: state.company.field,
+    founded: state.company.founded,
+    location: state.company.location,
+    employees: state.company.employees,
+    details: state.company.details,
   });
 
   const [changesApplied, setChangesApplied] = useState(false);
@@ -24,9 +35,22 @@ export default function Form() {
     setChangesApplied(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("formData: ", formData);
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/edit-profile/company", {
+      headers: { Authorization: localStorage.token },
+      method: "POST",
+      body: formDataForm,
+    });
+    console.log(response);
     setChangesApplied(true);
     // disapear after 3 seconds
     setTimeout(() => {
@@ -46,7 +70,7 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        <Input
+        {/* <Input
           name="email"
           placeholder="Email Address"
           value={formData.email}
@@ -54,7 +78,7 @@ export default function Form() {
           variant="static"
           label="Email Address"
           size="lg"
-        />
+        /> */}
         <Input
           name="company"
           placeholder="Company field"

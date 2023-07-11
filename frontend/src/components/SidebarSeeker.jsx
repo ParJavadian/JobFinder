@@ -15,7 +15,6 @@ import { useLocation } from "react-router-dom";
 
 export default function SidebarSeeker() {
   const { state } = useLocation();
-  console.log("in sidebar:", state);
   const logout = () => {
     window.location.href = "/";
   };
@@ -23,14 +22,14 @@ export default function SidebarSeeker() {
   const user = state.user;
 
   // const { state } = useLocation();
-  // console.log("in sidebar:", state);
+  console.log("in sidebar:", state, user);
 
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Avatar src={AvatarImg} alt="avatar" size="xl" />
         <Typography variant="h5" color="blue-black" className="mt-3">
-          {user.firsname} {user.lastname}
+          {user.firstname} {user.lastname}
         </Typography>
         <Typography
           variant="paragraph"
@@ -41,7 +40,7 @@ export default function SidebarSeeker() {
         </Typography>
       </div>
       <List>
-        <Link to="/seeker-dashboard" state={user}>
+        <Link to="/seeker-dashboard" state={state}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard";
@@ -54,7 +53,7 @@ export default function SidebarSeeker() {
           </ListItem>
         </Link>
 
-        <Link to="/seeker-dashboard/seek" state={user}>
+        <Link to="/seeker-dashboard/seek" state={state}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard/seek";
@@ -66,7 +65,7 @@ export default function SidebarSeeker() {
             Seek opportunities
           </ListItem>
         </Link>
-        <Link to="/seeker-dashboard/history" state={user}>
+        <Link to="/seeker-dashboard/history" state={state}>
           <ListItem
           // onClick={() => {
           //   window.location.href = "/seeker-dashboard/history";
