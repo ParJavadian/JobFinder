@@ -1,20 +1,8 @@
 import React, { useState } from "react";
 import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
 
 export default function Form() {
-  const { state } = useLocation();
-
-  // const [formData, setFormData] = useState({
-  //   //defualt values
-  //   name: "Google",
-  //   email: "google@gmail.com",
-  //   field: "Tech",
-  //   founded: "1940",
-  //   employees: "2bilion",
-  //   location: "Silicon Valley",
-  //   details: "We used to be a good company before kianoosh left us...",
-  // });
+  const state = JSON.parse(localStorage.state);
   const [formData, setFormData] = useState({
     name: state.company.name,
     field: state.company.field,
@@ -22,6 +10,7 @@ export default function Form() {
     location: state.company.location,
     employees: state.company.employees,
     details: state.company.details,
+    email: state.company.email,
   });
 
   const [changesApplied, setChangesApplied] = useState(false);
@@ -51,11 +40,13 @@ export default function Form() {
       body: formDataForm,
     });
     console.log(response);
+    localStorage.setItem("state", JSON.stringify({ company: formData }));
     setChangesApplied(true);
     // disapear after 3 seconds
     setTimeout(() => {
       setChangesApplied(false);
     }, 3000);
+    window.location.reload(false);
   };
 
   return (
@@ -80,7 +71,7 @@ export default function Form() {
           size="lg"
         /> */}
         <Input
-          name="company"
+          name="field"
           placeholder="Company field"
           value={formData.field}
           onChange={handleChange}

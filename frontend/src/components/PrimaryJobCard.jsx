@@ -10,21 +10,48 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 
 export default function PrimaryJobCard({
-  job: { Title, Company, Field, Salary, Location, Logosrc, Time, Remote },
+  job: {
+    Title,
+    Company,
+    Field,
+    Salary,
+    Location,
+    Logosrc,
+    Time,
+    Remote,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
+  },
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/details", {
-      state: {
-        title: Title,
-        company: Company,
-        field:Field,
-        location:Location,
-        time:Time,
-        remote:Remote,
-        salary:Salary,
-
-      },
+      state:
+        // : {
+        //   job
+        {
+          Title,
+          Company,
+          Field,
+          Salary,
+          Location,
+          Logosrc,
+          Time,
+          Remote,
+          Detail,
+          CompField,
+          CompFounded,
+          CompEmployees,
+          CompDetails,
+          ID,
+          CompEmail,
+          // },
+        },
     });
   };
   return (
@@ -105,7 +132,7 @@ export default function PrimaryJobCard({
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
             <Button className="w-40">Apply</Button>
-            <Button variant="outlined" className="w-40"  onClick={handleDetails}>
+            <Button variant="outlined" className="w-40" onClick={handleDetails}>
               Details
             </Button>
           </div>

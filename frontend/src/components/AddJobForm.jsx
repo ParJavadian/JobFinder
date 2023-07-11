@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
 
 export default function AddJobForm() {
-  const { state } = useLocation();
-  console.log(state);
-  const [formData, setFormData] = useState(state.company);
+  // const state = JSON.parse(localStorage.state);
+  // const company = state.company;
+  const [formData, setFormData] = useState({
+    title: "",
+    field: "",
+    time: "",
+    remote: "",
+    salary: "",
+    details: "",
+  });
   //   {
   //   //defualt values
   //   name: "Google",
@@ -28,8 +34,25 @@ export default function AddJobForm() {
     setChangesApplied(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
     e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/job", {
+      method: "POST",
+      body: formDataForm,
+      headers: { Authorization: localStorage.token },
+    });
+    let result = await response.json();
+    if (response.ok) {
+      console.log(result.message);
+    } else {
+      console.log(result.error);
+    }
     console.log("formData: ", formData);
     setChangesApplied(true);
     // disapear after 3 seconds
@@ -48,6 +71,9 @@ export default function AddJobForm() {
           // onChange={handleChange}
           size="lg"
           required
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
         />
         <Input
           placeholder="Field"
@@ -55,6 +81,9 @@ export default function AddJobForm() {
           label="Field"
           size="lg"
           required
+          name="field"
+          value={formData.field}
+          onChange={handleChange}
         />
         <Input
           placeholder="Time"
@@ -62,6 +91,9 @@ export default function AddJobForm() {
           variant="static"
           label="Is the job part-time or full-time?"
           required
+          name="time"
+          value={formData.time}
+          onChange={handleChange}
         />
         <Input
           placeholder="In-person or remote"
@@ -69,8 +101,19 @@ export default function AddJobForm() {
           variant="static"
           label="Is the position remote or in-person?"
           required
+          name="remote"
+          value={formData.remote}
+          onChange={handleChange}
         />
-        <Input placeholder="Salary" size="lg" variant="static" label="Salary" />
+        <Input
+          placeholder="Salary"
+          size="lg"
+          variant="static"
+          label="Salary"
+          name="salary"
+          value={formData.salary}
+          onChange={handleChange}
+        />
         {/* <Input
           name="location"
           placeholder="Location"
@@ -85,6 +128,9 @@ export default function AddJobForm() {
           size="lg"
           variant="static"
           label="Add Any more details here"
+          name="details"
+          value={formData.details}
+          onChange={handleChange}
         />
         <Button
           font-size="xl"

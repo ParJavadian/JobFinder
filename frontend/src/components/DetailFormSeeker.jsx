@@ -1,15 +1,45 @@
 import React, { useState } from "react";
-import {
-  Input,
-  Button,
-  Textarea,
-  Alert,
-  Typography,
-} from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
+import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
+// import { useLocation } from "react-router-dom";
 
 export default function Form() {
-  const { state } = useLocation();
+  // const { state } = useLocation();
+  // console.log("localStorage.state", localStorage.state);
+  const state = JSON.parse(localStorage.state);
+  // async function refresh(params) {
+
+  // }
+  // useEffect(() => {
+  //   getInfo();
+  // }, []);
+  // const getJobs = async () => {
+  //   let response = await fetch("http://localhost:8080/get-user-info", {
+  //     headers: { Authorization: localStorage.token },
+  //   });
+  //   let result = await response.json();
+  //   localStorage.state
+  //   return { result2: result };
+  // };
+  // async function refresh() {
+  //   let response2 = await fetch("http://localhost:8080/get-user-info", {
+  //     headers: { Authorization: localStorage.token },
+  //   });
+  //   let result2 = {};
+  //   result2 = await response2.json();
+  //   console.log("result2", result2);
+  //   return { result2 };
+  // }
+  // let state;
+  // refresh().then((value) => {
+  //   console.log("value", value);
+  //   state = { user: value };
+  // });
+
+  // const state = { user: refresh().then() };
+  console.log("statttt", state);
+  // const { state, setState } = useState(state1);
+  // console.log("stat3e:", state);
+  // const { state } = useLocation();
   // console.log("in form:", state);
   /*const [formData, setFormData] = useState({
     //defualt values
@@ -30,6 +60,7 @@ export default function Form() {
     location: state.user.location,
     languages: state.user.languages,
     details: state.user.details,
+    email: state.user.email,
   });
 
   const [changesApplied, setChangesApplied] = useState(false);
@@ -59,6 +90,14 @@ export default function Form() {
       body: formDataForm,
     });
     console.log(response);
+    // let response2 = await fetch("http://localhost:8080/get-user-info", {
+    //   headers: { Authorization: localStorage.token },
+    // });
+    // let result = await response.json();
+    localStorage.setItem("state", JSON.stringify({ user: formData }));
+    // state = { user: result2 };
+    // setState({ user: result2 });
+    // state = { user: result2 };
     // let result = await response.json();
     // if (response.ok) {
     setChangesApplied(true);
@@ -66,6 +105,7 @@ export default function Form() {
     setTimeout(() => {
       setChangesApplied(false);
     }, 3000);
+    window.location.reload(false);
   };
 
   return (

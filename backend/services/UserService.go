@@ -133,7 +133,7 @@ func (s *UserService) ExistsByEmail(email string) bool {
 }
 
 func (s *UserService) GetUserByID(userID uint) (*persistence.User, error) {
-	user, err := s.userRepository.GetUserByID(companyID)
+	user, err := s.userRepository.GetUserByID(userID)
 	if err != nil {
 		return nil, err
 	}

@@ -1,9 +1,9 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import DetailFormCompany from "./DetailFormCompany";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 export default function DetailsCompany() {
-  const location = useLocation();
+  // const location = useLocation();
   //get values of navigation
   // const { email, password } = location.state || {};
   return (

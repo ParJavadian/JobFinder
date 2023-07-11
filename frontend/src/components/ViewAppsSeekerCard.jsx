@@ -24,17 +24,19 @@ export default function ViewApplicationsJobCard({
   },
   colorIn,
 }) {
+  const state = JSON.parse(localStorage.state);
+
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/details", {
-      state: {
+      info: {
         title: Title,
         company: Company,
-        field:Field,
-        location:Location,
-        time:Time,
-        remote:Remote,
-        salary:Salary,
+        field: Field,
+        location: Location,
+        time: Time,
+        remote: Remote,
+        salary: Salary,
       },
     });
   };

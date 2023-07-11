@@ -37,7 +37,6 @@ export default function LoginCard() {
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
-      // Send login request to the backend
       const formData = new FormData();
 
       for (var key in jsonData) {
@@ -51,37 +50,26 @@ export default function LoginCard() {
       });
       let result = await response.json();
       if (response.ok) {
-        console.log(response);
-        console.log(result);
         const { token, role } = result;
-        const user = {
-          id: 6,
-          firstname: "Name1",
-          lastname: "Name2",
-          email: "email@gmail.comaefv",
-          profession: "myprof",
-          degree: "medeg",
-          location: "myloc",
-          languages: "mylang",
-          details: "mydet",
-          password: "mypass",
-        };
-        const company = {
-          id: 3,
-          name: "Good Company",
-          field: "EE",
-          founded: "2002",
-          location: "Baku",
-          employees: "23",
-          details: "very good ha.",
-          email: "email.",
-        };
         localStorage.setItem("token", token);
         console.log("token:", token, "token end");
         if (role === "company") {
-          navigate("/company-dashboard", { state: { company } });
+          let response2 = await fetch(
+            "http://localhost:8080/get-company-info",
+            {
+              headers: { Authorization: localStorage.token },
+            }
+          );
+          let result2 = await response2.json();
+          localStorage.setItem("state", JSON.stringify({ company: result2 }));
+          navigate("/company-dashboard", { state: { company: result2 } });
         } else if (role === "user") {
-          navigate("/seeker-dashboard", { state: { user } });
+          let response2 = await fetch("http://localhost:8080/get-user-info", {
+            headers: { Authorization: localStorage.token },
+          });
+          let result2 = await response2.json();
+          localStorage.setItem("state", JSON.stringify({ user: result2 }));
+          navigate("/seeker-dashboard", { state: { user: result2 } });
         } else {
           setError("Invalid token");
         }
@@ -89,24 +77,6 @@ export default function LoginCard() {
         console.log(result.error);
         setError("Please enter valid Email and Password");
       }
-
-      // if (response.ok) {
-      //   // Login successful, retrieve the token from the response
-      //   //should say in token that user is company or jobseeker
-      //   const { token, role } = await response.json();
-      //   localStorage.setItem("token", token);
-      //   console.log("token:", token);
-      //   if (role === "company") {
-      //     navigate("/company-dashboard", { state: { email, password } });
-      //   } else if (role === "user") {
-      //     navigate("/seeker-dashboard", { state: { email, password } });
-      //   } else {
-      //     setError("Invalid token");
-      //   }
-      // } else {
-      //   // const errorResponse = await response.text();
-      //   setError("Please enter valid Email and Password");
-      // }
     } catch (error) {
       console.log("An error occurred", error);
     }
