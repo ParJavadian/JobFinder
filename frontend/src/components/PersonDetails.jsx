@@ -4,21 +4,22 @@ import AvatarImg from "../images/avatar-1.jpg";
 import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import PersonDetailCard from "./PersonDetailCard";
+import { useLocation } from "react-router-dom";
 
 export default function DetailsCompany() {
   const navigate = useNavigate();
-
+  const location1 = useLocation();
+  const {  name, lastname ,avatarSrc,profession,location,degree,email,languages,detail} = location1.state || {};
   const person = {
-    Name: "Parmida",
-    Lastname: "Javadian",
-    Email: "parjavadian@gmail.com",
-    Profession: "Front-end Developer",
-    Degree: "Diploma",
-    AvatarSrc: AvatarImg,
-    Location: "Tehran",
-    Languages: "Persian",
-    Detail:
-      "Hello I am parmida javadian and i am trying to write this long text here to check \r\n if it is displayed nicely.",
+    Name: name,
+    Lastname: lastname,
+    Email: email,
+    Profession:profession,
+    Degree: degree,
+    AvatarSrc: avatarSrc,
+    Location: location,
+    Languages: languages,
+    Detail:detail
   };
   return (
     <div className="pt-8 pb-8 pl-16 pr-16 ">
