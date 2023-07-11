@@ -60,7 +60,11 @@ func (s *CompanyService) RegisterCompany(company *persistence.Company) error {
 
 func (s *CompanyService) Login(email, password string) (string, error) {
 	// Get the company by email
+	//TODO please check this I might have made a joob. Parmida
 	company, err := s.companyRepository.GetCompanyByEmail(email)
+	if company == nil {
+		return "", errors.New("account is not registered")
+	}
 	if err != nil {
 		return "", err
 	}

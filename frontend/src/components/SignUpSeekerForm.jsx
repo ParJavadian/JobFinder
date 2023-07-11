@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  Card,
-  Input,
-  Button,
-  Typography,
-  Textarea,
-} from "@material-tailwind/react";
+import React, { useState } from "react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 export default function SignUpSeekerForm() {
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [firstname, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
@@ -19,11 +12,6 @@ export default function SignUpSeekerForm() {
     firstname: firstname,
     lastname: lastname,
   };
-
-  // formData.append("email", "abc123");
-  // formData.append("password", "fe");
-  // formData.append("firstname", "fe");
-  // formData.append("lastname", "fe");
   async function handleClick(e) {
     const formData = new FormData();
 
@@ -37,7 +25,7 @@ export default function SignUpSeekerForm() {
       body: formData,
     });
     let result = await response.json();
-    if (result.error === undefined) {
+    if (response.ok) {
       console.log(result.message);
     } else {
       console.log(result.error);
