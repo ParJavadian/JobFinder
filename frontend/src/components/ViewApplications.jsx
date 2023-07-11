@@ -4,6 +4,7 @@ import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // export default function ViewApplications({
 //   job: {
@@ -20,9 +21,11 @@ import { Link, useNavigate } from "react-router-dom";
 // }) {
 export default function ViewApplications() {
   const navigate = useNavigate();
-
   const [searchValue, setSearchValue] = useState("");
   const Title = "Manager";
+
+  const location = useLocation();
+  const {comapny } = location.state || {};
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {

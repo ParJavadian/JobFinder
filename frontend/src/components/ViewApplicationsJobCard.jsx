@@ -22,7 +22,8 @@ export default function ViewApplicationsJobCard({
     Status,
   },
   colorIn,
-}) {
+},
+company) {
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/details", {
@@ -38,7 +39,7 @@ export default function ViewApplicationsJobCard({
     });
   };
   const viewApplicants = () => {
-    navigate("/company-dashboard/applicants");
+    navigate("/company-dashboard/applicants", { state: { company } });
   };
   return (
     <>

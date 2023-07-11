@@ -9,7 +9,7 @@ import {
 import ViewApplicationsJobCard from "./ViewApplicationsJobCard";
 import * as Unicons from "@iconscout/react-unicons";
 
-export default function CompanyHistory() {
+export default function CompanyHistory({ company }) {
   // Define a list of cards
   const jobOpen = {
     // Default values
@@ -106,6 +106,7 @@ export default function CompanyHistory() {
                 <ViewApplicationsJobCard
                   job={card}
                   colorIn={"rgb(226 232 240)"}
+                  company={ company }
                   // style={{ display: "inline-block" }}
                   // className="flex-none"
                 />

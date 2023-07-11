@@ -9,7 +9,7 @@ import {
 import ViewAppsSeekerCard from "./ViewAppsSeekerCard";
 import * as Unicons from "@iconscout/react-unicons";
 
-export default function SeekerHistory() {
+export default function SeekerHistory( {user} ) {
   // Define a list of cards
   const jobOpen = {
     // Default values

@@ -7,8 +7,11 @@ import CompanyHistory from "../components/CompanyHistory";
 import AddJob from "../components/AddJob";
 import ViewApplications from "../components/ViewApplications";
 import PersonDetails from "../components/PersonDetails";
+import { useLocation } from "react-router-dom";
 
 export default function CompanyDashbord() {
+  const location = useLocation();
+  const { company } = location.state || {};
   return (
     <>
       <SidebarCompany />
@@ -16,7 +19,7 @@ export default function CompanyDashbord() {
         <div className="pl-16 w-full">
           <Routes>
             <Route path="/" element={<DetailsCompany />}></Route>
-            <Route path="/history" element={<CompanyHistory />}></Route>
+            <Route path="/history" element={<CompanyHistory company={company}  />}></Route>
             <Route path="/new-position" element={<AddJob />}></Route>
             <Route path="/applicants" element={<ViewApplications />}></Route>
             <Route path="/person-detail" element={<PersonDetails />}></Route>
