@@ -7,7 +7,7 @@ import (
 
 // User represents a user account
 type User struct {
-	gorm.Model
+	ID         uint   `gorm:"primaryKey;autoIncrement"`
 	Email      string `gorm:"uniqueIndex"`
 	Firstname  string
 	Lastname   string
