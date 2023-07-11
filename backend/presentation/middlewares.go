@@ -11,7 +11,8 @@ func AuthMiddleware(c *gin.Context) {
 		"/register/user",
 		"/login",
 		"/register/company",
-		"/getjobs",
+		"/jobs",
+		"/company",
 
 		// todo other paths should be added here if needed
 	}

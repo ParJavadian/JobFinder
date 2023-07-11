@@ -39,6 +39,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
 	router.POST("/edit-profile/company", h.EditCompanyProfile)
+	router.GET("/company", h.GetCompanyByID)
 
 	// application apis
 	router.POST("/application", h.CreateApplication)
@@ -50,7 +51,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 
 	// job service apis
 	router.POST("/job", h.CreateJob)
-	router.POST("/getjobs", h.GetJobs)
+	router.GET("/jobs", h.GetJobs)
 	// todo we should complete them
 }
 
@@ -204,6 +205,39 @@ func (h *Handler) LoginCompany(context *gin.Context) error {
 	return nil
 }
 
+func (h *Handler) GetCompanyByID(context *gin.Context) {
+	companyId, exists := context.GetQuery("company-id")
+	if !exists || companyId == "" {
+		context.JSON(400, gin.H{"error": "company id is required"})
+		return
+	}
+	uintCompanyId, err := getUintFromString(companyId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	company, err := h.companyService.GetCompanyByID(uintCompanyId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if company == nil {
+		context.JSON(400, gin.H{"error": "company not found"})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":        company.ID,
+		"name":      company.Name,
+		"email":     company.Email,
+		"location":  company.Location,
+		"field":     company.Field,
+		"founded":   company.Founded,
+		"employees": company.Employees,
+		"details":   company.Details,
+	}
+	context.JSON(200, jsonResponse)
+}
+
 func (h *Handler) CreateApplication(context *gin.Context) {
 	request := context.Request
 	role, _ := context.Get("role")
@@ -244,9 +278,11 @@ func (h *Handler) GetUserApplications(context *gin.Context) {
 }
 
 func (h *Handler) GetJobApplications(context *gin.Context) {
-	request := context.Request
-	// read jobId from request url param
-	jobId := request.URL.Query().Get("job-id")
+	jobId, exists := context.GetQuery("job-id")
+	if !exists || jobId == "" {
+		context.JSON(400, gin.H{"error": "job-id is required"})
+		return
+	}
 	uintJobId, err := getUintFromString(jobId)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
@@ -310,13 +346,17 @@ func (h *Handler) DeleteApplication(context *gin.Context) {
 }
 
 func (h *Handler) GetApplicationByID(context *gin.Context) {
-	request := context.Request
-	applicationId, err := getUintFromString(request.URL.Query().Get("application-id"))
+	applicationId, exists := context.GetQuery("application-id")
+	if !exists || applicationId == "" {
+		context.JSON(400, gin.H{"error": "application-id is required"})
+		return
+	}
+	applicationIdUint, err := getUintFromString(applicationId)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	application, err := h.applicationService.GetApplicationByID(applicationId)
+	application, err := h.applicationService.GetApplicationByID(applicationIdUint)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return

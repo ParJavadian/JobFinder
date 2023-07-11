@@ -64,6 +64,9 @@ func (s *ApplicationService) UpdateApplicationStatus(applicationID uint, status 
 	if application == nil {
 		return errors.New("application not found")
 	}
+	if status != "accepted" && status != "rejected" && status != "pending" {
+		return errors.New("invalid status - must be accepted, rejected or pending")
+	}
 	application.Status = status
 	err = s.applicationRepository.UpdateApplication(application)
 	if err != nil {
