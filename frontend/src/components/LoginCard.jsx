@@ -7,7 +7,9 @@ import {
   Typography,
   Input,
   Button,
+  Alert,
 } from "@material-tailwind/react";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +29,7 @@ export default function LoginCard() {
       // Set a timeout to close the alert after 3 seconds
       timer = setTimeout(() => {
         closeAlert();
-      }, 5000);
+      }, 3000);
     }
     return () => {
       clearTimeout(timer);
@@ -87,56 +89,65 @@ export default function LoginCard() {
   };
 
   return (
-    <Card className="w-96">
-      <CardHeader
-        variant="gradient"
-        color="blue"
-        className="mb-4 grid h-28 place-items-center"
-      >
-        <Typography variant="h3" color="white">
-          Sign In
-        </Typography>
-      </CardHeader>
-      <CardBody className="flex flex-col gap-4">
-        <Input
-          label="Email"
-          size="lg"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          label="Password"
-          size="lg"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth onClick={handleSignIn}>
-          Sign In
-        </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
-          Don't have an account?
-          <Typography
-            as="a"
-            href="/SignUp"
-            variant="small"
-            color="blue"
-            className="ml-1 font-bold"
-          >
-            Sign up
+    <>
+      <Card className="w-96">
+        <CardHeader
+          variant="gradient"
+          color="blue"
+          className="mb-4 grid h-28 place-items-center"
+        >
+          <Typography variant="h3" color="white">
+            Sign In
           </Typography>
-        </Typography>
-      </CardFooter>
+        </CardHeader>
+        <CardBody className="flex flex-col gap-4">
+          <Input
+            label="Email"
+            size="lg"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            label="Password"
+            size="lg"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Button variant="gradient" fullWidth onClick={handleSignIn}>
+            Sign In
+          </Button>
+          <Typography variant="small" className="mt-6 flex justify-center">
+            Don't have an account?
+            <Typography
+              as="a"
+              href="/SignUp"
+              variant="small"
+              color="blue"
+              className="ml-1 font-bold"
+            >
+              Sign up
+            </Typography>
+          </Typography>
+        </CardFooter>
+      </Card>
       {error && (
-        <div className="fixed top-16 right-4 bg-red-300 text-white px-4 py-2 rounded">
-          <span>{error}</span>
-          <button className="ml-2 text-white font-bold" onClick={closeAlert}>
-            X
-          </button>
-        </div>
+        <Alert
+          color="red"
+          className="fixed right-16 w-auto h-auto top-24"
+          icon={<XCircleIcon className="mt-px h-6 w-6" />}
+          onClose={closeAlert}
+        >
+          <Typography variant="h5" color="white">
+            Error
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            {error}
+          </Typography>
+        </Alert>
       )}
-    </Card>
+    </>
   );
 }
