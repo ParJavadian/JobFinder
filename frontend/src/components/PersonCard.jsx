@@ -24,7 +24,6 @@ export default function PersonCard({
   },
   colorIn,
 }) {
-  //TODO change based on status
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/company-dashboard/person-detail", {

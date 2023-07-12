@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 
 export default function JobDetails() {
   const navigate = useNavigate();
-  // TODO move next to sidebar
 
   // const myCompany = {
   //   //defualt values
