@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 
 export default function SignUpManagerForm() {
+  //TODO account already exists
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");

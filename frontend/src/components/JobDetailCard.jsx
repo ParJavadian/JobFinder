@@ -11,16 +11,22 @@ import {
 import * as Unicons from "@iconscout/react-unicons";
 
 export default function JobDetailCard({
-  job: { Title, Company, Field, Salary, Location, Time, Remote, Detail },
-  company: {
-    name,
-    email,
-    field,
-    founded,
-    employees,
-    location,
-    details,
+  job: {
+    Title,
+    Company,
+    Field,
+    Salary,
+    Location,
     Logosrc,
+    Time,
+    Remote,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
   },
 }) {
   return (
@@ -103,10 +109,10 @@ export default function JobDetailCard({
             <div className="flex w-full flex-col gap-0.5">
               <div className="flex items-center justify-between">
                 <Typography variant="h5" color="blue-gray">
-                  {name}
+                  {Company}
                 </Typography>
               </div>
-              <Typography color="blue-gray">{email}</Typography>
+              <Typography color="blue-gray">{CompEmail}</Typography>
             </div>
           </CardHeader>
           <CardBody className="mb-6 p-0">
@@ -115,31 +121,31 @@ export default function JobDetailCard({
                 <ListItemPrefix>
                   <Unicons.UilBox className="h-5 w-5" />
                 </ListItemPrefix>
-                {field}
+                {CompField}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilCalender className="h-5 w-5" />
                 </ListItemPrefix>
-                {founded}
+                {CompFounded}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilUsersAlt className="h-5 w-5" />
                 </ListItemPrefix>
-                {employees}
+                {CompEmployees}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilLocationPoint className="h-5 w-5" />
                 </ListItemPrefix>
-                {location}
+                {Location}
               </ListItem>
               <ListItem className="pointer-events-none">
                 <ListItemPrefix>
                   <Unicons.UilNotes className="h-5 w-5" />
                 </ListItemPrefix>
-                <div>{details}</div>
+                <div>{CompDetails}</div>
               </ListItem>
             </List>
           </CardBody>

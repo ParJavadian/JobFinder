@@ -7,7 +7,9 @@ import {
   Typography,
   Input,
   Button,
+  Alert,
 } from "@material-tailwind/react";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +29,7 @@ export default function LoginCard() {
       // Set a timeout to close the alert after 3 seconds
       timer = setTimeout(() => {
         closeAlert();
-      }, 5000);
+      }, 3000);
     }
     return () => {
       clearTimeout(timer);
@@ -37,7 +39,6 @@ export default function LoginCard() {
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
-      // Send login request to the backend
       const formData = new FormData();
 
       for (var key in jsonData) {
@@ -51,37 +52,27 @@ export default function LoginCard() {
       });
       let result = await response.json();
       if (response.ok) {
-        console.log(response);
-        console.log(result);
         const { token, role } = result;
-        const user = {
-          id: 6,
-          firstname: "Name1",
-          lastname: "Name2",
-          email: "email@gmail.comaefv",
-          profession: "myprof",
-          degree: "medeg",
-          location: "myloc",
-          languages: "mylang",
-          details: "mydet",
-          password: "mypass",
-        };
-        const company = {
-          id: 3,
-          name: "Good Company",
-          field: "EE",
-          founded: "2002",
-          location: "Baku",
-          employees: "23",
-          details: "very good ha.",
-          email: "email.",
-        };
         localStorage.setItem("token", token);
         console.log("token:", token, "token end");
         if (role === "company") {
-          navigate("/company-dashboard", { state: { company } });
+          let response2 = await fetch(
+            "http://localhost:8080/get-company-info",
+            {
+              headers: { Authorization: localStorage.token },
+            }
+          );
+          let result2 = await response2.json();
+          // console.log("result2:", result2);
+          localStorage.setItem("state", JSON.stringify({ company: result2 }));
+          navigate("/company-dashboard", { state: { company: result2 } });
         } else if (role === "user") {
-          navigate("/seeker-dashboard", { state: { user } });
+          let response2 = await fetch("http://localhost:8080/get-user-info", {
+            headers: { Authorization: localStorage.token },
+          });
+          let result2 = await response2.json();
+          localStorage.setItem("state", JSON.stringify({ user: result2 }));
+          navigate("/seeker-dashboard", { state: { user: result2 } });
         } else {
           setError("Invalid token");
         }
@@ -89,24 +80,6 @@ export default function LoginCard() {
         console.log(result.error);
         setError("Please enter valid Email and Password");
       }
-
-      // if (response.ok) {
-      //   // Login successful, retrieve the token from the response
-      //   //should say in token that user is company or jobseeker
-      //   const { token, role } = await response.json();
-      //   localStorage.setItem("token", token);
-      //   console.log("token:", token);
-      //   if (role === "company") {
-      //     navigate("/company-dashboard", { state: { email, password } });
-      //   } else if (role === "user") {
-      //     navigate("/seeker-dashboard", { state: { email, password } });
-      //   } else {
-      //     setError("Invalid token");
-      //   }
-      // } else {
-      //   // const errorResponse = await response.text();
-      //   setError("Please enter valid Email and Password");
-      // }
     } catch (error) {
       console.log("An error occurred", error);
     }
@@ -117,56 +90,65 @@ export default function LoginCard() {
   };
 
   return (
-    <Card className="w-96">
-      <CardHeader
-        variant="gradient"
-        color="blue"
-        className="mb-4 grid h-28 place-items-center"
-      >
-        <Typography variant="h3" color="white">
-          Sign In
-        </Typography>
-      </CardHeader>
-      <CardBody className="flex flex-col gap-4">
-        <Input
-          label="Email"
-          size="lg"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          label="Password"
-          size="lg"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth onClick={handleSignIn}>
-          Sign In
-        </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
-          Don't have an account?
-          <Typography
-            as="a"
-            href="/SignUp"
-            variant="small"
-            color="blue"
-            className="ml-1 font-bold"
-          >
-            Sign up
+    <>
+      <Card className="w-96">
+        <CardHeader
+          variant="gradient"
+          color="blue"
+          className="mb-4 grid h-28 place-items-center"
+        >
+          <Typography variant="h3" color="white">
+            Sign In
           </Typography>
-        </Typography>
-      </CardFooter>
+        </CardHeader>
+        <CardBody className="flex flex-col gap-4">
+          <Input
+            label="Email"
+            size="lg"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            label="Password"
+            size="lg"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Button variant="gradient" fullWidth onClick={handleSignIn}>
+            Sign In
+          </Button>
+          <Typography variant="small" className="mt-6 flex justify-center">
+            Don't have an account?
+            <Typography
+              as="a"
+              href="/SignUp"
+              variant="small"
+              color="blue"
+              className="ml-1 font-bold"
+            >
+              Sign up
+            </Typography>
+          </Typography>
+        </CardFooter>
+      </Card>
       {error && (
-        <div className="fixed top-16 right-4 bg-red-300 text-white px-4 py-2 rounded">
-          <span>{error}</span>
-          <button className="ml-2 text-white font-bold" onClick={closeAlert}>
-            X
-          </button>
-        </div>
+        <Alert
+          color="red"
+          className="fixed right-16 w-auto h-auto top-24"
+          icon={<XCircleIcon className="mt-px h-6 w-6" />}
+          onClose={closeAlert}
+        >
+          <Typography variant="h5" color="white">
+            Error
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            {error}
+          </Typography>
+        </Alert>
       )}
-    </Card>
+    </>
   );
 }

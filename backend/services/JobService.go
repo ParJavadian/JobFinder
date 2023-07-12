@@ -38,3 +38,11 @@ func (s *JobService) GetJobs() ([]*persistence.Job, error) {
 	}
 	return jobs, nil
 }
+
+func (s *JobService) GetJobByID(jobID uint) (*persistence.Job, error) {
+	job, err := s.jobRepository.GetJobByID(jobID)
+	if err != nil {
+		return nil, err
+	}
+	return job, nil
+}

@@ -12,7 +12,7 @@ type Job struct {
 	Field        string
 	Time         string // part-time, full-time, internship
 	RemoteStatus string // remote, in-office, both
-	Salary       int64
+	Salary       string
 	Details      string
 	CreatedAt    time.Time
 }

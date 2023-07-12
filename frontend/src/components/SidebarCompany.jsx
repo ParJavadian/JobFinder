@@ -8,17 +8,17 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
-import { useLocation } from "react-router-dom";
 const AvatarImg =
   "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
 
 export default function SidebarCompany() {
   console.log(localStorage.token);
-  const { state } = useLocation();
+  const state = JSON.parse(localStorage.state);
   const company = state.company;
   console.log("in sidebar", state);
 
   const logout = () => {
+    localStorage.clear();
     window.location.href = "/";
   };
   return (

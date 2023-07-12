@@ -35,18 +35,19 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/register/user", h.RegisterUser)
 	router.POST("/change-password", h.ChangePassword)
 	router.POST("/edit-profile/user", h.EditUserProfile)
+	router.GET("/get-user-info", h.GetUserInfo)
+	router.GET("/user", h.GetUserInfoById)
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
 	router.POST("/edit-profile/company", h.EditCompanyProfile)
 	router.GET("/company", h.GetCompanyByID)
+	router.GET("/get-company-info", h.GetCompanyInfo)
 
 	// application apis
 	router.POST("/application", h.CreateApplication)
 	router.DELETE("/application", h.DeleteApplication)
 	router.GET("/application", h.GetApplicationByID)
-	router.GET("/get-company-info", h.GetCompanyInfo)
-	router.GET("/get-user-info", h.GetUserInfo)
 	router.GET("/applications/user", h.GetUserApplications)
 	router.GET("/applications/job", h.GetJobApplications)
 	router.POST("/application/status", h.UpdateApplicationStatus)
@@ -54,6 +55,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	// job service apis
 	router.POST("/job", h.CreateJob)
 	router.GET("/jobs", h.GetJobs)
+	router.GET("/job", h.GetJobByID)
 	// todo we should complete them
 }
 
@@ -376,8 +378,8 @@ func (h *Handler) GetApplicationByID(context *gin.Context) {
 	}
 	jsonResponse := gin.H{
 		"id":         application.ID,
-		"job-id":     application.JobID,
-		"user-id":    application.UserID,
+		"job_id":     application.JobID,
+		"user_id":    application.UserID,
 		"status":     application.Status,
 		"created-at": application.CreatedAt,
 	}
@@ -392,14 +394,14 @@ func (h *Handler) CreateJob(context *gin.Context) {
 		return
 	}
 	companyId, _ := context.Get("id")
-	salary, _ := strconv.Atoi(request.FormValue("salary"))
+	//salary, _ := strconv.Atoi(request.FormValue("salary"))
 	job := &persistence.Job{
 		CompanyID:    companyId.(uint),
 		Title:        request.FormValue("title"),
 		Field:        request.FormValue("field"),
 		Time:         request.FormValue("time"),
-		RemoteStatus: request.FormValue("remote-status"),
-		Salary:       int64(salary),
+		RemoteStatus: request.FormValue("remote"),
+		Salary:       request.FormValue("salary"),
 		Details:      request.FormValue("details"),
 	}
 	err := h.jobService.CreateJob(job)
@@ -415,8 +417,8 @@ func getJsonResponseFromApplications(applications []*persistence.Application) []
 	for i, application := range applications {
 		jsonResponse[i] = gin.H{
 			"id":         application.ID,
-			"job-id":     application.JobID,
-			"user-id":    application.UserID,
+			"job_id":     application.JobID,
+			"user_id":    application.UserID,
 			"status":     application.Status,
 			"created-at": application.CreatedAt,
 		}
@@ -436,6 +438,7 @@ func getJsonResponseFromJobs(jobs []*persistence.Job) []gin.H {
 			"salary":       job.Salary,
 			"details":      job.Details,
 			"created-at":   job.CreatedAt,
+			"company_id":   job.CompanyID,
 		}
 	}
 	return jsonResponse
@@ -487,14 +490,13 @@ func (h *Handler) GetCompanyInfo(context *gin.Context) {
 	context.JSON(200, jsonResponse)
 }
 
-
 func (h *Handler) GetUserInfo(context *gin.Context) {
 	userId, _ := context.Get("id")
 	if userId == "" {
 		context.JSON(400, gin.H{"error": "user id is required"})
 		return
 	}
-	user, err := h.userService.GetUserByID(companyId.(uint))
+	user, err := h.userService.GetUserByID(userId.(uint))
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -504,15 +506,83 @@ func (h *Handler) GetUserInfo(context *gin.Context) {
 		return
 	}
 	jsonResponse := gin.H{
-		"id":        user.ID,
+		"id":         user.ID,
 		"email":      user.Email,
-		"firstname":     user.Firstname,
-		"lastname":  user.Lastname,
-		"profession":     user.Profession,
-		"degree":   user.Degree,
-		"location": user.Location,
-		"languages":   user.Language,
-		"details":   user.Details,
+		"firstname":  user.Firstname,
+		"lastname":   user.Lastname,
+		"profession": user.Profession,
+		"degree":     user.Degree,
+		"location":   user.Location,
+		"languages":  user.Language,
+		"details":    user.Details,
+	}
+	context.JSON(200, jsonResponse)
+}
+
+func (h *Handler) GetUserInfoById(context *gin.Context) {
+	userId, exists := context.GetQuery("user-id")
+	if !exists || userId == "" {
+		context.JSON(400, gin.H{"error": "user id is required"})
+		return
+	}
+	uintUserId, err := getUintFromString(userId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	user, err := h.userService.GetUserByID(uintUserId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if user == nil {
+		context.JSON(400, gin.H{"error": "user not found"})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":         user.ID,
+		"email":      user.Email,
+		"firstname":  user.Firstname,
+		"lastname":   user.Lastname,
+		"profession": user.Profession,
+		"degree":     user.Degree,
+		"location":   user.Location,
+		"languages":  user.Language,
+		"details":    user.Details,
+	}
+	context.JSON(200, jsonResponse)
+}
+
+func (h *Handler) GetJobByID(context *gin.Context) {
+	jobId, exists := context.GetQuery("job-id")
+	if !exists || jobId == "" {
+		context.JSON(400, gin.H{"error": "job id is required"})
+		return
+	}
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	job, err := h.jobService.GetJobByID(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if job == nil {
+		context.JSON(400, gin.H{"error": "job not found"})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":           job.ID,
+		"title":        job.Title,
+		"field":        job.Field,
+		"time":         job.Time,
+		"remoteStatus": job.RemoteStatus,
+		"salary":       job.Salary,
+		"details":      job.Details,
+		"created-at":   job.CreatedAt,
+		"company_id":   job.CompanyID,
 	}
 	context.JSON(200, jsonResponse)
 }

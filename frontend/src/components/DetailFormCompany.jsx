@@ -1,20 +1,8 @@
 import React, { useState } from "react";
-import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
+import { Input, Button, Textarea } from "@material-tailwind/react";
 
 export default function Form() {
-  const { state } = useLocation();
-
-  // const [formData, setFormData] = useState({
-  //   //defualt values
-  //   name: "Google",
-  //   email: "google@gmail.com",
-  //   field: "Tech",
-  //   founded: "1940",
-  //   employees: "2bilion",
-  //   location: "Silicon Valley",
-  //   details: "We used to be a good company before kianoosh left us...",
-  // });
+  const state = JSON.parse(localStorage.state);
   const [formData, setFormData] = useState({
     name: state.company.name,
     field: state.company.field,
@@ -22,9 +10,11 @@ export default function Form() {
     location: state.company.location,
     employees: state.company.employees,
     details: state.company.details,
+    email: state.company.email,
+    id: state.company.id,
   });
 
-  const [changesApplied, setChangesApplied] = useState(false);
+  // const [changesApplied, setChangesApplied] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +22,7 @@ export default function Form() {
       ...prevFormData,
       [name]: value,
     }));
-    setChangesApplied(false);
+    // setChangesApplied(false);
   };
 
   const handleSubmit = async (e) => {
@@ -51,11 +41,13 @@ export default function Form() {
       body: formDataForm,
     });
     console.log(response);
-    setChangesApplied(true);
-    // Disappear after 3 seconds
-    setTimeout(() => {
-      setChangesApplied(false);
-    }, 3000);
+    localStorage.setItem("state", JSON.stringify({ company: formData }));
+    // setChangesApplied(true);
+    // // disapear after 3 seconds
+    // setTimeout(() => {
+    //   setChangesApplied(false);
+    // }, 3000);
+    window.location.reload(false);
   };
 
   return (
@@ -70,17 +62,8 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        {/* <Input
-          name="email"
-          placeholder="Email Address"
-          value={formData.email}
-          onChange={handleChange}
-          variant="static"
-          label="Email Address"
-          size="lg"
-        /> */}
         <Input
-          name="company"
+          name="field"
           placeholder="Company field"
           value={formData.field}
           onChange={handleChange}
@@ -124,6 +107,7 @@ export default function Form() {
           variant="static"
           label="Details"
         />
+<<<<<<< HEAD
         <Button
           fontSize="xl"
           variant="gradient"
@@ -142,6 +126,12 @@ export default function Form() {
           Changes applied successfully!
         </Alert>
       )}
+=======
+        <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
+          Save changes
+        </Button>
+      </form>
+>>>>>>> 2380489de3e1bd025f1ae0ba03b285d2fbb15513
     </>
   );
 }

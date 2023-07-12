@@ -6,10 +6,11 @@ import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsSeeker from "../components/DetailsSeeker";
 import SeekOpInDash from "../components/SeekOpInDashboard";
 import SeekerHistory from "../components/SeekerHistory";
+import { useLocation } from "react-router-dom";
 
 export default function SeekerDashboard() {
-  // const { state } = useLocation();
-  // console.log("in dashboard:", state);
+  const location = useLocation();
+  const { user } = location.state || {};
   return (
     <>
       <SidebarSeeker />
@@ -18,7 +19,7 @@ export default function SeekerDashboard() {
           <Routes>
             <Route path="/" element={<DetailsSeeker />}></Route>
             <Route path="/seek" element={<SeekOpInDash />}></Route>
-            <Route path="/history" element={<SeekerHistory />}></Route>
+            <Route path="/history" element={<SeekerHistory user={user} />}></Route>
             <Route
               path="/change-password"
               element={<SignUpSeekerForm />}

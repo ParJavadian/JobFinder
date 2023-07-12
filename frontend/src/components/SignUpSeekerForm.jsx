@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 export default function SignUpSeekerForm() {
+  //TODO account already exists
+
   const [email, setEmail] = useState("");
   const [firstname, setName] = useState("");
   const [lastname, setLastname] = useState("");

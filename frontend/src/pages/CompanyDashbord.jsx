@@ -7,8 +7,11 @@ import CompanyHistory from "../components/CompanyHistory";
 import AddJob from "../components/AddJob";
 import ViewApplications from "../components/ViewApplications";
 import PersonDetails from "../components/PersonDetails";
+import { useLocation } from "react-router-dom";
 
 export default function CompanyDashbord() {
+  // const location = useLocation();
+  // const { company } = location.state || {};
   return (
     <>
       <SidebarCompany />

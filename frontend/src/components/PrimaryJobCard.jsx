@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -5,27 +6,85 @@ import {
   CardFooter,
   Typography,
   Button,
+  Alert,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function PrimaryJobCard({
-  job: { Title, Company, Field, Salary, Location, Logosrc, Time, Remote },
+  job: {
+    Title,
+    Company,
+    Field,
+    Salary,
+    Location,
+    Logosrc,
+    Time,
+    Remote,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
+  },
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/details", {
       state: {
-        title: Title,
-        company: Company,
-        field:Field,
-        location:Location,
-        time:Time,
-        remote:Remote,
-        salary:Salary,
-
+        Title,
+        Company,
+        Field,
+        Salary,
+        Location,
+        Logosrc,
+        Time,
+        Remote,
+        Detail,
+        CompField,
+        CompFounded,
+        CompEmployees,
+        CompDetails,
+        ID,
+        CompEmail,
       },
     });
+  };
+  const [changesApplied, setChangesApplied] = useState(false);
+
+  const handleApply = async (e) => {
+    if (localStorage.token === undefined) {
+      navigate("/login");
+      return;
+    }
+    const formData = { "job-id": ID };
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/application", {
+      method: "POST",
+      body: formDataForm,
+      headers: { Authorization: localStorage.token },
+    });
+    let result = await response.json();
+    if (response.ok) {
+      console.log(result.message);
+    } else {
+      console.log(result.error);
+    }
+    console.log("formData: ", formData);
+    setChangesApplied(true);
+    // disapear after 3 seconds
+    setTimeout(() => {
+      setChangesApplied(false);
+    }, 3000);
   };
   return (
     <>
@@ -104,8 +163,10 @@ export default function PrimaryJobCard({
         </CardBody>
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
-            <Button className="w-40">Apply</Button>
-            <Button variant="outlined" className="w-40"  onClick={handleDetails}>
+            <Button className="w-40" onClick={handleApply}>
+              Apply
+            </Button>
+            <Button variant="outlined" className="w-40" onClick={handleDetails}>
               Details
             </Button>
           </div>
@@ -123,6 +184,23 @@ export default function PrimaryJobCard({
           </div>
         </CardFooter>
       </Card>
+      {changesApplied && (
+        <Alert
+          color="green"
+          className="fixed right-16 w-auto h-auto top-12"
+          icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
+          onClose={() => {
+            setChangesApplied(false);
+          }}
+        >
+          <Typography variant="h5" color="white">
+            Success
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            Applied Successfully
+          </Typography>
+        </Alert>
+      )}
     </>
   );
 }

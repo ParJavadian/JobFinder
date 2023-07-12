@@ -8,30 +8,51 @@ import { useLocation } from "react-router-dom";
 export default function JobDetails() {
   const navigate = useNavigate();
 
-
-  const myCompany = {
-    //defualt values
-    name: "Google",
-    email: "google@gmail.com",
-    field: "Tech",
-    founded: "1940",
-    employees: "2bilion",
-    location: "Silicon Valley",
-    details: "We used to be a good company before kianoosh left us...",
-    Logosrc:
-      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-  };
+  // const myCompany = {
+  //   //defualt values
+  //   name: "Google",
+  //   email: "google@gmail.com",
+  //   field: "Tech",
+  //   founded: "1940",
+  //   employees: "2bilion",
+  //   location: "Silicon Valley",
+  //   details: "We used to be a good company before kianoosh left us...",
+  //   Logosrc:
+  //     "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+  // };
+  // const { state } = useLocation();
+  // const state = location1.state;
+  // const { title, company, field, salary, location, time, remote } =
+  //   location1.info || {};
   const location1 = useLocation();
-  const { title, company, field,salary,location,time,remote} = location1.state || {};
-    const myJob = {
-    Title: title,
-    Company: company,
-    Field: field,
-    Salary: salary,
-    Location: location,
-    Time: time,
-    Remote: remote,
-  };
+  const {
+    Title,
+    Company,
+    Field,
+    Salary,
+    Location,
+    Logosrc,
+    Time,
+    Remote,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
+  } = location1.state || {};
+  // console.log(state);
+  // const myJob = {
+  //   Title: Title,
+  //   Company: Company,
+  //   Field: Field,
+  //   Salary: Salary,
+  //   Location: Location,
+  //   Time: Time,
+  //   Remote: Remote,
+  //   Detail: Detail,
+  // };
   return (
     <>
       <div className="items-center justify-center">
@@ -58,7 +79,25 @@ export default function JobDetails() {
           {/* </div> */}
           {/* </div> */}
           <div className="flex items-center justify-center">
-            <JobDetailCard job={myJob} company={myCompany} />
+            <JobDetailCard
+              job={{
+                Title,
+                Company,
+                Field,
+                Salary,
+                Location,
+                Logosrc,
+                Time,
+                Remote,
+                Detail,
+                CompField,
+                CompFounded,
+                CompEmployees,
+                CompDetails,
+                ID,
+                CompEmail,
+              }}
+            />
           </div>
         </div>
       </div>

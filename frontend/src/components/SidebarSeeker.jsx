@@ -10,14 +10,21 @@ import {
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
-import { useLocation } from "react-router-dom";
 // import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SidebarSeeker() {
-  const { state } = useLocation();
+  const state = JSON.parse(localStorage.state);
   const logout = () => {
+    localStorage.clear();
     window.location.href = "/";
   };
+
+  // async function refresh() {
+  //   let response2 = await fetch("http://localhost:8080/get-user-info", {
+  //     headers: { Authorization: localStorage.token },
+  //   });
+  //   let result2 = await response2.json();
+  // }
 
   const user = state.user;
 
