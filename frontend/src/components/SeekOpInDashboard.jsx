@@ -12,6 +12,7 @@ export default function SeekOpInDash() {
   }, []);
 
   const getJobs = async () => {
+    //TODO filter positions by status
     let response = await fetch("http://localhost:8080/jobs", {
       headers: { Authorization: localStorage.token },
     });

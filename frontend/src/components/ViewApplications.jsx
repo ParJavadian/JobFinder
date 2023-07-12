@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Input, IconButton } from "@material-tailwind/react";
+import {
+  Typography,
+  Input,
+  IconButton,
+  Button,
+} from "@material-tailwind/react";
 import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
@@ -112,25 +117,7 @@ export default function ViewApplications() {
     console.log("Search:", searchValue);
   };
 
-  const myPerson = {
-    Name: "p",
-    Lastname: "Javadian",
-    Email: "parjavadian@gmail.com",
-    Profession: "Front-end Developer",
-    Degree: "Diploma",
-    AvatarSrc: AvatarImg,
-    Location: "Tehran",
-    Languages: "Persian",
-    Detail: "Seriously?",
-  };
-  const myPersons = [
-    myPerson,
-    myPerson,
-    myPerson,
-    myPerson,
-    myPerson,
-    myPerson,
-  ];
+  const closePosition = () => {};
 
   return (
     <>
@@ -154,28 +141,38 @@ export default function ViewApplications() {
               Applicants for position {Title}
             </Typography>
           </div>
-          <div className="flex w-72  ml-12  bg-blue-50	flex-row gap-2 rounded-lg border-blue-300 border p-3">
-            {" "}
-            <div className="w-72">
-              <Input
-                label="search"
-                onChange={(e) => setSearchValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                value={searchValue}
-                className="bg-white"
-                // icon={
-                //   <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
-                //     <Unicons.UilSearch />
-                //   </IconButton>
-                // }
-              />
+          <div className="flex w-5/6 flex-row items-center">
+            <div className="flex w-72  ml-12  bg-blue-50	flex-row gap-2 rounded-lg border-blue-300 border p-3">
+              {" "}
+              <div className="w-72">
+                <Input
+                  label="search"
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  value={searchValue}
+                  className="bg-white"
+                  // icon={
+                  //   <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
+                  //     <Unicons.UilSearch />
+                  //   </IconButton>
+                  // }
+                />
+              </div>
+              <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
+                <Unicons.UilSearch />
+              </IconButton>
             </div>
-            <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
-              <Unicons.UilSearch />
-            </IconButton>
+            <Button
+              className="w-40 h-12 ml-auto mr-10"
+              variant="outlined"
+              color="red"
+              onClick={closePosition}
+            >
+              Close position
+            </Button>
           </div>
         </div>
-        {myPersons?.length > 0 ? (
+        {applications?.length > 0 ? (
           <div className="flex flex-col">
             {applications.map((eachPreson) => (
               <PersonCard person={eachPreson} />
