@@ -7,7 +7,7 @@ module.exports = withMT({
     colors: {
       transparent: "transparent",
       current: colors.teal,
-      blue: colors.emerald,
+      blue: colors.slate,
       black: colors.black,
       white: colors.white,
       gray: colors.gray,
