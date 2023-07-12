@@ -15,7 +15,7 @@ import AvatarImg from "../images/avatar-1.jpg";
 export default function SidebarSeeker() {
   const state = JSON.parse(localStorage.state);
   const logout = () => {
-    localStorage.token = null;
+    localStorage.clear();
     window.location.href = "/";
   };
 

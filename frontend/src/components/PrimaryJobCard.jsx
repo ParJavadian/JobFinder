@@ -56,7 +56,7 @@ export default function PrimaryJobCard({
   const [changesApplied, setChangesApplied] = useState(false);
 
   const handleApply = async (e) => {
-    if (localStorage.token == "null") {
+    if (localStorage.token === undefined) {
       navigate("/login");
       return;
     }
