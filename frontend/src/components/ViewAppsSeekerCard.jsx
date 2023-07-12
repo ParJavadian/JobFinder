@@ -5,11 +5,9 @@ import {
   CardFooter,
   Typography,
   Button,
-  Alert,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function ViewApplicationsJobCard({
   job: {
@@ -33,8 +31,6 @@ export default function ViewApplicationsJobCard({
   },
   colorIn,
 }) {
-  const state = JSON.parse(localStorage.state);
-
   const navigate = useNavigate();
   const handleWithdraw = async (e) => {
     const formData = { "application-id": AppId };

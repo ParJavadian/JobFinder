@@ -19,12 +19,12 @@ export default function SidebarSeeker() {
     window.location.href = "/";
   };
 
-  async function refresh() {
-    let response2 = await fetch("http://localhost:8080/get-user-info", {
-      headers: { Authorization: localStorage.token },
-    });
-    let result2 = await response2.json();
-  }
+  // async function refresh() {
+  //   let response2 = await fetch("http://localhost:8080/get-user-info", {
+  //     headers: { Authorization: localStorage.token },
+  //   });
+  //   let result2 = await response2.json();
+  // }
 
   const user = state.user;
 

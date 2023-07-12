@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  Button,
-} from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 import ViewAppsSeekerCard from "./ViewAppsSeekerCard";
 import * as Unicons from "@iconscout/react-unicons";
 
 export default function SeekerHistory() {
-  const state = JSON.parse(localStorage.state);
-  const user = state.user;
+  // const state = JSON.parse(localStorage.state);
+  // const user = state.user;
   const [applications, setApplications] = useState([]);
   useEffect(() => {
     getApplications();
@@ -81,60 +75,60 @@ export default function SeekerHistory() {
     setApplications(newApplications);
   };
 
-  const jobOpen = {
-    // Default values
-    Title: "Manager",
-    Company: "Company 1",
-    Field: "Tech",
-    Salary: "3000$",
-    Location: "Tehran",
-    Logosrc:
-      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    Time: "Full-time",
-    Remote: "In-person",
-    Status: "Open",
-    YourStatus: "Pending",
-  };
-  const jobClosed = {
-    // Default values
-    Title: "Manager",
-    Company: "Company 1",
-    Field: "Tech",
-    Salary: "3000$",
-    Location: "Tehran",
-    Logosrc:
-      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    Time: "Full-time",
-    Remote: "In-person",
-    Status: "Closed",
-    YourStatus: "Accepted",
-  };
-  const jobClosedRejected = {
-    // Default values
-    Title: "Manager",
-    Company: "Company 1",
-    Field: "Tech",
-    Salary: "3000$",
-    Location: "Tehran",
-    Logosrc:
-      "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    Time: "Full-time",
-    Remote: "In-person",
-    Status: "Closed",
-    YourStatus: "Rejected",
-  };
+  // const jobOpen = {
+  //   // Default values
+  //   Title: "Manager",
+  //   Company: "Company 1",
+  //   Field: "Tech",
+  //   Salary: "3000$",
+  //   Location: "Tehran",
+  //   Logosrc:
+  //     "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+  //   Time: "Full-time",
+  //   Remote: "In-person",
+  //   Status: "Open",
+  //   YourStatus: "Pending",
+  // };
+  // const jobClosed = {
+  //   // Default values
+  //   Title: "Manager",
+  //   Company: "Company 1",
+  //   Field: "Tech",
+  //   Salary: "3000$",
+  //   Location: "Tehran",
+  //   Logosrc:
+  //     "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+  //   Time: "Full-time",
+  //   Remote: "In-person",
+  //   Status: "Closed",
+  //   YourStatus: "Accepted",
+  // };
+  // const jobClosedRejected = {
+  //   // Default values
+  //   Title: "Manager",
+  //   Company: "Company 1",
+  //   Field: "Tech",
+  //   Salary: "3000$",
+  //   Location: "Tehran",
+  //   Logosrc:
+  //     "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+  //   Time: "Full-time",
+  //   Remote: "In-person",
+  //   Status: "Closed",
+  //   YourStatus: "Rejected",
+  // };
 
-  const cards = [
-    jobOpen,
-    jobClosed,
-    jobClosedRejected,
-    jobOpen,
-    jobClosed,
-    jobOpen,
-    jobClosedRejected,
-    jobOpen,
-    jobClosed,
-  ];
+  // const cards = [
+  //   jobOpen,
+  //   jobClosed,
+  //   jobClosedRejected,
+  //   jobOpen,
+  //   jobClosed,
+  //   jobOpen,
+  //   jobClosedRejected,
+  //   jobOpen,
+  //   jobClosed,
+  // ];
 
   return (
     <>
