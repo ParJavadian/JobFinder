@@ -96,7 +96,8 @@ export default function ViewApplications() {
           Location: user.location,
           Languages: user.languages,
           Detail: user.details,
-          ID: application.user_id,
+          Id: application.id,
+          // JobId: application.job_id,
         };
         return newApplication;
       })
@@ -116,7 +117,7 @@ export default function ViewApplications() {
     //values are in jobTitle and location and category
     console.log("Search:", searchValue);
   };
-
+  //TODO after api is defined in backend
   const closePosition = () => {};
 
   return (
@@ -163,7 +164,7 @@ export default function ViewApplications() {
               </IconButton>
             </div>
             <Button
-              className="w-40 h-12 ml-auto mr-10"
+              className="w-auto h-12 ml-auto mr-6"
               variant="outlined"
               color="red"
               onClick={closePosition}
@@ -179,7 +180,9 @@ export default function ViewApplications() {
             ))}
           </div>
         ) : (
-          <Typography>No applicants found</Typography>
+          <Typography variant="lead" className="ml-16 mt-12 text-gray-500">
+            No applicants found
+          </Typography>
         )}
         {/* <HorizContainer>
           <PrimaryJobCard job={myJob} />

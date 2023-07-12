@@ -73,7 +73,9 @@ export default function Home() {
             ))}
           </HorizContainer>
         ) : (
-          <Typography>No jobs found</Typography>
+          <Typography variant="lead" className="ml-28 mt-12 text-gray-500">
+            No jobs found
+          </Typography>
         )}
       </Container>
     </>

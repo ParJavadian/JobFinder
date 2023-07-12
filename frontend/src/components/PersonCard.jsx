@@ -20,11 +20,25 @@ export default function PersonCard({
     Location,
     Languages,
     Detail,
+    Id,
   },
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/company-dashboard/person-detail", { state: { Name, Lastname ,AvatarSrc,Profession,Location,Degree,Email,Languages,Detail} });
+    navigate("/company-dashboard/person-detail", {
+      state: {
+        Name,
+        Lastname,
+        AvatarSrc,
+        Profession,
+        Location,
+        Degree,
+        Email,
+        Languages,
+        Detail,
+        Id,
+      },
+    });
   };
   return (
     <>

@@ -86,7 +86,9 @@ export default function SeekOpInDash() {
               ))}
             </HorizContainer>
           ) : (
-            <Typography>No jobs found</Typography>
+            <Typography variant="lead" className="ml-24 mt-12 text-gray-500">
+              No jobs found
+            </Typography>
           )}
         </div>
       </div>

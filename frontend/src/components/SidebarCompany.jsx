@@ -18,6 +18,7 @@ export default function SidebarCompany() {
   console.log("in sidebar", state);
 
   const logout = () => {
+    localStorage.token = null;
     window.location.href = "/";
   };
   return (

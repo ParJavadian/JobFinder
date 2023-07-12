@@ -56,6 +56,10 @@ export default function PrimaryJobCard({
   const [changesApplied, setChangesApplied] = useState(false);
 
   const handleApply = async (e) => {
+    if (localStorage.token == "null") {
+      navigate("/login");
+      return;
+    }
     const formData = { "job-id": ID };
     const formDataForm = new FormData();
 

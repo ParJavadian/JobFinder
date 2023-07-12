@@ -24,6 +24,7 @@ export default function DetailsCompany() {
     Location,
     Languages,
     Detail,
+    Id,
   } = location1.state || {};
   const person = {
     Name,
@@ -35,8 +36,29 @@ export default function DetailsCompany() {
     Location,
     Languages,
     Detail,
+    Id,
   };
-  const accept = () => {
+  const accept = async (e) => {
+    const formData = { "application-id": Id, status: "accepted" };
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/application/status", {
+      method: "POST",
+      body: formDataForm,
+      headers: { Authorization: localStorage.token },
+    });
+    let result = await response.json();
+    if (response.ok) {
+      console.log(result.message);
+    } else {
+      console.log(result.error);
+    }
+    console.log("formData: ", formData);
     setAcceptOpen(true);
     setChangesApplied(true);
     // disapear after 3 seconds
@@ -45,7 +67,27 @@ export default function DetailsCompany() {
       setAcceptOpen(false);
     }, 3000);
   };
-  const reject = () => {
+  const reject = async (e) => {
+    const formData = { "application-id": Id, status: "rejected" };
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/application/status", {
+      method: "POST",
+      body: formDataForm,
+      headers: { Authorization: localStorage.token },
+    });
+    let result = await response.json();
+    if (response.ok) {
+      console.log(result.message);
+    } else {
+      console.log(result.error);
+    }
+    console.log("formData: ", formData);
     setRejectOpen(true);
     setChangesApplied(true);
     // disapear after 3 seconds
