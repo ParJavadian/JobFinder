@@ -5,13 +5,8 @@ import { useLocation } from "react-router-dom";
 
 export default function DetailsCompany() {
   const location = useLocation();
-<<<<<<< HEAD
-  const { email, password } = location.state || {};
-
-=======
   //get values of navigation
-  // const { email, password } = location.state || {};
->>>>>>> 5985a7800534f77973d7fa35dfa28e055c7dce66
+  const { email, password } = location.state || {};
   return (
     <div className="space-y-10 pt-8 pb-8 pl-16 pr-16 text-blue-700">
       <Typography variant="h3" className="text-blue-700">

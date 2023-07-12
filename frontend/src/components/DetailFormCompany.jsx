@@ -70,9 +70,6 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-<<<<<<< HEAD
-        {/* Rest of the input fields */}
-=======
         {/* <Input
           name="email"
           placeholder="Email Address"
@@ -127,7 +124,6 @@ export default function Form() {
           variant="static"
           label="Details"
         />
->>>>>>> 5985a7800534f77973d7fa35dfa28e055c7dce66
         <Button
           fontSize="xl"
           variant="gradient"
