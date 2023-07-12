@@ -5,9 +5,11 @@ import {
   CardFooter,
   Typography,
   Button,
+  Alert,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function ViewApplicationsJobCard({
   job: {
@@ -19,24 +21,62 @@ export default function ViewApplicationsJobCard({
     Logosrc,
     Time,
     Remote,
-    Status,
+    Detail,
+    CompField,
+    CompFounded,
+    CompEmployees,
+    CompDetails,
+    ID,
+    CompEmail,
     YourStatus,
+    AppId,
   },
   colorIn,
 }) {
   const state = JSON.parse(localStorage.state);
 
   const navigate = useNavigate();
+  const handleWithdraw = async (e) => {
+    const formData = { "application-id": AppId };
+    const formDataForm = new FormData();
+
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
+    e.preventDefault();
+
+    let response = await fetch("http://localhost:8080/application", {
+      method: "DELETE",
+      body: formDataForm,
+      headers: { Authorization: localStorage.token },
+    });
+    let result = await response.json();
+    if (response.ok) {
+      console.log(result.message);
+    } else {
+      console.log(result.error);
+    }
+    console.log("formData: ", formData);
+    window.location.reload(false);
+  };
   const handleDetails = () => {
     navigate("/details", {
-      info: {
-        title: Title,
-        company: Company,
-        field: Field,
-        location: Location,
-        time: Time,
-        remote: Remote,
-        salary: Salary,
+      state: {
+        Title,
+        Company,
+        Field,
+        Salary,
+        Location,
+        Logosrc,
+        Time,
+        Remote,
+        Detail,
+        CompField,
+        CompFounded,
+        CompEmployees,
+        CompDetails,
+        ID,
+        CompEmail,
       },
     });
   };
@@ -122,9 +162,11 @@ export default function ViewApplicationsJobCard({
         </CardBody>
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
-            {YourStatus === "Pending" ? (
+            {YourStatus === "pending" ? (
               <>
-                <Button className="w-48 pr-0 pl-0">Withdraw Application</Button>
+                <Button className="w-48 pr-0 pl-0" onClick={handleWithdraw}>
+                  Withdraw Application
+                </Button>
                 <Button
                   variant="outlined"
                   className="w-48"

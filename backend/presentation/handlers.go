@@ -55,6 +55,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	// job service apis
 	router.POST("/job", h.CreateJob)
 	router.GET("/jobs", h.GetJobs)
+	router.GET("/job", h.GetJobByID)
 	// todo we should complete them
 }
 
@@ -548,6 +549,40 @@ func (h *Handler) GetUserInfoById(context *gin.Context) {
 		"location":   user.Location,
 		"languages":  user.Language,
 		"details":    user.Details,
+	}
+	context.JSON(200, jsonResponse)
+}
+
+func (h *Handler) GetJobByID(context *gin.Context) {
+	jobId, exists := context.GetQuery("job-id")
+	if !exists || jobId == "" {
+		context.JSON(400, gin.H{"error": "job id is required"})
+		return
+	}
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	job, err := h.jobService.GetJobByID(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if job == nil {
+		context.JSON(400, gin.H{"error": "job not found"})
+		return
+	}
+	jsonResponse := gin.H{
+		"id":           job.ID,
+		"title":        job.Title,
+		"field":        job.Field,
+		"time":         job.Time,
+		"remoteStatus": job.RemoteStatus,
+		"salary":       job.Salary,
+		"details":      job.Details,
+		"created-at":   job.CreatedAt,
+		"company_id":   job.CompanyID,
 	}
 	context.JSON(200, jsonResponse)
 }

@@ -6,6 +6,7 @@ import * as Unicons from "@iconscout/react-unicons";
 export default function CompanyHistory() {
   const state = JSON.parse(localStorage.state);
   const company = state.company;
+  // console.log("company", company);
 
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function CompanyHistory() {
         //   headers: { Authorization: localStorage.token },
         // });
         // let company = await response2.json();
+        console.log(job, company);
         if (job.company_id === company.id) {
           const newJob = {
             Title: job.title,

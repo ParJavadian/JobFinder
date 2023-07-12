@@ -14,6 +14,7 @@ export default function Form() {
     languages: state.user.languages,
     details: state.user.details,
     email: state.user.email,
+    id: state.user.id,
   });
 
   // const [changesApplied, setChangesApplied] = useState(false);

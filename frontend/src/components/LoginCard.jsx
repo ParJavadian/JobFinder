@@ -63,6 +63,7 @@ export default function LoginCard() {
             }
           );
           let result2 = await response2.json();
+          // console.log("result2:", result2);
           localStorage.setItem("state", JSON.stringify({ company: result2 }));
           navigate("/company-dashboard", { state: { company: result2 } });
         } else if (role === "user") {

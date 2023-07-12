@@ -11,6 +11,7 @@ export default function Form() {
     employees: state.company.employees,
     details: state.company.details,
     email: state.company.email,
+    id: state.company.id,
   });
 
   // const [changesApplied, setChangesApplied] = useState(false);
