@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { Select, Option } from "@material-tailwind/react";
 import { getCategoryById, jobCategories } from "../constants/Categories";
 
-export default function SearchInput() {
+export default function SearchInput(props) {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [categoryId, setCategoryId] = useState(null);
@@ -17,9 +17,12 @@ export default function SearchInput() {
     }
   };
 
-  const doSearch = () => {
-    //search...
-    //values are in jobTitle and location and category
+  const doSearch = async () => {
+    // props.jobTitle = "Job3";
+    props.onJobTitleChange("Job3");
+    props.onLocationChange(location);
+    props.onCategoryChange(category);
+    props.refresh();
     console.log("Search:", jobTitle, location, category, categoryId);
   };
 
