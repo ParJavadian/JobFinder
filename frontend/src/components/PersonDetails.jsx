@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button, Alert } from "@material-tailwind/react";
 import AvatarImg from "../images/avatar-1.jpg";
 import * as Unicons from "@iconscout/react-unicons";
@@ -8,8 +8,10 @@ import { useLocation } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function DetailsCompany() {
-  const [acceptOpen, setAcceptOpen] = React.useState(false);
-  const [rejectOpen, setRejectOpen] = React.useState(false);
+  const [changesApplied, setChangesApplied] = useState(false);
+
+  const [acceptOpen, setAcceptOpen] = useState(false);
+  const [rejectOpen, setRejectOpen] = useState(false);
   const navigate = useNavigate();
   const location1 = useLocation();
   const {
@@ -36,9 +38,21 @@ export default function DetailsCompany() {
   };
   const accept = () => {
     setAcceptOpen(true);
+    setChangesApplied(true);
+    // disapear after 3 seconds
+    setTimeout(() => {
+      setChangesApplied(false);
+      setAcceptOpen(false);
+    }, 3000);
   };
   const reject = () => {
     setRejectOpen(true);
+    setChangesApplied(true);
+    // disapear after 3 seconds
+    setTimeout(() => {
+      setChangesApplied(false);
+      setRejectOpen(false);
+    }, 3000);
   };
   return (
     <>
@@ -83,31 +97,33 @@ export default function DetailsCompany() {
               Reject
             </Button>
           </div>
-          <Alert
-            open={acceptOpen || rejectOpen}
-            color="green"
-            className="fixed right-16 w-auto h-auto"
-            // className={
-            //   "fixed top-16 right-4"
-            //   acceptOpen || rejectOpen
-            //     ? "max-w-screen-md"
-            //     : "max-w-screen-md hidden"
-            // }
-            icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
-            onClose={() => {
-              setAcceptOpen(false);
-              setRejectOpen(false);
-            }}
-          >
-            <Typography variant="h5" color="white">
-              Success
-            </Typography>
-            <Typography color="white" className="mt-2 font-normal">
-              {acceptOpen
-                ? "Application accepted succesfully!"
-                : "Application rejected succesfully!"}
-            </Typography>
-          </Alert>
+          {changesApplied && (
+            <Alert
+              open={acceptOpen || rejectOpen}
+              color="green"
+              className="fixed right-16 w-auto h-auto"
+              // className={
+              //   "fixed top-16 right-4"
+              //   acceptOpen || rejectOpen
+              //     ? "max-w-screen-md"
+              //     : "max-w-screen-md hidden"
+              // }
+              icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
+              onClose={() => {
+                setAcceptOpen(false);
+                setRejectOpen(false);
+              }}
+            >
+              <Typography variant="h5" color="white">
+                Success
+              </Typography>
+              <Typography color="white" className="mt-2 font-normal">
+                {acceptOpen
+                  ? "Application accepted succesfully!"
+                  : "Application rejected succesfully!"}
+              </Typography>
+            </Alert>
+          )}
         </div>
       </div>
     </>

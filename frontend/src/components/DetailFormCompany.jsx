@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
+import { Input, Button, Textarea } from "@material-tailwind/react";
 
 export default function Form() {
   const state = JSON.parse(localStorage.state);
@@ -13,7 +13,7 @@ export default function Form() {
     email: state.company.email,
   });
 
-  const [changesApplied, setChangesApplied] = useState(false);
+  // const [changesApplied, setChangesApplied] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +21,7 @@ export default function Form() {
       ...prevFormData,
       [name]: value,
     }));
-    setChangesApplied(false);
+    // setChangesApplied(false);
   };
 
   const handleSubmit = async (e) => {
@@ -41,11 +41,11 @@ export default function Form() {
     });
     console.log(response);
     localStorage.setItem("state", JSON.stringify({ company: formData }));
-    setChangesApplied(true);
-    // disapear after 3 seconds
-    setTimeout(() => {
-      setChangesApplied(false);
-    }, 3000);
+    // setChangesApplied(true);
+    // // disapear after 3 seconds
+    // setTimeout(() => {
+    //   setChangesApplied(false);
+    // }, 3000);
     window.location.reload(false);
   };
 
@@ -61,15 +61,6 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        {/* <Input
-          name="email"
-          placeholder="Email Address"
-          value={formData.email}
-          onChange={handleChange}
-          variant="static"
-          label="Email Address"
-          size="lg"
-        /> */}
         <Input
           name="field"
           placeholder="Company field"
@@ -115,26 +106,10 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-        <Button
-          font-size="xl"
-          // className="text-black absolute right-0"
-          variant="gradient"
-          onClick={handleSubmit}
-        >
+        <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
         </Button>
       </form>
-
-      {changesApplied && (
-        <Alert
-          color="green"
-          size="sm"
-          className="fixed top-4 right-4 rounded-md bg-green-500 text-white py-6 px-4 text-lg w-68"
-        >
-          Changes applied successfully!
-        </Alert>
-      )}
-      {/* </div> */}
     </>
   );
 }

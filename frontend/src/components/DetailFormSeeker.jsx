@@ -3,55 +3,8 @@ import { Input, Button, Textarea, Alert } from "@material-tailwind/react";
 // import { useLocation } from "react-router-dom";
 
 export default function Form() {
-  // const { state } = useLocation();
-  // console.log("localStorage.state", localStorage.state);
   const state = JSON.parse(localStorage.state);
-  // async function refresh(params) {
-
-  // }
-  // useEffect(() => {
-  //   getInfo();
-  // }, []);
-  // const getJobs = async () => {
-  //   let response = await fetch("http://localhost:8080/get-user-info", {
-  //     headers: { Authorization: localStorage.token },
-  //   });
-  //   let result = await response.json();
-  //   localStorage.state
-  //   return { result2: result };
-  // };
-  // async function refresh() {
-  //   let response2 = await fetch("http://localhost:8080/get-user-info", {
-  //     headers: { Authorization: localStorage.token },
-  //   });
-  //   let result2 = {};
-  //   result2 = await response2.json();
-  //   console.log("result2", result2);
-  //   return { result2 };
-  // }
-  // let state;
-  // refresh().then((value) => {
-  //   console.log("value", value);
-  //   state = { user: value };
-  // });
-
-  // const state = { user: refresh().then() };
   console.log("statttt", state);
-  // const { state, setState } = useState(state1);
-  // console.log("stat3e:", state);
-  // const { state } = useLocation();
-  // console.log("in form:", state);
-  /*const [formData, setFormData] = useState({
-    //defualt values
-    name: "Parmida",
-    lastname: "Javadian",
-    email: "parjavadian@gmail.com",
-    profession: "Front-End developer",
-    degree: "Diploma",
-    location: "Tehran",
-    languages: "Persian, English, Italian",
-    details: "If you don't hire me, may stone be at your head.",
-  });*/
   const [formData, setFormData] = useState({
     firstname: state.user.firstname,
     lastname: state.user.lastname,
@@ -63,7 +16,7 @@ export default function Form() {
     email: state.user.email,
   });
 
-  const [changesApplied, setChangesApplied] = useState(false);
+  // const [changesApplied, setChangesApplied] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +24,7 @@ export default function Form() {
       ...prevFormData,
       [name]: value,
     }));
-    setChangesApplied(false);
+    // setChangesApplied(false);
   };
 
   const handleSubmit = async (e) => {
@@ -90,21 +43,12 @@ export default function Form() {
       body: formDataForm,
     });
     console.log(response);
-    // let response2 = await fetch("http://localhost:8080/get-user-info", {
-    //   headers: { Authorization: localStorage.token },
-    // });
-    // let result = await response.json();
     localStorage.setItem("state", JSON.stringify({ user: formData }));
-    // state = { user: result2 };
-    // setState({ user: result2 });
-    // state = { user: result2 };
-    // let result = await response.json();
-    // if (response.ok) {
-    setChangesApplied(true);
-    // disapear after 3 seconds
-    setTimeout(() => {
-      setChangesApplied(false);
-    }, 3000);
+    // setChangesApplied(true);
+    // // disapear after 3 seconds
+    // setTimeout(() => {
+    //   setChangesApplied(false);
+    // }, 3000);
     window.location.reload(false);
   };
 
@@ -129,23 +73,6 @@ export default function Form() {
           onChange={handleChange}
           size="lg"
         />
-        {/* <label class="flex w-full h-full select-none pointer-events-none font-normal truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all text-sm peer-focus:text-sm after:content[' '] after:block after:w-full after:absolute after:-bottom-2.5 after:border-b-2 after:scale-x-0 peer-focus:after:scale-x-100 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight text-blue-gray-500 peer-focus:text-blue-500 after:border-blue-500 peer-focus:after:border-blue-500">
-          Email Address
-        </label> */}
-        {/* <Typography variant="paragraph" color="blue-gray" className="text-sm">
-          Email Address
-        </Typography> */}
-        {/* <Input
-          // name="email"
-          // placeholder="Email Address"
-          value={formData.email}
-          // onChange={handleChange}
-          // variant="standard"
-          label="Email Address - non-changable"
-          // size="lg"
-          disabled
-          // className="bg-rose-950"
-        /> */}
         <Input
           name="profession"
           placeholder="Profession"
@@ -191,17 +118,12 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-        <Button
-          font-size="xl"
-          // className="text-black absolute right-0"
-          variant="gradient"
-          onClick={handleSubmit}
-        >
+        <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
         </Button>
       </form>
 
-      {changesApplied && (
+      {/* {changesApplied && (
         <Alert
           color="green"
           size="sm"
@@ -209,8 +131,7 @@ export default function Form() {
         >
           Changes applied successfully!
         </Alert>
-      )}
-      {/* </div> */}
+      )} */}
     </>
   );
 }

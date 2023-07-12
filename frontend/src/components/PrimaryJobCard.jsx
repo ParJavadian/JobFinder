@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function PrimaryJobCard({
   job: {
@@ -182,10 +183,18 @@ export default function PrimaryJobCard({
       {changesApplied && (
         <Alert
           color="green"
-          size="sm"
-          className="fixed top-4 right-4 rounded-md bg-green-500 text-white py-6 px-4 text-lg w-68"
+          className="fixed right-16 w-auto h-auto top-12"
+          icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
+          onClose={() => {
+            setChangesApplied(false);
+          }}
         >
-          Applied Successfully!
+          <Typography variant="h5" color="white">
+            Success
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            Applied Successfully
+          </Typography>
         </Alert>
       )}
     </>
