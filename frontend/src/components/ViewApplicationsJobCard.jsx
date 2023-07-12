@@ -34,7 +34,7 @@ export default function ViewApplicationsJobCard(
 ) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/details", {
+    navigate("/company-dashboard/details", {
       state: {
         Title,
         Company,

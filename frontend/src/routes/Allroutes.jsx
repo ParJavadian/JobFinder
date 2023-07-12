@@ -17,7 +17,7 @@ export default function AllRoutes() {
         <Route path="/company-dashboard/*" element={<CompanyDashbord />} />
         <Route path="/login" element={<Login />} />
         <Route path="/seeker-dashboard/*" element={<SeekerDashboard />} />
-        <Route path="/details/*" element={<JobDetails />} />
+        <Route path="/details" element={<JobDetails />} />
       </Routes>
     </Router>
   );

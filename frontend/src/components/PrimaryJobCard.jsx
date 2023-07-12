@@ -33,25 +33,47 @@ export default function PrimaryJobCard({
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
-    navigate("/details", {
-      state: {
-        Title,
-        Company,
-        Field,
-        Salary,
-        Location,
-        Logosrc,
-        Time,
-        Remote,
-        Detail,
-        CompField,
-        CompFounded,
-        CompEmployees,
-        CompDetails,
-        ID,
-        CompEmail,
-      },
-    });
+    if (localStorage.token === undefined) {
+      navigate("/details", {
+        state: {
+          Title,
+          Company,
+          Field,
+          Salary,
+          Location,
+          Logosrc,
+          Time,
+          Remote,
+          Detail,
+          CompField,
+          CompFounded,
+          CompEmployees,
+          CompDetails,
+          ID,
+          CompEmail,
+        },
+      });
+    } else {
+      navigate("/seeker-dashboard/details", {
+        state: {
+          Title,
+          Company,
+          Field,
+          Salary,
+          Location,
+          Logosrc,
+          Time,
+          Remote,
+          Detail,
+          CompField,
+          CompFounded,
+          CompEmployees,
+          CompDetails,
+          ID,
+          CompEmail,
+        },
+      });
+    }
   };
   const [changesApplied, setChangesApplied] = useState(false);
 

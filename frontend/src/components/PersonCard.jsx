@@ -23,6 +23,7 @@ export default function PersonCard({
     Id,
   },
 }) {
+  //TODO change based on status
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate("/company-dashboard/person-detail", {
