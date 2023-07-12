@@ -63,45 +63,40 @@ export default function ViewApplications() {
     });
     let applications = await response2.json();
     console.log(applications);
-    // const newApplications = await Promise.all(
-    //   applications.map(async (application) => {
-    //     let params = {
-    //       "company-id": application.company_id,
-    //     };
+    const newApplications = await Promise.all(
+      applications.map(async (application) => {
+        console.log("apllication:", application);
+        let params = {
+          "user-id": application.user_id,
+        };
 
-    //     let query = Object.keys(params)
-    //       .map(
-    //         (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
-    //       )
-    //       .join("&");
+        let query = Object.keys(params)
+          .map(
+            (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
+          )
+          .join("&");
 
-    //     let url = "http://localhost:8080/company?" + query;
-    //     let response2 = await fetch(url, {
-    //       headers: { Authorization: localStorage.token },
-    //     });
-    //     let company = await response2.json();
-    //     const newJob = {
-    //       Title: application.title,
-    //       Field: application.field,
-    //       Salary: application.salary,
-    //       Location: company.location,
-    //       Company: company.name,
-    //       Logosrc:
-    //         "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    //       Time: application.time,
-    //       Remote: application.remoteStatus,
-    //       Detail: application.details,
-    //       CompField: company.field,
-    //       CompFounded: company.founded,
-    //       CompEmployees: company.employees,
-    //       CompDetails: company.details,
-    //       ID: application.id,
-    //       CompEmail: company.email,
-    //     };
-    //     return newJob;
-    //   })
-    // );
-    // setApplications(newApplications);
+        let url = "http://localhost:8080/user?" + query;
+        let response2 = await fetch(url, {
+          headers: { Authorization: localStorage.token },
+        });
+        let user = await response2.json();
+        const newApplication = {
+          Name: user.firstname,
+          Lastname: user.lastname,
+          Email: user.email,
+          Profession: user.profession,
+          Degree: user.degree,
+          AvatarSrc: AvatarImg,
+          Location: user.location,
+          Languages: user.languages,
+          Detail: user.details,
+          ID: application.user_id,
+        };
+        return newApplication;
+      })
+    );
+    setApplications(newApplications);
   };
 
   const handleKeyDown = (e) => {
@@ -182,7 +177,7 @@ export default function ViewApplications() {
         </div>
         {myPersons?.length > 0 ? (
           <div className="flex flex-col">
-            {myPersons.map((eachPreson) => (
+            {applications.map((eachPreson) => (
               <PersonCard person={eachPreson} />
             ))}
           </div>

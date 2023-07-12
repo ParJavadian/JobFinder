@@ -36,7 +36,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/change-password", h.ChangePassword)
 	router.POST("/edit-profile/user", h.EditUserProfile)
 	router.GET("/get-user-info", h.GetUserInfo)
-	router.GET("/get-user-info-by-id", h.GetUserInfoById)
+	router.GET("/user", h.GetUserInfoById)
 
 	// company service apis
 	router.POST("/register/company", h.RegisterCompany)
@@ -377,8 +377,8 @@ func (h *Handler) GetApplicationByID(context *gin.Context) {
 	}
 	jsonResponse := gin.H{
 		"id":         application.ID,
-		"job-id":     application.JobID,
-		"user-id":    application.UserID,
+		"job_id":     application.JobID,
+		"user_id":    application.UserID,
 		"status":     application.Status,
 		"created-at": application.CreatedAt,
 	}
@@ -416,8 +416,8 @@ func getJsonResponseFromApplications(applications []*persistence.Application) []
 	for i, application := range applications {
 		jsonResponse[i] = gin.H{
 			"id":         application.ID,
-			"job-id":     application.JobID,
-			"user-id":    application.UserID,
+			"job_id":     application.JobID,
+			"user_id":    application.UserID,
 			"status":     application.Status,
 			"created-at": application.CreatedAt,
 		}
@@ -518,14 +518,18 @@ func (h *Handler) GetUserInfo(context *gin.Context) {
 	context.JSON(200, jsonResponse)
 }
 
-
 func (h *Handler) GetUserInfoById(context *gin.Context) {
 	userId, exists := context.GetQuery("user-id")
 	if !exists || userId == "" {
 		context.JSON(400, gin.H{"error": "user id is required"})
 		return
 	}
-	user, err := h.userService.GetUserByID(userId.(uint))
+	uintUserId, err := getUintFromString(userId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	user, err := h.userService.GetUserByID(uintUserId)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
