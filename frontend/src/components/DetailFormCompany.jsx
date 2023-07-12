@@ -107,31 +107,10 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-<<<<<<< HEAD
-        <Button
-          fontSize="xl"
-          variant="gradient"
-          onClick={handleSubmit}
-        >
-          Save changes
-        </Button>
-      </form>
-
-      {changesApplied && (
-        <Alert
-          color="green"
-          size="sm"
-          className="fixed top-4 right-4 rounded-md bg-green-500 text-white py-6 px-4 text-lg w-68"
-        >
-          Changes applied successfully!
-        </Alert>
-      )}
-=======
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
         </Button>
       </form>
->>>>>>> 2380489de3e1bd025f1ae0ba03b285d2fbb15513
     </>
   );
 }

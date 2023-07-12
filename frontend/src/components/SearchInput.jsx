@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { Select, Option } from "@material-tailwind/react";
 import { getCategoryById, jobCategories } from "../constants/Categories";
 
-export default function SearchInput() {
+export default function SearchInput(props) {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [categoryId, setCategoryId] = useState(null);
@@ -18,8 +18,11 @@ export default function SearchInput() {
   };
 
   const doSearch = () => {
-    //search...
-    //values are in jobTitle and location and category
+    //added code for filter
+    props.onJobTitleChange(jobTitle);
+    props.onLocationChange(location);
+    props.onCategoryChange(category);
+        ///
     console.log("Search:", jobTitle, location, category, categoryId);
   };
 
@@ -30,7 +33,7 @@ export default function SearchInput() {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="flex bg-blue-50	flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
+      <div className="flex bg-blue-50 flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
         <Input
           onKeyDown={handleKeyDown}
           variant="outlined"
@@ -56,7 +59,9 @@ export default function SearchInput() {
           className="bg-white"
         >
           {jobCategories.map((job) => (
-            <Option value={job.value}>{job.label}</Option>
+            <Option key={job.value} value={job.value}>
+              {job.label}
+            </Option>
           ))}
         </Select>
         <IconButton onClick={doSearch} className="w-24 h-24 flex-none">

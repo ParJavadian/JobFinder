@@ -10,6 +10,11 @@ const SampleImgUrl =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMGuOzi8xiMxTHT0Oj1UQygOfwvkENepvfov3kZ45RQ&s";
 export default function Home() {
   const [jobs, setJobs] = useState([]);
+  //added
+  const [jobTitle, setJobTitle] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
+  const [category, setCategory] = useState("");
+
   useEffect(() => {
     getJobs();
   }, []);
@@ -19,18 +24,28 @@ export default function Home() {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
+    //added
+    const filteredJobs = primaryJobs.filter((job) => {
+      return (
+        //added for filter check these..
+        job.title === jobTitle &&
+        job.category === category &&
+        job.location === searchLocation
+        //
+      );
+    });
     const newJobs = await Promise.all(
-      primaryJobs.map(async (job) => {
+      filteredJobs.map(async (job) => {
         let params = {
           "company-id": job.company_id,
         };
-
+  
         let query = Object.keys(params)
           .map(
             (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
           )
           .join("&");
-
+  
         let url = "http://localhost:8080/company?" + query;
         let response2 = await fetch(url, {
           headers: { Authorization: localStorage.token },
@@ -58,14 +73,20 @@ export default function Home() {
       })
     );
     setJobs(newJobs);
-  };
+  };  
+
   return (
     <>
       <MyNavbar />
 
       <Container>
         <img class="w-full h-64" src={SampleImgUrl} alt="sample" />
-        <SearchInput />
+        <SearchInput
+        //added for filter
+          onJobTitleChange={setJobTitle}
+          onLocationChange={setSearchLocation}
+          onCategoryChange={setCategory}
+        />
         {jobs?.length > 0 ? (
           <HorizContainer>
             {jobs.map((myJob) => (

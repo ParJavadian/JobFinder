@@ -7,6 +7,10 @@ import PrimaryJobCard from "./PrimaryJobCard";
 
 export default function SeekOpInDash() {
   const [jobs, setJobs] = useState([]);
+    //added
+    const [jobTitle, setJobTitle] = useState("");
+    const [searchLocation, setSearchLocation] = useState("");
+    const [category, setCategory] = useState("");
   useEffect(() => {
     getJobs();
   }, []);
@@ -17,8 +21,18 @@ export default function SeekOpInDash() {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
+        //added
+        const filteredJobs = primaryJobs.filter((job) => {
+          return (
+            //added for filter check these..
+            job.title === jobTitle &&
+            job.category === category &&
+            job.location === searchLocation
+            //
+          );
+        });
     const newJobs = await Promise.all(
-      primaryJobs.map(async (job) => {
+      filteredJobs.map(async (job) => {
         let params = {
           "company-id": job.company_id,
         };
@@ -78,7 +92,12 @@ export default function SeekOpInDash() {
           Find jobs that best suit you
         </Typography>
         <div className="-ml-20">
-          <SearchInput />
+          <SearchInput
+              //added for filter
+              onJobTitleChange={setJobTitle}
+              onLocationChange={setSearchLocation}
+              onCategoryChange={setCategory}
+          />
           {jobs?.length > 0 ? (
             <HorizContainer>
               {jobs.map((myJob) => (
