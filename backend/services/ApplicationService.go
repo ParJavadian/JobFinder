@@ -16,24 +16,16 @@ func NewApplicationService(applicationRepository persistence.ApplicationReposito
 }
 
 func (s *ApplicationService) CreateApplication(jobID uint, userId uint) error {
-	//// check if JobId and UserID are valid todo what the hell is this
-	//_, err := s.applicationRepository.GetApplicationByID(jobID)
-	//if err != nil {
-	//	return err
-	//}
-	//_, err = s.applicationRepository.GetApplicationByID(userId)
-	//if err != nil {
-	//	return err
-	//}
-
-	// Save the application to the database
-	err := s.applicationRepository.CreateApplication(
-		&persistence.Application{
-			JobID:  jobID,
-			UserID: userId,
-			Status: "pending",
-		},
-	)
+	// check if the user has already applied for this job
+	if s.applicationRepository.ExistsApplication(jobID, userId) {
+		return errors.New("user has already applied for this job")
+	}
+	application := &persistence.Application{
+		JobID:  jobID,
+		UserID: userId,
+		Status: "pending",
+	}
+	err := s.applicationRepository.CreateApplication(application)
 	if err != nil {
 		return err
 	}

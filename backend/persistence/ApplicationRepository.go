@@ -81,3 +81,12 @@ func (r *ApplicationRepository) DeleteApplicationsByJobID(jobID uint) error {
 	}
 	return nil
 }
+
+func (r *ApplicationRepository) ExistsApplication(jobId uint, userId uint) bool {
+	var application Application
+	result := r.db.Where("job_id = ? AND user_id = ?", jobId, userId).First(&application)
+	if result.Error != nil {
+		return false
+	}
+	return true
+}
