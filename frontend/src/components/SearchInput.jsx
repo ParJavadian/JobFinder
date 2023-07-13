@@ -17,12 +17,12 @@ export default function SearchInput(props) {
     }
   };
 
-  const doSearch = () => {
-    //added code for filter
-    props.onJobTitleChange(jobTitle);
+  const doSearch = async () => {
+    // props.jobTitle = "Job3";
+    props.onJobTitleChange("Job3");
     props.onLocationChange(location);
     props.onCategoryChange(category);
-        ///
+    props.refresh();
     console.log("Search:", jobTitle, location, category, categoryId);
   };
 

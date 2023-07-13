@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import JobDetailCard from "./JobDetailCard";
 import { useLocation } from "react-router-dom";
 
-export default function JobDetails() {
+export default function JobDetailsInDashboard() {
   const navigate = useNavigate();
 
   // const myCompany = {
@@ -54,51 +54,51 @@ export default function JobDetails() {
   // };
   return (
     <>
-      <div className="items-center justify-center">
-        <div className="mt-5  m-auto flex-col m-auto space-y-5 w-1/2 items-center justify-center">
-          {/* <div className="flex flex-col  space-y-8 "> */}
-          <div className="flex items-center ml-24">
-            <Link
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <Typography style={{ display: "inline-block" }}>
-                <Unicons.UilAngleLeftB className="w-10 h-10" />
-              </Typography>
-            </Link>
-            <Typography
-              variant="h3"
-              style={{ display: "inline-block" }}
-              className="whitespace-break-spaces ml-6 text-blue-700"
-            >
-              Job Details
+      <div className="space-y-10 pt-8 pb-8 pl-16 pr-16 text-blue-700">
+        {/* <div className="mt-5  m-auto flex-col m-auto space-y-5 w-1/2 items-center justify-center"> */}
+        {/* <div className="flex flex-col  space-y-8 "> */}
+        <div className="flex items-center -ml-4">
+          <Link
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <Typography style={{ display: "inline-block" }}>
+              <Unicons.UilAngleLeftB className="w-10 h-10" />
             </Typography>
-          </div>
-          {/* </div> */}
-          {/* </div> */}
-          <div className="flex items-center justify-center">
-            <JobDetailCard
-              job={{
-                Title,
-                Company,
-                Field,
-                Salary,
-                Location,
-                Logosrc,
-                Time,
-                Remote,
-                Detail,
-                CompField,
-                CompFounded,
-                CompEmployees,
-                CompDetails,
-                ID,
-                CompEmail,
-              }}
-            />
-          </div>
+          </Link>
+          <Typography
+            variant="h3"
+            style={{ display: "inline-block" }}
+            className="whitespace-break-spaces ml-6 text-blue-700"
+          >
+            Job Details
+          </Typography>
         </div>
+        {/* </div> */}
+        {/* </div> */}
+        <div className="flex items-center ml-10">
+          <JobDetailCard
+            job={{
+              Title,
+              Company,
+              Field,
+              Salary,
+              Location,
+              Logosrc,
+              Time,
+              Remote,
+              Detail,
+              CompField,
+              CompFounded,
+              CompEmployees,
+              CompDetails,
+              ID,
+              CompEmail,
+            }}
+          />
+        </div>
+        {/* </div> */}
       </div>
     </>
   );

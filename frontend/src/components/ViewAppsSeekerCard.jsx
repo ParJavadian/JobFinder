@@ -56,7 +56,7 @@ export default function ViewApplicationsJobCard({
     window.location.reload(false);
   };
   const handleDetails = () => {
-    navigate("/details", {
+    navigate("/seeker-dashboard/details", {
       state: {
         Title,
         Company,

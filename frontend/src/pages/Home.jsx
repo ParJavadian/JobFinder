@@ -10,30 +10,55 @@ const SampleImgUrl =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMGuOzi8xiMxTHT0Oj1UQygOfwvkENepvfov3kZ45RQ&s";
 export default function Home() {
   const [jobs, setJobs] = useState([]);
-  //added
   const [jobTitle, setJobTitle] = useState("");
+  // var jobTitle = "";
   const [searchLocation, setSearchLocation] = useState("");
   const [category, setCategory] = useState("");
-
+  // const titleHandler = () =>{
+  //   this.setState({
+  //     someVar: 'some value'
+  //   })
+  // }
   useEffect(() => {
     getJobs();
   }, []);
+  const filter = (list) => {
+    if (list === undefined) {
+      return undefined;
+    }
+    return list.filter((job) => {
+      return (
+        (job.Title === jobTitle || jobTitle === "") &&
+        (job.Field === category || category === "") &&
+        (job.Location === searchLocation || searchLocation === "")
+      );
+    });
+  };
+
+  const refresh = async () => {
+    console.log("jobs", jobs);
+    console.log("jobTitle", jobTitle, "category", category);
+
+    const newJobs = filter(jobs);
+    setJobs(newJobs);
+    console.log("newJobs", newJobs);
+  };
 
   const getJobs = async () => {
     let response = await fetch("http://localhost:8080/jobs", {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
-    //added
-    const filteredJobs = primaryJobs.filter((job) => {
-      return (
-        //added for filter check these..
-        job.title === jobTitle &&
-        job.category === category &&
-        job.location === searchLocation
-        //
-      );
-    });
+    const filteredJobs = filter(primaryJobs);
+    // const filteredJobs = primaryJobs.filter((job) => {
+    //   return (
+    //     //added for filter check these..
+    //     job.title === jobTitle &&
+    //     job.category === category &&
+    //     job.location === searchLocation
+    //     //
+    //   );
+    // });
     const newJobs = await Promise.all(
       filteredJobs.map(async (job) => {
         let params = {
@@ -82,10 +107,11 @@ export default function Home() {
       <Container>
         <img class="w-full h-64" src={SampleImgUrl} alt="sample" />
         <SearchInput
-        //added for filter
           onJobTitleChange={setJobTitle}
           onLocationChange={setSearchLocation}
           onCategoryChange={setCategory}
+          refresh={refresh}
+          jobTitle={jobTitle}
         />
         {jobs?.length > 0 ? (
           <HorizContainer>

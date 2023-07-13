@@ -8,6 +8,7 @@ import AddJob from "../components/AddJob";
 import ViewApplications from "../components/ViewApplications";
 import PersonDetails from "../components/PersonDetails";
 import { useLocation } from "react-router-dom";
+import JobDetailsInDashboard from "../components/JobDetailsInDashboard";
 
 export default function CompanyDashbord() {
   // const location = useLocation();
@@ -23,10 +24,11 @@ export default function CompanyDashbord() {
             <Route path="/new-position" element={<AddJob />}></Route>
             <Route path="/applicants" element={<ViewApplications />}></Route>
             <Route path="/person-detail" element={<PersonDetails />}></Route>
-            <Route
+            <Route path="/details" element={<JobDetailsInDashboard />}></Route>
+            {/* <Route
               path="/change-password"
               element={<SignUpSeekerForm />}
-            ></Route>
+            ></Route> */}
           </Routes>
         </div>
       </div>

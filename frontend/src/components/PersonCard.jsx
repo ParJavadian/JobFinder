@@ -22,6 +22,7 @@ export default function PersonCard({
     Detail,
     Id,
   },
+  colorIn,
 }) {
   const navigate = useNavigate();
   const handleDetails = () => {
@@ -42,8 +43,12 @@ export default function PersonCard({
   };
   return (
     <>
-      <Card className="h-40 mr-8 ml-8 mt-4 mb-4 w-full flex-row max-w-[48rem]">
+      <Card
+        className="h-40  w-full flex-row max-w-[48rem]"
+        style={{ backgroundColor: colorIn }}
+      >
         <CardHeader
+          style={{ backgroundColor: colorIn }}
           shadow={false}
           floated={false}
           className="w-40 shrink-0 m-0 rounded-r-none flex items-center justify-center"
@@ -97,7 +102,11 @@ export default function PersonCard({
         </CardBody>
         <CardFooter className="absolute right-0 pt-6 mt-20 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
-            <Button className="w-40" onClick={handleDetails}>
+            <Button
+              className="w-40"
+              onClick={handleDetails}
+              // variant="outlined"
+            >
               View Details
             </Button>
             {/* <Button variant="outlined" className="w-40">

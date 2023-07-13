@@ -4,6 +4,7 @@ import {
   Input,
   IconButton,
   Button,
+  Card,
 } from "@material-tailwind/react";
 import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
@@ -97,6 +98,7 @@ export default function ViewApplications() {
           Languages: user.languages,
           Detail: user.details,
           Id: application.id,
+          Status: application.status,
           // JobId: application.job_id,
         };
         return newApplication;
@@ -104,6 +106,7 @@ export default function ViewApplications() {
     );
     setApplications(newApplications);
   };
+  console.log(applications);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -164,7 +167,7 @@ export default function ViewApplications() {
               </IconButton>
             </div>
             <Button
-              className="w-auto h-12 ml-auto mr-6"
+              className="w-auto h-12 ml-auto mr-11"
               variant="outlined"
               color="red"
               onClick={closePosition}
@@ -174,10 +177,67 @@ export default function ViewApplications() {
           </div>
         </div>
         {applications?.length > 0 ? (
-          <div className="flex flex-col">
-            {applications.map((eachPreson) => (
-              <PersonCard person={eachPreson} />
-            ))}
+          <div className="flex flex-col mt-8">
+            {applications.map((application) =>
+              application.Status === "pending" ? (
+                <Card
+                  className="p-0 m-4 max-w-[48rem]"
+                  style={{ backgroundColor: "rgb(148 163 184)" }}
+                >
+                  <div className="flex flex-row items-center">
+                    <Typography
+                      variant="h6"
+                      className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
+                      color="white"
+                    >
+                      Pending
+                    </Typography>
+                    <PersonCard
+                      person={application}
+                      colorIn={"rgb(241 245 249)"}
+                    />
+                  </div>
+                </Card>
+              ) : application.Status === "accepted" ? (
+                <Card
+                  className="p-0 m-4 max-w-[48rem]"
+                  style={{ backgroundColor: "rgb(13 148 136)" }}
+                >
+                  <div className="flex flex-row items-center">
+                    <Typography
+                      variant="h6"
+                      className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
+                      color="white"
+                    >
+                      Accepted
+                    </Typography>
+                    <PersonCard
+                      person={application}
+                      colorIn={"rgb(240 253 250)"}
+                    />
+                  </div>
+                </Card>
+              ) : (
+                <Card
+                  className="p-0 m-4 max-w-[48rem]"
+                  style={{ backgroundColor: "rgb(153 27 27)" }}
+                >
+                  <div className="flex flex-row items-center">
+                    <Typography
+                      variant="h6"
+                      className="[writing-mode:vertical-lr] rotate-180 pl-4 pr-4"
+                      color="white"
+                    >
+                      Rejected
+                    </Typography>
+                    <PersonCard
+                      person={application}
+                      colorIn={"rgb(254 242 242)"}
+                    />
+                  </div>
+                </Card>
+              )
+            )}
           </div>
         ) : (
           <Typography variant="lead" className="ml-16 mt-12 text-gray-500">
