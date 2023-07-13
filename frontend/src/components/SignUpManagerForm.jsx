@@ -68,7 +68,7 @@ export default function SignUpManagerForm() {
       {error && (
         <Alert
           color="red"
-          className="fixed right-32 w-auto h-auto top-40"
+          className="fixed right-32 w-auto h-auto top-40 max-w-[350px]"
           icon={<XCircleIcon className="mt-px h-6 w-6" />}
           onClose={closeAlert}
         >
@@ -113,6 +113,13 @@ export default function SignUpManagerForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <Typography
+              variant="small"
+              className="-mt-7 p-2 text-xs text-blue-600"
+            >
+              Password must be at least 8 characters long, and contain at least
+              one uppercase character, one lowercase character, and one digit.
+            </Typography>
             <Input
               size="lg"
               label="What is your company's field?"
