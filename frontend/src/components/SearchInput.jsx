@@ -19,7 +19,7 @@ export default function SearchInput(props) {
 
   const doSearch = async () => {
     // props.jobTitle = "Job3";
-    props.onJobTitleChange("Job3");
+    props.onJobTitleChange(jobTitle);
     props.onLocationChange(location);
     props.onCategoryChange(category);
     props.refresh();

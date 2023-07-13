@@ -22,24 +22,25 @@ export default function Home() {
   useEffect(() => {
     getJobs();
   }, []);
-  const filter = (list) => {
-    if (list === undefined) {
-      return undefined;
-    }
-    return list.filter((job) => {
-      return (
-        (job.Title === jobTitle || jobTitle === "") &&
-        (job.Field === category || category === "") &&
-        (job.Location === searchLocation || searchLocation === "")
-      );
-    });
-  };
+  // const filter = (list) => {
+  //   if (list === undefined) {
+  //     return undefined;
+  //   }
+  //   return list.filter((job) => {
+  //     return (
+  //       (job.Title == jobTitle || jobTitle == "") &&
+  //       (job.Field == category || category == "") &&
+  //       (job.Location == searchLocation || searchLocation == "")
+  //     );
+  //   });
+  // };
 
   const refresh = async () => {
     console.log("jobs", jobs);
     console.log("jobTitle", jobTitle, "category", category);
 
-    const newJobs = filter(jobs);
+    // const newJobs = filter(jobs);
+    const newJobs = jobs;
     setJobs(newJobs);
     console.log("newJobs", newJobs);
   };
@@ -49,7 +50,7 @@ export default function Home() {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
-    const filteredJobs = filter(primaryJobs);
+    const filteredJobs = primaryJobs;
     // const filteredJobs = primaryJobs.filter((job) => {
     //   return (
     //     //added for filter check these..
@@ -94,7 +95,15 @@ export default function Home() {
           ID: job.id,
           CompEmail: company.email,
         };
-        return newJob;
+        //added code
+        if ((job.Title === jobTitle || jobTitle === "") &&
+        (job.Field === category || category === "") &&
+        (job.Location === searchLocation || searchLocation === "")){
+             return newJob;
+        }else{
+          return undefined;
+        }
+     
       })
     );
     setJobs(newJobs);
