@@ -46,3 +46,17 @@ func (s *JobService) GetJobByID(jobID uint) (*persistence.Job, error) {
 	}
 	return job, nil
 }
+
+func (s *JobService) CloseJob(jobId uint) error {
+	job, err := s.jobRepository.GetJobByID(jobId)
+	if err != nil {
+		return err
+	}
+	// todo should we do anything if the job is already closed? (I think being idempotent is a good idea)
+	job.Status = "Closed"
+	err = s.jobRepository.UpdateJob(job)
+	if err != nil {
+		return err
+	}
+	return nil
+}

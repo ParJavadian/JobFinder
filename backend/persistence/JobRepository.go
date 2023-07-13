@@ -14,6 +14,7 @@ type Job struct {
 	RemoteStatus string // remote, in-office, both
 	Salary       string
 	Details      string
+	Status       string // open, closed
 	CreatedAt    time.Time
 }
 

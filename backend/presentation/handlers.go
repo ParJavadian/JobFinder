@@ -56,7 +56,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/job", h.CreateJob)
 	router.GET("/jobs", h.GetJobs)
 	router.GET("/job", h.GetJobByID)
-	// todo we should complete them
+	router.POST("/job/close", h.CloseJob)
 }
 
 func (h *Handler) RegisterUser(context *gin.Context) {
@@ -403,6 +403,7 @@ func (h *Handler) CreateJob(context *gin.Context) {
 		RemoteStatus: request.FormValue("remote"),
 		Salary:       request.FormValue("salary"),
 		Details:      request.FormValue("details"),
+		Status:       "open",
 	}
 	err := h.jobService.CreateJob(job)
 	if err != nil {
@@ -585,4 +586,32 @@ func (h *Handler) GetJobByID(context *gin.Context) {
 		"company_id":   job.CompanyID,
 	}
 	context.JSON(200, jsonResponse)
+}
+
+func (h *Handler) CloseJob(context *gin.Context) {
+	jobId, exists := context.GetQuery("job-id")
+	if !exists || jobId == "" {
+		context.JSON(400, gin.H{"error": "job id is required"})
+		return
+	}
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	job, err := h.jobService.GetJobByID(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if job == nil {
+		context.JSON(400, gin.H{"error": "job not found"})
+		return
+	}
+	err = h.jobService.CloseJob(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "job closed successfully"})
 }
