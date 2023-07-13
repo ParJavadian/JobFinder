@@ -224,8 +224,8 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 
 func validateCompanyRegistrationFields(company persistence.Company) error {
 	// first check if email, password, name, field, founded, location are not empty
-	if company.Email == "" || company.Password == "" || company.Name == "" || company.Field == "" || company.Founded == "" || company.Location == "" {
-		return errors.New("email, password, name, field, founded, location should not be empty")
+	if company.Email == "" || company.Password == "" || company.Name == "" {
+		return errors.New("email, password, name should not be empty")
 	}
 	return validatePassword(company.Password)
 }

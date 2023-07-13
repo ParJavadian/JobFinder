@@ -27,6 +27,7 @@ export default function JobDetailCard({
     CompDetails,
     ID,
     CompEmail,
+    Status,
   },
 }) {
   return (

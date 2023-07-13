@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function SignUpManagerForm() {
+  //TODO repeat password
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");

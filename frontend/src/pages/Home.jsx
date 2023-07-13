@@ -98,6 +98,7 @@ export default function Home() {
           CompDetails: company.details,
           ID: job.id,
           CompEmail: company.email,
+          Status: job.status,
         };
         return newJob;
       })

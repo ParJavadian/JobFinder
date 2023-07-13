@@ -5,12 +5,14 @@ import {
   IconButton,
   Button,
   Card,
+  Alert,
 } from "@material-tailwind/react";
 import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
 import AvatarImg from "../images/avatar-1.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 // export default function ViewApplications({
 //   job: {
@@ -47,6 +49,7 @@ export default function ViewApplications() {
     CompDetails,
     ID,
     CompEmail,
+    Status,
   } = location.state || {};
 
   const [applications, setApplications] = useState([]);
@@ -106,7 +109,7 @@ export default function ViewApplications() {
     );
     setApplications(newApplications);
   };
-  console.log(applications);
+  const [changesApplied, setChangesApplied] = useState(false);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -121,7 +124,28 @@ export default function ViewApplications() {
     console.log("Search:", searchValue);
   };
   //TODO after api is defined in backend
-  const closePosition = () => {};
+  const closePosition = async () => {
+    let params = {
+      "job-id": ID,
+    };
+
+    let query = Object.keys(params)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
+      .join("&");
+
+    let url = "http://localhost:8080/job/close?" + query;
+    let response2 = await fetch(url, {
+      headers: { Authorization: localStorage.token },
+      method: "POST",
+    });
+    let result = await response2.json();
+    setChangesApplied(true);
+    // disapear after 3 seconds
+    setTimeout(() => {
+      setChangesApplied(false);
+    }, 3000);
+    // console.log(result);
+  };
 
   return (
     <>
@@ -166,14 +190,16 @@ export default function ViewApplications() {
                 <Unicons.UilSearch />
               </IconButton>
             </div>
-            <Button
-              className="w-auto h-12 ml-auto mr-11"
-              variant="outlined"
-              color="red"
-              onClick={closePosition}
-            >
-              Close position
-            </Button>
+            {Status === "open" && (
+              <Button
+                className="w-auto h-12 ml-auto mr-11"
+                variant="outlined"
+                color="red"
+                onClick={closePosition}
+              >
+                Close position
+              </Button>
+            )}
           </div>
         </div>
         {applications?.length > 0 ? (
@@ -251,6 +277,23 @@ export default function ViewApplications() {
         </HorizContainer>
         <PrimaryJobCard job={myJob} /> */}
       </div>
+      {changesApplied && (
+        <Alert
+          color="green"
+          className="fixed right-16 w-auto h-auto top-8"
+          icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
+          onClose={() => {
+            setChangesApplied(false);
+          }}
+        >
+          <Typography variant="h5" color="white">
+            Success
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            Position created succesfully
+          </Typography>
+        </Alert>
+      )}
     </>
   );
 }

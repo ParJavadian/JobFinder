@@ -54,6 +54,7 @@ export default function CompanyHistory() {
             CompDetails: company.details,
             ID: job.id,
             CompEmail: company.email,
+            Status: job.status,
           };
           return newJob;
         } else return null;
@@ -64,6 +65,7 @@ export default function CompanyHistory() {
         return element !== null;
       })
     );
+    console.log(jobs);
   };
   // Define a list of cards
   // const jobOpen = {
@@ -126,7 +128,7 @@ export default function CompanyHistory() {
           History of positions posted by your company and their status
         </Typography>
         {jobs.map((card) =>
-          card.Status === "Open" ? (
+          card.Status === "open" ? (
             <Card
               className="p-0 m-4 max-w-[48rem]"
               style={{ backgroundColor: "rgb(8 145 178)" }}

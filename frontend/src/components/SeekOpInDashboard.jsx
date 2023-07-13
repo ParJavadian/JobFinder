@@ -95,6 +95,7 @@ export default function SeekOpInDash() {
           CompDetails: company.details,
           ID: job.id,
           CompEmail: company.email,
+          Status: job.status,
         };
         return newJob;
       })

@@ -29,6 +29,7 @@ export default function PrimaryJobCard({
     CompDetails,
     ID,
     CompEmail,
+    Status,
   },
 }) {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ export default function PrimaryJobCard({
           CompDetails,
           ID,
           CompEmail,
+          Status,
         },
       });
     } else {
@@ -71,6 +73,7 @@ export default function PrimaryJobCard({
           CompDetails,
           ID,
           CompEmail,
+          Status,
         },
       });
     }

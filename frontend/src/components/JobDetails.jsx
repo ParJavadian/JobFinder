@@ -40,6 +40,7 @@ export default function JobDetails() {
     CompDetails,
     ID,
     CompEmail,
+    Status,
   } = location1.state || {};
   // console.log(state);
   // const myJob = {
@@ -95,6 +96,7 @@ export default function JobDetails() {
                 CompDetails,
                 ID,
                 CompEmail,
+                Status,
               }}
             />
           </div>

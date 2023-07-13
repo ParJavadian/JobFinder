@@ -27,6 +27,7 @@ export default function ViewApplicationsJobCard(
       CompDetails,
       ID,
       CompEmail,
+      Status,
     },
     colorIn,
   },
@@ -51,6 +52,7 @@ export default function ViewApplicationsJobCard(
         CompDetails,
         ID,
         CompEmail,
+        Status,
       },
     });
   };
@@ -72,6 +74,7 @@ export default function ViewApplicationsJobCard(
         CompDetails,
         ID,
         CompEmail,
+        Status,
       },
     });
   };
