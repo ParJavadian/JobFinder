@@ -30,6 +30,13 @@ export default function ViewApplications() {
   const [searchValue, setSearchValue] = useState("");
   // const Title = "Manager";
 
+
+  const [jobTitle1, setJobTitle1] = useState("");
+  const [location1, setLocation1] = useState("");
+  const [categoryId1, setCategoryId1] = useState(null);
+  const [category1, setCategory1] = useState(null);
+  const [initialJobs, setInitialJobs] = useState([]);
+
   const location = useLocation();
   const {
     Title,
@@ -119,10 +126,32 @@ export default function ViewApplications() {
     //search...
     //values are in jobTitle and location and category
     console.log("Search:", searchValue);
+  //added 
+    const newApplications = filter(applications);
+    setApplications(newApplications);
   };
   //TODO after api is defined in backend
   const closePosition = () => {};
 
+
+  //added 
+  const filter = (list) => {
+    if (list === undefined) {
+      return undefined;
+    }
+    const filtered = list.filter((job) => {
+      return (
+        (job.Title == jobTitle1 || jobTitle1 == "") &&
+        (job.Field == category1 ||
+          category1 == "" ||
+          category1 == null ||
+          category1 == "All") &&
+        (job.Location == location1 || location1 == "")
+      );
+    });
+    return filtered;
+  };
+  ///
   return (
     <>
       <div className="pt-8 pb-8 pl-16 pr-16 ">
