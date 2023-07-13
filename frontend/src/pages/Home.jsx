@@ -103,8 +103,16 @@ export default function Home() {
         return newJob;
       })
     );
-    setInitialJobs(newJobs);
-    setJobs(newJobs);
+    setJobs(
+      newJobs.filter((element) => {
+        return element.Status === "open";
+      })
+    );
+    setInitialJobs(
+      newJobs.filter((element) => {
+        return element.Status === "open";
+      })
+    );
   };
 
   return (

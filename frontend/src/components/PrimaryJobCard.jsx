@@ -79,6 +79,7 @@ export default function PrimaryJobCard({
     }
   };
   const [changesApplied, setChangesApplied] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleApply = async (e) => {
     if (localStorage.token === undefined) {
@@ -100,16 +101,19 @@ export default function PrimaryJobCard({
     });
     let result = await response.json();
     if (response.ok) {
-      console.log(result.message);
+      setChangesApplied(true);
+      // disapear after 3 seconds
+      setTimeout(() => {
+        setChangesApplied(false);
+      }, 3000);
     } else {
-      console.log(result.error);
+      setError(result.error);
+      // disapear after 3 seconds
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      // console.log(result.error);
     }
-    console.log("formData: ", formData);
-    setChangesApplied(true);
-    // disapear after 3 seconds
-    setTimeout(() => {
-      setChangesApplied(false);
-    }, 3000);
   };
   return (
     <>
@@ -212,7 +216,7 @@ export default function PrimaryJobCard({
       {changesApplied && (
         <Alert
           color="green"
-          className="fixed right-16 w-auto h-auto top-12"
+          className="fixed right-16 w-auto h-auto top-8"
           icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
           onClose={() => {
             setChangesApplied(false);
@@ -223,6 +227,23 @@ export default function PrimaryJobCard({
           </Typography>
           <Typography color="white" className="mt-2 font-normal">
             Applied Successfully
+          </Typography>
+        </Alert>
+      )}
+      {error && (
+        <Alert
+          color="red"
+          className="fixed right-16 w-auto h-auto top-8"
+          icon={<XCircleIcon className="mt-px h-6 w-6" />}
+          onClose={() => {
+            setError("");
+          }}
+        >
+          <Typography variant="h5" color="white">
+            Error
+          </Typography>
+          <Typography color="white" className="mt-2 font-normal">
+            Already applied
           </Typography>
         </Alert>
       )}
