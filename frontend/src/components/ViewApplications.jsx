@@ -30,14 +30,6 @@ import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 export default function ViewApplications() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  // const Title = "Manager";
-
-
-  const [jobTitle1, setJobTitle1] = useState("");
-  const [location1, setLocation1] = useState("");
-  const [categoryId1, setCategoryId1] = useState(null);
-  const [category1, setCategory1] = useState(null);
-  const [initialJobs, setInitialJobs] = useState([]);
 
   const location = useLocation();
   const {
@@ -60,6 +52,7 @@ export default function ViewApplications() {
   } = location.state || {};
 
   const [applications, setApplications] = useState([]);
+  const [initialApplications, setInitialApplications] = useState([]);
   useEffect(() => {
     getApplications();
   }, []);
@@ -115,25 +108,22 @@ export default function ViewApplications() {
       })
     );
     setApplications(newApplications);
+    setInitialApplications(newApplications);
   };
   const [changesApplied, setChangesApplied] = useState(false);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       doSearch();
-      console.log("do validate");
     }
   };
 
   const doSearch = () => {
-    //search...
-    //values are in jobTitle and location and category
     console.log("Search:", searchValue);
-  //added 
-    const newApplications = filter(applications);
+    const newApplications = filter(initialApplications);
     setApplications(newApplications);
   };
-  //TODO after api is defined in backend
+
   const closePosition = async () => {
     let params = {
       "job-id": ID,
@@ -150,28 +140,20 @@ export default function ViewApplications() {
     });
     let result = await response2.json();
     setChangesApplied(true);
-    // disapear after 3 seconds
     setTimeout(() => {
       setChangesApplied(false);
     }, 3000);
-    // console.log(result);
   };
 
-
-  //added 
   const filter = (list) => {
     if (list === undefined) {
       return undefined;
     }
-    const filtered = list.filter((job) => {
-      return (
-        (job.Title == jobTitle1 || jobTitle1 == "") &&
-        (job.Field == category1 ||
-          category1 == "" ||
-          category1 == null ||
-          category1 == "All") &&
-        (job.Location == location1 || location1 == "")
-      );
+    const filtered = list.filter((applicant) => {
+      console.log(applicant);
+      const fullname = applicant.Name + " " + applicant.Lastname;
+      console.log(fullname);
+      return fullname.includes(searchValue) || searchValue === "";
     });
     return filtered;
   };
@@ -208,11 +190,7 @@ export default function ViewApplications() {
                   onKeyDown={handleKeyDown}
                   value={searchValue}
                   className="bg-white"
-                  // icon={
-                  //   <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
-                  //     <Unicons.UilSearch />
-                  //   </IconButton>
-                  // }
+                  type="search"
                 />
               </div>
               <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
@@ -319,7 +297,7 @@ export default function ViewApplications() {
             Success
           </Typography>
           <Typography color="white" className="mt-2 font-normal">
-            Position created succesfully
+            Position closed succesfully
           </Typography>
         </Alert>
       )}
