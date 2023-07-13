@@ -3,46 +3,60 @@ import SearchInput from "../components/SearchInput";
 import PrimaryJobCard from "../components/PrimaryJobCard";
 import Container from "../components/Container";
 import HorizContainer from "../components/HorizContainer";
-import { Typography } from "@material-tailwind/react";
+import {
+  Typography,
+  Input,
+  Select,
+  IconButton,
+  Option,
+} from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
+import * as Unicons from "@iconscout/react-unicons";
+import { getCategoryById, jobCategories } from "../constants/Categories";
 
 const SampleImgUrl =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMGuOzi8xiMxTHT0Oj1UQygOfwvkENepvfov3kZ45RQ&s";
 export default function Home() {
-  const [jobs, setJobs] = useState([]);
   const [jobTitle, setJobTitle] = useState("");
-  // var jobTitle = "";
-  const [searchLocation, setSearchLocation] = useState("");
-  const [category, setCategory] = useState("");
-  // const titleHandler = () =>{
-  //   this.setState({
-  //     someVar: 'some value'
-  //   })
-  // }
+  const [location, setLocation] = useState("");
+  const [categoryId, setCategoryId] = useState(null);
+  const [category, setCategory] = useState(null);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      refresh();
+    }
+  };
+
+  const handleChange = (e) => {
+    setCategoryId(e);
+    setCategory(getCategoryById(e));
+  };
+  const [jobs, setJobs] = useState([]);
+  const [initialJobs, setInitialJobs] = useState([]);
   useEffect(() => {
     getJobs();
   }, []);
-  // const filter = (list) => {
-  //   if (list === undefined) {
-  //     return undefined;
-  //   }
-  //   return list.filter((job) => {
-  //     return (
-  //       (job.Title == jobTitle || jobTitle == "") &&
-  //       (job.Field == category || category == "") &&
-  //       (job.Location == searchLocation || searchLocation == "")
-  //     );
-  //   });
-  // };
+  const filter = (list) => {
+    if (list === undefined) {
+      return undefined;
+    }
+    const filtered = list.filter((job) => {
+      return (
+        (job.Title == jobTitle || jobTitle == "") &&
+        (job.Field == category ||
+          category == "" ||
+          category == null ||
+          category == "All") &&
+        (job.Location == location || location == "")
+      );
+    });
+    return filtered;
+  };
 
   const refresh = async () => {
-    console.log("jobs", jobs);
-    console.log("jobTitle", jobTitle, "category", category);
-
-    // const newJobs = filter(jobs);
-    const newJobs = jobs;
+    const newJobs = filter(initialJobs);
     setJobs(newJobs);
-    console.log("newJobs", newJobs);
   };
 
   const getJobs = async () => {
@@ -50,28 +64,18 @@ export default function Home() {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
-    const filteredJobs = primaryJobs;
-    // const filteredJobs = primaryJobs.filter((job) => {
-    //   return (
-    //     //added for filter check these..
-    //     job.title === jobTitle &&
-    //     job.category === category &&
-    //     job.location === searchLocation
-    //     //
-    //   );
-    // });
     const newJobs = await Promise.all(
-      filteredJobs.map(async (job) => {
+      primaryJobs.map(async (job) => {
         let params = {
           "company-id": job.company_id,
         };
-  
+
         let query = Object.keys(params)
           .map(
             (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
           )
           .join("&");
-  
+
         let url = "http://localhost:8080/company?" + query;
         let response2 = await fetch(url, {
           headers: { Authorization: localStorage.token },
@@ -95,19 +99,12 @@ export default function Home() {
           ID: job.id,
           CompEmail: company.email,
         };
-        //added code
-        if ((job.Title === jobTitle || jobTitle === "") &&
-        (job.Field === category || category === "") &&
-        (job.Location === searchLocation || searchLocation === "")){
-             return newJob;
-        }else{
-          return undefined;
-        }
-     
+        return newJob;
       })
     );
+    setInitialJobs(newJobs);
     setJobs(newJobs);
-  };  
+  };
 
   return (
     <>
@@ -115,13 +112,49 @@ export default function Home() {
 
       <Container>
         <img class="w-full h-64" src={SampleImgUrl} alt="sample" />
-        <SearchInput
-          onJobTitleChange={setJobTitle}
-          onLocationChange={setSearchLocation}
-          onCategoryChange={setCategory}
-          refresh={refresh}
-          jobTitle={jobTitle}
-        />
+        <div className="flex items-center justify-center">
+          <div className="flex bg-blue-50 flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
+            <Input
+              onKeyDown={handleKeyDown}
+              variant="outlined"
+              label="Job Title"
+              type="search"
+              className="bg-white"
+              value={jobTitle}
+              onChange={(e) => {
+                e.preventDefault();
+                setJobTitle(e.target.value);
+              }}
+            />
+            <Input
+              onKeyDown={handleKeyDown}
+              variant="outlined"
+              label="Location"
+              type="search"
+              className="bg-white"
+              value={location}
+              onChange={(e) => {
+                e.preventDefault();
+                setLocation(e.target.value);
+              }}
+            />
+            <Select
+              label="Category"
+              value={categoryId}
+              onChange={handleChange}
+              className="bg-white"
+            >
+              {jobCategories.map((job) => (
+                <Option key={job.value} value={job.value}>
+                  {job.label}
+                </Option>
+              ))}
+            </Select>
+            <IconButton onClick={refresh} className="w-24 h-24 flex-none">
+              <Unicons.UilSearch />
+            </IconButton>
+          </div>
+        </div>
         {jobs?.length > 0 ? (
           <HorizContainer>
             {jobs.map((myJob) => (

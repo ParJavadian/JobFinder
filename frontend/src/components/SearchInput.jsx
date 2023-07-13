@@ -5,6 +5,7 @@ import { Select, Option } from "@material-tailwind/react";
 import { getCategoryById, jobCategories } from "../constants/Categories";
 
 export default function SearchInput(props) {
+  console.log("rendering");
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [categoryId, setCategoryId] = useState(null);
@@ -17,16 +18,21 @@ export default function SearchInput(props) {
     }
   };
 
-  const doSearch = async () => {
+  const doSearch = (e) => {
+    e.preventDefault();
+
     // props.jobTitle = "Job3";
+    // props.refresh();
     props.onJobTitleChange(jobTitle);
     props.onLocationChange(location);
     props.onCategoryChange(category);
-    props.refresh();
+    // props.refresh();
     console.log("Search:", jobTitle, location, category, categoryId);
   };
 
   const handleChange = (e) => {
+    e.preventDefault();
+
     setCategoryId(e);
     setCategory(getCategoryById(e));
   };
@@ -41,7 +47,10 @@ export default function SearchInput(props) {
           type="search"
           className="bg-white"
           value={jobTitle}
-          onChange={(e) => setJobTitle(e.target.value)}
+          onChange={(e) => {
+            e.preventDefault();
+            setJobTitle(e.target.value);
+          }}
         />
         <Input
           onKeyDown={handleKeyDown}
@@ -50,7 +59,10 @@ export default function SearchInput(props) {
           type="search"
           className="bg-white"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => {
+            e.preventDefault();
+            setLocation(e.target.value);
+          }}
         />
         <Select
           label="Category"
@@ -64,7 +76,13 @@ export default function SearchInput(props) {
             </Option>
           ))}
         </Select>
-        <IconButton onClick={doSearch} className="w-24 h-24 flex-none">
+        <IconButton
+          onClick={(e) => {
+            doSearch(e);
+            props.refresh();
+          }}
+          className="w-24 h-24 flex-none"
+        >
           <Unicons.UilSearch />
         </IconButton>
       </div>

@@ -1,19 +1,58 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@material-tailwind/react";
+import {
+  Typography,
+  Input,
+  Select,
+  IconButton,
+  Option,
+} from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
 import SearchInput from "./SearchInput";
 import HorizContainer from "./HorizContainer";
 import PrimaryJobCard from "./PrimaryJobCard";
+import { getCategoryById, jobCategories } from "../constants/Categories";
 
 export default function SeekOpInDash() {
+  const [jobTitle, setJobTitle] = useState("");
+  const [location, setLocation] = useState("");
+  const [categoryId, setCategoryId] = useState(null);
+  const [category, setCategory] = useState(null);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      refresh();
+    }
+  };
+
+  const handleChange = (e) => {
+    setCategoryId(e);
+    setCategory(getCategoryById(e));
+  };
   const [jobs, setJobs] = useState([]);
-    //added
-    const [jobTitle, setJobTitle] = useState("");
-    const [searchLocation, setSearchLocation] = useState("");
-    const [category, setCategory] = useState("");
+  const [initialJobs, setInitialJobs] = useState([]);
   useEffect(() => {
     getJobs();
   }, []);
+  const filter = (list) => {
+    if (list === undefined) {
+      return undefined;
+    }
+    const filtered = list.filter((job) => {
+      return (
+        (job.Title == jobTitle || jobTitle == "") &&
+        (job.Field == category ||
+          category == "" ||
+          category == null ||
+          category == "All") &&
+        (job.Location == location || location == "")
+      );
+    });
+    return filtered;
+  };
+
+  const refresh = async () => {
+    const newJobs = filter(initialJobs);
+    setJobs(newJobs);
+  };
 
   const getJobs = async () => {
     //TODO filter positions by status
@@ -22,18 +61,8 @@ export default function SeekOpInDash() {
       headers: { Authorization: localStorage.token },
     });
     let primaryJobs = await response.json();
-        //added
-        const filteredJobs = primaryJobs.filter((job) => {
-          return (
-            //added for filter check these..
-            job.title === jobTitle &&
-            job.category === category &&
-            job.location === searchLocation
-            //
-          );
-        });
     const newJobs = await Promise.all(
-      filteredJobs.map(async (job) => {
+      primaryJobs.map(async (job) => {
         let params = {
           "company-id": job.company_id,
         };
@@ -70,6 +99,7 @@ export default function SeekOpInDash() {
         return newJob;
       })
     );
+    setInitialJobs(newJobs);
     setJobs(newJobs);
   };
   return (
@@ -93,12 +123,49 @@ export default function SeekOpInDash() {
           Find jobs that best suit you
         </Typography>
         <div className="-ml-20">
-          <SearchInput
-              //added for filter
-              onJobTitleChange={setJobTitle}
-              onLocationChange={setSearchLocation}
-              onCategoryChange={setCategory}
-          />
+          <div className="flex items-center justify-center">
+            <div className="flex bg-blue-50 flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
+              <Input
+                onKeyDown={handleKeyDown}
+                variant="outlined"
+                label="Job Title"
+                type="search"
+                className="bg-white"
+                value={jobTitle}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setJobTitle(e.target.value);
+                }}
+              />
+              <Input
+                onKeyDown={handleKeyDown}
+                variant="outlined"
+                label="Location"
+                type="search"
+                className="bg-white"
+                value={location}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setLocation(e.target.value);
+                }}
+              />
+              <Select
+                label="Category"
+                value={categoryId}
+                onChange={handleChange}
+                className="bg-white"
+              >
+                {jobCategories.map((job) => (
+                  <Option key={job.value} value={job.value}>
+                    {job.label}
+                  </Option>
+                ))}
+              </Select>
+              <IconButton onClick={refresh} className="w-24 h-24 flex-none">
+                <Unicons.UilSearch />
+              </IconButton>
+            </div>
+          </div>
           {jobs?.length > 0 ? (
             <HorizContainer>
               {jobs.map((myJob) => (

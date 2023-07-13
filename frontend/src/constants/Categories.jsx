@@ -1,8 +1,10 @@
 const jobCategories = [
-  { value: "0", label: "Tech" },
-  { value: "1", label: "Manager" },
-  { value: "2", label: "Counseling" },
-  { value: "3", label: "Healthcare" },
+  { value: "0", label: "All" },
+
+  { value: "1", label: "Tech" },
+  { value: "2", label: "Manager" },
+  { value: "3", label: "Counseling" },
+  { value: "4", label: "Healthcare" },
 ];
 
 function getCategoryById(id) {
