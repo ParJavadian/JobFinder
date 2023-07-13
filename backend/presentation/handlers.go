@@ -3,6 +3,7 @@ package presentation
 import (
 	"JobFinder/backend/persistence"
 	"JobFinder/backend/services"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -56,7 +57,7 @@ func (h *Handler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/job", h.CreateJob)
 	router.GET("/jobs", h.GetJobs)
 	router.GET("/job", h.GetJobByID)
-	// todo we should complete them
+	router.POST("/job/close", h.CloseJob)
 }
 
 func (h *Handler) RegisterUser(context *gin.Context) {
@@ -72,17 +73,54 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 		Details:    request.FormValue("details"),
 	}
 
+	err := validateUserRegistrationFields(user)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
 	if h.companyService.ExistsByEmail(user.Email) {
 		context.JSON(400, gin.H{"error": "email already exists"})
 		return
 	}
 
-	err := h.userService.RegisterAccount(&user)
+	err = h.userService.RegisterAccount(&user)
 	if err != nil {
 		context.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 	context.JSON(200, gin.H{"message": "account created successfully"})
+}
+
+func validateUserRegistrationFields(user persistence.User) error {
+	// first check if email, password, firstname, lastname are not empty
+	if user.Email == "" || user.Password == "" || user.Firstname == "" || user.Lastname == "" {
+		return errors.New("email, password, firstname, lastname should not be empty")
+	}
+	return validatePassword(user.Password)
+}
+
+func validatePassword(password string) error {
+	// password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number
+	if len(password) < 8 {
+		return errors.New("password should be at least 8 characters long")
+	}
+	containsUppercase := false
+	containsLowercase := false
+	containsNumber := false
+	for _, char := range password {
+		if char >= 'a' && char <= 'z' {
+			containsLowercase = true
+		} else if char >= 'A' && char <= 'Z' {
+			containsUppercase = true
+		} else if char >= '0' && char <= '9' {
+			containsNumber = true
+		}
+	}
+	if !containsUppercase || !containsLowercase || !containsNumber {
+		return errors.New("password should contain at least one uppercase letter, one lowercase letter, one number")
+	}
+	return nil
 }
 
 func (h *Handler) EditUserProfile(context *gin.Context) {
@@ -165,6 +203,11 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 		Location:  request.FormValue("location"),
 		Details:   request.FormValue("details"),
 	}
+	err = validateCompanyRegistrationFields(company)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
 
 	if h.userService.ExistsByEmail(company.Email) {
 		context.JSON(400, gin.H{"error": "email already exists"})
@@ -177,6 +220,14 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 		return
 	}
 	context.JSON(200, gin.H{"message": "company account created successfully"})
+}
+
+func validateCompanyRegistrationFields(company persistence.Company) error {
+	// first check if email, password, name, field, founded, location are not empty
+	if company.Email == "" || company.Password == "" || company.Name == "" || company.Field == "" || company.Founded == "" || company.Location == "" {
+		return errors.New("email, password, name, field, founded, location should not be empty")
+	}
+	return validatePassword(company.Password)
 }
 
 func (h *Handler) EditCompanyProfile(context *gin.Context) {
@@ -403,6 +454,7 @@ func (h *Handler) CreateJob(context *gin.Context) {
 		RemoteStatus: request.FormValue("remote"),
 		Salary:       request.FormValue("salary"),
 		Details:      request.FormValue("details"),
+		Status:       "open",
 	}
 	err := h.jobService.CreateJob(job)
 	if err != nil {
@@ -439,6 +491,7 @@ func getJsonResponseFromJobs(jobs []*persistence.Job) []gin.H {
 			"details":      job.Details,
 			"created-at":   job.CreatedAt,
 			"company_id":   job.CompanyID,
+			"status":       job.Status,
 		}
 	}
 	return jsonResponse
@@ -583,6 +636,35 @@ func (h *Handler) GetJobByID(context *gin.Context) {
 		"details":      job.Details,
 		"created-at":   job.CreatedAt,
 		"company_id":   job.CompanyID,
+		"status":       job.Status,
 	}
 	context.JSON(200, jsonResponse)
+}
+
+func (h *Handler) CloseJob(context *gin.Context) {
+	jobId, exists := context.GetQuery("job-id")
+	if !exists || jobId == "" {
+		context.JSON(400, gin.H{"error": "job id is required"})
+		return
+	}
+	uintJobId, err := getUintFromString(jobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	job, err := h.jobService.GetJobByID(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	if job == nil {
+		context.JSON(400, gin.H{"error": "job not found"})
+		return
+	}
+	err = h.jobService.CloseJob(uintJobId)
+	if err != nil {
+		context.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{"message": "job closed successfully"})
 }
