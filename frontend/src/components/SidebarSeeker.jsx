@@ -69,8 +69,8 @@ export default function SidebarSeeker() {
             Application History
           </ListItem>
         </Link>
-        <div className="mt-64">
-          <hr className="my-2 border-blue-gray-50 mt-10" />
+        <div className="absolute bottom-4 w-5/6">
+          <hr className="my-2 border-blue-gray-1000 mt-10" />
           <ListItem onClick={logout}>
             <ListItemPrefix>
               <Unicons.UilSignout className="h-5 w-5" />

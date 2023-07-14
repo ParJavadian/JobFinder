@@ -2,8 +2,8 @@ import { Avatar, Input, Typography } from "@material-tailwind/react";
 export default function ImgUpload({ onChange, src }) {
   return (
     <>
-      <label className="flex flex-col gap-2">
-        <Typography className="font-normal text-blue-gray-500 text-sm">
+      <label className="flex flex-col gap-3">
+        <Typography className="font-normal text-blue-gray-500 text-sm -mt-3">
           Profile Picture
         </Typography>
         <Avatar size="lg" for="photo-upload" src={src} alt="avatar" />

@@ -20,6 +20,7 @@ export default function Form() {
       });
     };
     reader.readAsDataURL(file);
+    console.log("file", reader);
   };
   console.log("statttt", state);
   const [formData, setFormData] = useState({
@@ -127,7 +128,6 @@ export default function Form() {
           variant="static"
           label="What Languages can you speak?"
         />
-        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
 
         <Textarea
           name="details"
@@ -138,6 +138,7 @@ export default function Form() {
           variant="static"
           label="Details"
         />
+        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
 
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
