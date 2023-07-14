@@ -3,9 +3,11 @@ import { Input, Button, Textarea, Typography } from "@material-tailwind/react";
 import ImgUpload from "./ImgUpload";
 import sampleAvatar from "../images/sample.png";
 export default function Form() {
+  const state = JSON.parse(localStorage.state);
+
   const [imgState, setImgState] = useState({
     file: "",
-    imagePreviewUrl: sampleAvatar,
+    imagePreviewUrl: state.user.img,
   });
   const photoUpload = (e) => {
     e.preventDefault();
@@ -19,7 +21,6 @@ export default function Form() {
     };
     reader.readAsDataURL(file);
   };
-  const state = JSON.parse(localStorage.state);
   console.log("statttt", state);
   const [formData, setFormData] = useState({
     firstname: state.user.firstname,
@@ -126,6 +127,8 @@ export default function Form() {
           variant="static"
           label="What Languages can you speak?"
         />
+        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
+
         <Textarea
           name="details"
           placeholder="Details"
@@ -135,7 +138,6 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
 
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes

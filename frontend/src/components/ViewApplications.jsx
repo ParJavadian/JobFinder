@@ -9,7 +9,6 @@ import {
 } from "@material-tailwind/react";
 import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
-import AvatarImg from "../images/avatar-1.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
@@ -96,7 +95,7 @@ export default function ViewApplications() {
           Email: user.email,
           Profession: user.profession,
           Degree: user.degree,
-          AvatarSrc: AvatarImg,
+          AvatarSrc: user.img,
           Location: user.location,
           Languages: user.languages,
           Detail: user.details,

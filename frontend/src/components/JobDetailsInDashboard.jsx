@@ -6,23 +6,6 @@ import { useLocation } from "react-router-dom";
 
 export default function JobDetailsInDashboard() {
   const navigate = useNavigate();
-
-  // const myCompany = {
-  //   //defualt values
-  //   name: "Google",
-  //   email: "google@gmail.com",
-  //   field: "Tech",
-  //   founded: "1940",
-  //   employees: "2bilion",
-  //   location: "Silicon Valley",
-  //   details: "We used to be a good company before kianoosh left us...",
-  //   Logosrc:
-  //     "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-  // };
-  // const { state } = useLocation();
-  // const state = location1.state;
-  // const { title, company, field, salary, location, time, remote } =
-  //   location1.info || {};
   const location1 = useLocation();
   const {
     Title,
@@ -42,17 +25,6 @@ export default function JobDetailsInDashboard() {
     CompEmail,
     Status,
   } = location1.state || {};
-  // console.log(state);
-  // const myJob = {
-  //   Title: Title,
-  //   Company: Company,
-  //   Field: Field,
-  //   Salary: Salary,
-  //   Location: Location,
-  //   Time: Time,
-  //   Remote: Remote,
-  //   Detail: Detail,
-  // };
   return (
     <>
       <div className="space-y-10 pt-8 pb-8 pl-16 pr-16 text-blue-700">

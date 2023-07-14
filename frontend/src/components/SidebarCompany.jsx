@@ -8,8 +8,6 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
-const AvatarImg =
-  "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
 
 export default function SidebarCompany() {
   console.log(localStorage.token);
@@ -37,7 +35,7 @@ export default function SidebarCompany() {
         </Typography>
       </div> */}
       <div className="flex items-center gap-4">
-        <Avatar src={AvatarImg} alt="avatar" size="xl" />
+        <Avatar src={company.img} alt="avatar" size="xl" />
         <div>
           <Typography variant="h6">{company.name}</Typography>
           <Typography variant="small" color="gray" className="font-normal">

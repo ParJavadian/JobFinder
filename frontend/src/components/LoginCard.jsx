@@ -10,6 +10,7 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import sampleAvatar from "../images/sample.png";
 
 import { useNavigate } from "react-router-dom";
 
@@ -63,7 +64,8 @@ export default function LoginCard() {
             }
           );
           let result2 = await response2.json();
-          // console.log("result2:", result2);
+          //TODO delete after img is given from back
+          result2.img = sampleAvatar;
           localStorage.setItem("state", JSON.stringify({ company: result2 }));
           navigate("/company-dashboard", { state: { company: result2 } });
         } else if (role === "user") {
@@ -71,6 +73,8 @@ export default function LoginCard() {
             headers: { Authorization: localStorage.token },
           });
           let result2 = await response2.json();
+          //TODO delete after img is given from back
+          result2.img = sampleAvatar;
           localStorage.setItem("state", JSON.stringify({ user: result2 }));
           navigate("/seeker-dashboard", { state: { user: result2 } });
         } else {

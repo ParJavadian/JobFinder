@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Typography, Button, Alert } from "@material-tailwind/react";
-import AvatarImg from "../images/avatar-1.jpg";
 import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import PersonDetailCard from "./PersonDetailCard";

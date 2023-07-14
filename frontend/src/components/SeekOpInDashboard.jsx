@@ -82,8 +82,7 @@ export default function SeekOpInDash() {
           Salary: job.salary,
           Location: company.location,
           Company: company.name,
-          Logosrc:
-            "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+          Logosrc: company.img,
           Time: job.time,
           Remote: job.remoteStatus,
           Detail: job.details,

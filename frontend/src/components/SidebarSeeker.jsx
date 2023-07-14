@@ -9,7 +9,6 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
-import AvatarImg from "../images/avatar-1.jpg";
 // import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SidebarSeeker() {
@@ -34,7 +33,7 @@ export default function SidebarSeeker() {
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="flex items-center gap-4">
-        <Avatar src={AvatarImg} alt="avatar" size="xl" />
+        <Avatar src={user.img} alt="avatar" size="xl" />
         <div>
           <Typography variant="h6">
             {user.firstname} {user.lastname}
