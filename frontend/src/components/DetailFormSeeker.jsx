@@ -20,6 +20,7 @@ export default function Form() {
       });
     };
     reader.readAsDataURL(file);
+    handleChange(e);
     console.log("file", reader);
   };
   console.log("statttt", state);
@@ -33,6 +34,7 @@ export default function Form() {
     details: state.user.details,
     email: state.user.email,
     id: state.user.id,
+    img: state.user.img,
   });
 
   // const [changesApplied, setChangesApplied] = useState(false);
@@ -48,19 +50,23 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData: ", formData);
-    const formDataForm = new FormData();
+    const form = e.currentTarget;
+    const formDataForm = new FormData(form);
+    // console.log("formData: ", formData);
+    // const formDataForm = new FormData();
 
-    for (var key in formData) {
-      formDataForm.append(key, formData[key]);
-    }
+    // for (var key in formData) {
+    //   formDataForm.append(key, formData[key]);
+    // }
     e.preventDefault();
 
     let response = await fetch("http://localhost:8080/edit-profile/user", {
       headers: { Authorization: localStorage.token },
       method: "POST",
       body: formDataForm,
+      enctype: "multipart/form-data",
     });
+    console.log("sent", formData);
     console.log(response);
     localStorage.setItem("state", JSON.stringify({ user: formData }));
     // setChangesApplied(true);
@@ -138,9 +144,15 @@ export default function Form() {
           variant="static"
           label="Details"
         />
+        {/* <form enctype="multipart/form-data"> */}
         <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
-
-        <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
+        {/* </form> */}
+        <Button
+          font-size="xl"
+          variant="gradient"
+          type="submit"
+          // onClick={handleSubmit}
+        >
           Save changes
         </Button>
       </form>

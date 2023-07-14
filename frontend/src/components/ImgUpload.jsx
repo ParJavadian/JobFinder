@@ -19,6 +19,7 @@ export default function ImgUpload({ onChange, src }) {
             padding: "6px 6px",
           }}
           className="text-blue-gray-500 text-sm max-w-sm"
+          name="file"
         />
       </label>
     </>
