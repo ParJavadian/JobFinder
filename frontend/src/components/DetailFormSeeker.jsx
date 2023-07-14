@@ -1,8 +1,24 @@
 import React, { useState } from "react";
-import { Input, Button, Textarea } from "@material-tailwind/react";
-// import { useLocation } from "react-router-dom";
-
+import { Input, Button, Textarea, Typography } from "@material-tailwind/react";
+import ImgUpload from "./ImgUpload";
+import sampleAvatar from "../images/sample.png";
 export default function Form() {
+  const [imgState, setImgState] = useState({
+    file: "",
+    imagePreviewUrl: sampleAvatar,
+  });
+  const photoUpload = (e) => {
+    e.preventDefault();
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      setImgState({
+        file: file,
+        imagePreviewUrl: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
+  };
   const state = JSON.parse(localStorage.state);
   console.log("statttt", state);
   const [formData, setFormData] = useState({
@@ -119,20 +135,12 @@ export default function Form() {
           variant="static"
           label="Details"
         />
+        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
+
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
         </Button>
       </form>
-
-      {/* {changesApplied && (
-        <Alert
-          color="green"
-          size="sm"
-          className="fixed top-4 right-4 rounded-md bg-green-500 text-white py-6 px-4 text-lg w-68"
-        >
-          Changes applied successfully!
-        </Alert>
-      )} */}
     </>
   );
 }

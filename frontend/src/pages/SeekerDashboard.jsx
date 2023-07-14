@@ -1,8 +1,6 @@
 import React from "react";
 import SidebarSeeker from "../components/SidebarSeeker";
 import { Route, Routes } from "react-router-dom";
-// import { useNavigate, useLocation } from "react-router-dom";
-import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsSeeker from "../components/DetailsSeeker";
 import SeekOpInDash from "../components/SeekOpInDashboard";
 import SeekerHistory from "../components/SeekerHistory";
@@ -24,6 +22,7 @@ export default function SeekerDashboard() {
               path="/history"
               element={<SeekerHistory user={user} />}
             ></Route>
+
             <Route path="/details" element={<JobDetailsInDashboard />}></Route>
             {/* <Route
               path="/change-password"

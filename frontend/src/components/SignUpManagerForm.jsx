@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import * as Unicons from "@iconscout/react-unicons";
 
 export default function SignUpManagerForm() {
   //TODO repeat password
@@ -115,10 +116,14 @@ export default function SignUpManagerForm() {
             />
             <Typography
               variant="small"
-              className="-mt-7 p-2 text-xs text-blue-600"
+              className="-mt-6 p-2 -mb-2 text-xs text-blue-600 flex items-center gap-1"
             >
-              Password must be at least 8 characters long, and contain at least
-              one uppercase character, one lowercase character, and one digit.
+              <Unicons.UilInfoCircle
+                className="w-4 h-4 -mt-px"
+                style={{ display: "inline-block" }}
+              />
+              Use at least 8 characters, one uppercase, one lowercase and one
+              number.
             </Typography>
             <Input
               size="lg"
