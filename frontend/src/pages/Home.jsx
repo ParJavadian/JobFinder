@@ -1,5 +1,5 @@
 import MyNavbar from "../components/MyNavBar";
-import SearchInput from "../components/SearchInput";
+import sampleAvatar from "../images/sample.png";
 import PrimaryJobCard from "../components/PrimaryJobCard";
 import Container from "../components/Container";
 import HorizContainer from "../components/HorizContainer";

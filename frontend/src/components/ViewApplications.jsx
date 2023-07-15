@@ -12,6 +12,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import sampleAvatar from "../images/sample.png";
 
 // export default function ViewApplications({
 //   job: {

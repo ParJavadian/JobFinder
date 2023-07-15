@@ -7,7 +7,7 @@ import {
   Option,
 } from "@material-tailwind/react";
 import * as Unicons from "@iconscout/react-unicons";
-import SearchInput from "./SearchInput";
+import sampleAvatar from "../images/sample.png";
 import HorizContainer from "./HorizContainer";
 import PrimaryJobCard from "./PrimaryJobCard";
 import { getCategoryById, jobCategories } from "../constants/Categories";

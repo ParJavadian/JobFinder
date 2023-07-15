@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import * as Unicons from "@iconscout/react-unicons";
+import sampleAvatar from "../images/sample.png";
 
 export default function SignUpManagerForm() {
   //TODO repeat password
@@ -26,6 +27,7 @@ export default function SignUpManagerForm() {
     field: field,
     location: location,
     employees: "0",
+    img: sampleAvatar,
   };
   const [error, setError] = useState("");
   useEffect(() => {

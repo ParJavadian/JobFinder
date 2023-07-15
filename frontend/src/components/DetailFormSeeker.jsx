@@ -23,9 +23,9 @@ export default function Form() {
       //   img: reader.result,
       // }));
       // console.log("setformdata");
-      console.log("file", reader);
+      // console.log("file", reader);
       formData.img = reader.result;
-      console.log("type", formData.img, typeof formData.img);
+      // console.log("type", formData.img, typeof formData.img);
     };
     reader.readAsDataURL(file);
     // handleChange(e);
@@ -167,9 +167,9 @@ export default function Form() {
         {/* <form enctype="multipart/form-data"> */}
         <ImgUpload
           onChange={photoUpload}
-          src={imgState.imagePreviewUrl}
-          name="img"
-          value={formData.img}
+          src={imgState.imagePreviewUrl || sampleAvatar}
+          // name="img"
+          // value={formData.img}
         />
         {/* </form> */}
         <Button

@@ -35,7 +35,7 @@ export default function SidebarCompany() {
         </Typography>
       </div> */}
       <div className="flex items-center gap-4">
-        <Avatar src={company.img} alt="avatar" size="xl" />
+        <Avatar src={company.img} alt="avatar" size="lg" />
         <div>
           <Typography variant="h6">{company.name}</Typography>
           <Typography variant="small" color="gray" className="font-normal">

@@ -1,8 +1,37 @@
 import React, { useState } from "react";
+import ImgUpload from "./ImgUpload";
 import { Input, Button, Textarea } from "@material-tailwind/react";
+import sampleAvatar from "../images/sample.png";
 
 export default function Form() {
   const state = JSON.parse(localStorage.state);
+  const [imgState, setImgState] = useState({
+    file: "",
+    imagePreviewUrl: state.company.img,
+  });
+  const photoUpload = (e) => {
+    e.preventDefault();
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      setImgState({
+        file: file,
+        imagePreviewUrl: reader.result,
+      });
+      // setFormData((prevFormData) => ({
+      //   ...prevFormData,
+      //   img: reader.result,
+      // }));
+      // console.log("setformdata");
+      // console.log("file", reader);
+      formData.img = reader.result;
+      // console.log("type", formData.img, typeof formData.img);
+    };
+    reader.readAsDataURL(file);
+    // handleChange(e);
+
+    // formData.img = imgState.imagePreviewUrl;
+  };
   const [formData, setFormData] = useState({
     name: state.company.name,
     field: state.company.field,
@@ -12,6 +41,7 @@ export default function Form() {
     details: state.company.details,
     email: state.company.email,
     id: state.company.id,
+    img: state.company.img,
   });
 
   // const [changesApplied, setChangesApplied] = useState(false);
@@ -39,6 +69,7 @@ export default function Form() {
       headers: { Authorization: localStorage.token },
       method: "POST",
       body: formDataForm,
+      enctype: "multipart/form-data",
     });
     console.log(response);
     localStorage.setItem("state", JSON.stringify({ company: formData }));
@@ -106,6 +137,12 @@ export default function Form() {
           size="lg"
           variant="static"
           label="Details"
+        />
+        <ImgUpload
+          onChange={photoUpload}
+          src={imgState.imagePreviewUrl}
+          // name="img"
+          // value={formData.img}
         />
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes

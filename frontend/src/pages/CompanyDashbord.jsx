@@ -7,7 +7,6 @@ import CompanyHistory from "../components/CompanyHistory";
 import AddJob from "../components/AddJob";
 import ViewApplications from "../components/ViewApplications";
 import PersonDetails from "../components/PersonDetails";
-import { useLocation } from "react-router-dom";
 import JobDetailsInDashboard from "../components/JobDetailsInDashboard";
 
 export default function CompanyDashbord() {

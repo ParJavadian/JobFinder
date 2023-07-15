@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import * as Unicons from "@iconscout/react-unicons";
+import sampleAvatar from "../images/sample.png";
 
 export default function SignUpSeekerForm() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function SignUpSeekerForm() {
     password: password,
     firstname: firstname,
     lastname: lastname,
+    img: sampleAvatar,
   };
   const [error, setError] = useState("");
   useEffect(() => {

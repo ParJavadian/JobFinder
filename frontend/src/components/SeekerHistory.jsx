@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Typography } from "@material-tailwind/react";
 import ViewAppsSeekerCard from "./ViewAppsSeekerCard";
 import * as Unicons from "@iconscout/react-unicons";
+import sampleAvatar from "../images/sample.png";
 
 export default function SeekerHistory() {
   // const state = JSON.parse(localStorage.state);
