@@ -74,7 +74,8 @@ export default function LoginCard() {
           });
           let result2 = await response2.json();
           //TODO delete after img is given from back
-          result2.img = sampleAvatar;
+          // result2.img = sampleAvatar;
+
           localStorage.setItem("state", JSON.stringify({ user: result2 }));
           navigate("/seeker-dashboard", { state: { user: result2 } });
         } else {

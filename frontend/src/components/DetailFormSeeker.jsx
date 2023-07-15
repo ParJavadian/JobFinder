@@ -18,13 +18,23 @@ export default function Form() {
         file: file,
         imagePreviewUrl: reader.result,
       });
+      // setFormData((prevFormData) => ({
+      //   ...prevFormData,
+      //   img: reader.result,
+      // }));
+      // console.log("setformdata");
+      console.log("file", reader);
+      formData.img = reader.result;
+      console.log("type", formData.img, typeof formData.img);
     };
     reader.readAsDataURL(file);
-    handleChange(e);
-    console.log("file", reader);
+    // handleChange(e);
+
+    // formData.img = imgState.imagePreviewUrl;
   };
   console.log("statttt", state);
   const [formData, setFormData] = useState({
+    img: state.user.img,
     firstname: state.user.firstname,
     lastname: state.user.lastname,
     profession: state.user.profession,
@@ -34,7 +44,6 @@ export default function Form() {
     details: state.user.details,
     email: state.user.email,
     id: state.user.id,
-    img: state.user.img,
   });
 
   // const [changesApplied, setChangesApplied] = useState(false);
@@ -50,15 +59,18 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formDataForm = new FormData(form);
+    // const form = e.currentTarget;
+    // formData.img = imgState.imagePreviewUrl;
+    // const formDataForm = new FormData(form);
+    // console.log("Formdataform", formDataForm);
     // console.log("formData: ", formData);
-    // const formDataForm = new FormData();
+    const formDataForm = new FormData();
 
-    // for (var key in formData) {
-    //   formDataForm.append(key, formData[key]);
-    // }
+    for (var key in formData) {
+      formDataForm.append(key, formData[key]);
+    }
     e.preventDefault();
+    console.log("Formdataform", formDataForm);
 
     let response = await fetch("http://localhost:8080/edit-profile/user", {
       headers: { Authorization: localStorage.token },
@@ -68,6 +80,14 @@ export default function Form() {
     });
     console.log("sent", formData);
     console.log(response);
+
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   img: imgState.imagePreviewUrl,
+    // }));
+
+    //TODO this isn't clean but clean things don't work.
+    // formData.img = imgState.imagePreviewUrl;
     localStorage.setItem("state", JSON.stringify({ user: formData }));
     // setChangesApplied(true);
     // // disapear after 3 seconds
@@ -145,7 +165,12 @@ export default function Form() {
           label="Details"
         />
         {/* <form enctype="multipart/form-data"> */}
-        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
+        <ImgUpload
+          onChange={photoUpload}
+          src={imgState.imagePreviewUrl}
+          name="img"
+          value={formData.img}
+        />
         {/* </form> */}
         <Button
           font-size="xl"
