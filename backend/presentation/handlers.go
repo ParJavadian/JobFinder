@@ -70,7 +70,7 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 		Profession: request.FormValue("profession"),
 		Location:   request.FormValue("location"),
 		Language:   request.FormValue("languages"),
-		Img:   request.FormValue("img"),
+		Img:        request.FormValue("img"),
 		Details:    request.FormValue("details"),
 	}
 
@@ -573,7 +573,7 @@ func (h *Handler) GetUserInfo(context *gin.Context) {
 		"degree":     user.Degree,
 		"location":   user.Location,
 		"languages":  user.Language,
-		"img":        user.Img
+		"img":        user.Img,
 		"details":    user.Details,
 	}
 	context.JSON(200, jsonResponse)
