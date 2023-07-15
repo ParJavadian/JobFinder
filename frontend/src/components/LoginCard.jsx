@@ -9,8 +9,7 @@ import {
   Button,
   Alert,
 } from "@material-tailwind/react";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import sampleAvatar from "../images/sample.png";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
 import { useNavigate } from "react-router-dom";
 
@@ -55,7 +54,6 @@ export default function LoginCard() {
       if (response.ok) {
         const { token, role } = result;
         localStorage.setItem("token", token);
-        console.log("token:", token, "token end");
         if (role === "company") {
           let response2 = await fetch(
             "http://localhost:8080/get-company-info",
@@ -64,8 +62,6 @@ export default function LoginCard() {
             }
           );
           let result2 = await response2.json();
-          //TODO delete after img is given from back
-          // result2.img = result2.img || sampleAvatar;
           localStorage.setItem("state", JSON.stringify({ company: result2 }));
           navigate("/company-dashboard", { state: { company: result2 } });
         } else if (role === "user") {
@@ -73,16 +69,12 @@ export default function LoginCard() {
             headers: { Authorization: localStorage.token },
           });
           let result2 = await response2.json();
-          //TODO delete after img is given from back
-          // result2.img = result2.img || sampleAvatar;
-
           localStorage.setItem("state", JSON.stringify({ user: result2 }));
           navigate("/seeker-dashboard", { state: { user: result2 } });
         } else {
           setError("Invalid token");
         }
       } else {
-        console.log(result.error);
         setError("Please enter valid Email and Password");
       }
     } catch (error) {

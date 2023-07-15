@@ -10,10 +10,8 @@ import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
 
 export default function SidebarCompany() {
-  console.log(localStorage.token);
   const state = JSON.parse(localStorage.state);
   const company = state.company;
-  console.log("in sidebar", state);
 
   const logout = () => {
     localStorage.clear();
@@ -21,19 +19,6 @@ export default function SidebarCompany() {
   };
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-      {/* <div className="mb-2 p-4">
-        <Avatar src={AvatarImg} alt="avatar" size="xl" />
-        <Typography variant="h5" color="blue-black" className="mt-3">
-          {company.name}
-        </Typography>
-        <Typography
-          variant="paragraph"
-          color="blue-gray"
-          className="font-light mt-3"
-        >
-          {company.email}
-        </Typography>
-      </div> */}
       <div className="flex items-center gap-4">
         <Avatar src={company.img} alt="avatar" size="lg" />
         <div>

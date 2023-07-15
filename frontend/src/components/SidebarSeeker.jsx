@@ -9,7 +9,6 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import * as Unicons from "@iconscout/react-unicons";
-// import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SidebarSeeker() {
   const state = JSON.parse(localStorage.state);
@@ -17,18 +16,7 @@ export default function SidebarSeeker() {
     localStorage.clear();
     window.location.href = "/";
   };
-
-  // async function refresh() {
-  //   let response2 = await fetch("http://localhost:8080/get-user-info", {
-  //     headers: { Authorization: localStorage.token },
-  //   });
-  //   let result2 = await response2.json();
-  // }
-
   const user = state.user;
-
-  // const { state } = useLocation();
-  console.log("in sidebar:", state, user);
 
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">

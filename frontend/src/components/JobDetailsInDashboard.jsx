@@ -28,8 +28,6 @@ export default function JobDetailsInDashboard() {
   return (
     <>
       <div className="space-y-10 pt-8 pb-8 pl-16 pr-16 text-blue-700">
-        {/* <div className="mt-5  m-auto flex-col m-auto space-y-5 w-1/2 items-center justify-center"> */}
-        {/* <div className="flex flex-col  space-y-8 "> */}
         <div className="flex items-center -ml-4">
           <Link
             onClick={() => {
@@ -48,8 +46,6 @@ export default function JobDetailsInDashboard() {
             Job Details
           </Typography>
         </div>
-        {/* </div> */}
-        {/* </div> */}
         <div className="flex items-center ml-10">
           <JobDetailCard
             job={{
@@ -72,7 +68,6 @@ export default function JobDetailsInDashboard() {
             }}
           />
         </div>
-        {/* </div> */}
       </div>
     </>
   );

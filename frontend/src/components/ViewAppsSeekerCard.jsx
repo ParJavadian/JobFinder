@@ -52,7 +52,6 @@ export default function ViewApplicationsJobCard({
     } else {
       console.log(result.error);
     }
-    console.log("formData: ", formData);
     window.location.reload(false);
   };
   const handleDetails = () => {
@@ -144,17 +143,6 @@ export default function ViewApplicationsJobCard({
               {"    "}
             </Typography>
           </div>
-          {/* <Typography style={{ display: "inline-block" }}>
-              <Unicons.UilUsdCircle />{" "}
-            </Typography>
-            <Typography
-              style={{ display: "inline-block" }}
-              className="whitespace-break-spaces"
-            >
-              {" "}
-              {Salary}
-            </Typography>
-            <Typography></Typography> */}
         </CardBody>
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
@@ -184,9 +172,6 @@ export default function ViewApplicationsJobCard({
                 <div className="h-10" />
               </>
             )}
-            {/* <Button variant="outlined" className="w-48" onClick={handleDetails}>
-              Details
-            </Button> */}
           </div>
           <div className="flex items-center justify-center absolute left-0">
             <Typography style={{ display: "inline-block" }}>

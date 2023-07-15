@@ -24,10 +24,6 @@ export default function SeekerDashboard() {
             ></Route>
 
             <Route path="/details" element={<JobDetailsInDashboard />}></Route>
-            {/* <Route
-              path="/change-password"
-              element={<SignUpSeekerForm />}
-            ></Route> */}
           </Routes>
         </div>
       </div>

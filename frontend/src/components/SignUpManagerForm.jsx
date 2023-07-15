@@ -7,12 +7,11 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 import * as Unicons from "@iconscout/react-unicons";
 import sampleAvatar from "../images/sample.png";
 
 export default function SignUpManagerForm() {
-  //TODO repeat password
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -59,10 +58,8 @@ export default function SignUpManagerForm() {
     });
     let result = await response.json();
     if (response.ok) {
-      console.log(result.message);
       navigate("/login");
     } else {
-      console.log(result.error);
       setError(result.error);
     }
   }
@@ -107,7 +104,6 @@ export default function SignUpManagerForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            {/* <Input type="tel" size="lg" label="Phone number" required /> */}
             <Input
               type="password"
               size="lg"

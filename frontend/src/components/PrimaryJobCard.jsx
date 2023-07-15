@@ -112,7 +112,6 @@ export default function PrimaryJobCard({
       setTimeout(() => {
         setError("");
       }, 3000);
-      // console.log(result.error);
     }
   };
   return (
@@ -178,17 +177,6 @@ export default function PrimaryJobCard({
               {"    "}
             </Typography>
           </div>
-          {/* <Typography style={{ display: "inline-block" }}>
-            <Unicons.UilUsdCircle />{" "}
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            className="whitespace-break-spaces"
-          >
-            {" "}
-            {Salary}
-          </Typography>
-          <Typography></Typography> */}
         </CardBody>
         <CardFooter className="absolute right-0 pt-4 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">

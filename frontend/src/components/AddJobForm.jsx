@@ -6,11 +6,9 @@ import {
   Alert,
   Typography,
 } from "@material-tailwind/react";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function AddJobForm() {
-  // const state = JSON.parse(localStorage.state);
-  // const company = state.company;
   const [formData, setFormData] = useState({
     title: "",
     field: "",
@@ -19,16 +17,6 @@ export default function AddJobForm() {
     salary: "",
     details: "",
   });
-  //   {
-  //   //defualt values
-  //   name: "Google",
-  //   email: "google@gmail.com",
-  //   field: "Tech",
-  //   founded: "1940",
-  //   employees: "2bilion",
-  //   location: "Silicon Valley",
-  //   details: "We used to be a good company before kianoosh left us...",
-  // }
 
   const [changesApplied, setChangesApplied] = useState(false);
 
@@ -60,7 +48,6 @@ export default function AddJobForm() {
     } else {
       console.log(result.error);
     }
-    console.log("formData: ", formData);
     setChangesApplied(true);
     // disapear after 3 seconds
     setTimeout(() => {
@@ -75,7 +62,6 @@ export default function AddJobForm() {
           variant="static"
           placeholder="Job Title"
           label="Job Title"
-          // onChange={handleChange}
           size="lg"
           required
           name="title"
@@ -121,15 +107,6 @@ export default function AddJobForm() {
           value={formData.salary}
           onChange={handleChange}
         />
-        {/* <Input
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          size="lg"
-          variant="static"
-          label="Location"
-        /> */}
         <Textarea
           placeholder="Details"
           size="lg"
@@ -139,12 +116,7 @@ export default function AddJobForm() {
           value={formData.details}
           onChange={handleChange}
         />
-        <Button
-          font-size="xl"
-          // className="text-black absolute right-0"
-          variant="gradient"
-          onClick={handleSubmit}
-        >
+        <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Create Position
         </Button>
       </form>
@@ -166,7 +138,6 @@ export default function AddJobForm() {
           </Typography>
         </Alert>
       )}
-      {/* </div> */}
     </>
   );
 }

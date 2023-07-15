@@ -20,5 +20,4 @@ function getCategoryById(id) {
   }
   return null;
 }
-// const jobCategories = ["Tech", "Manager", "Counseling", "Healthcare"];
 export { getCategoryById, jobCategories };

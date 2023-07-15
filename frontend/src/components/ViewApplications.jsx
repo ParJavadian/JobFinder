@@ -11,45 +11,13 @@ import PersonCard from "../components/PersonCard";
 import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import sampleAvatar from "../images/sample.png";
-
-// export default function ViewApplications({
-//   job: {
-//     Title,
-//     Company,
-//     Field,
-//     Salary,
-//     Location,
-//     Logosrc,
-//     Time,
-//     Remote,
-//     Status,
-//   },
-// }) {
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 export default function ViewApplications() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 
   const location = useLocation();
-  const {
-    Title,
-    Company,
-    Field,
-    Salary,
-    Location,
-    Logosrc,
-    Time,
-    Remote,
-    Detail,
-    CompField,
-    CompFounded,
-    CompEmployees,
-    CompDetails,
-    ID,
-    CompEmail,
-    Status,
-  } = location.state || {};
+  const { Title, ID, Status } = location.state || {};
 
   const [applications, setApplications] = useState([]);
   const [initialApplications, setInitialApplications] = useState([]);
@@ -71,10 +39,8 @@ export default function ViewApplications() {
       headers: { Authorization: localStorage.token },
     });
     let applications = await response2.json();
-    console.log(applications);
     const newApplications = await Promise.all(
       applications.map(async (application) => {
-        console.log("apllication:", application);
         let params = {
           "user-id": application.user_id,
         };
@@ -102,7 +68,6 @@ export default function ViewApplications() {
           Detail: user.details,
           Id: application.id,
           Status: application.status,
-          // JobId: application.job_id,
         };
         return newApplication;
       })
@@ -119,7 +84,6 @@ export default function ViewApplications() {
   };
 
   const doSearch = () => {
-    console.log("Search:", searchValue);
     const newApplications = filter(initialApplications);
     setApplications(newApplications);
   };
@@ -134,11 +98,10 @@ export default function ViewApplications() {
       .join("&");
 
     let url = "http://localhost:8080/job/close?" + query;
-    let response2 = await fetch(url, {
+    await fetch(url, {
       headers: { Authorization: localStorage.token },
       method: "POST",
     });
-    let result = await response2.json();
     setChangesApplied(true);
     setTimeout(() => {
       setChangesApplied(false);
@@ -150,14 +113,11 @@ export default function ViewApplications() {
       return undefined;
     }
     const filtered = list.filter((applicant) => {
-      console.log(applicant);
       const fullname = applicant.Name + " " + applicant.Lastname;
-      console.log(fullname);
       return fullname.includes(searchValue) || searchValue === "";
     });
     return filtered;
   };
-  ///
   return (
     <>
       <div className="pt-8 pb-8 pl-16 pr-16 ">
@@ -277,12 +237,6 @@ export default function ViewApplications() {
             No applicants found
           </Typography>
         )}
-        {/* <HorizContainer>
-          <PrimaryJobCard job={myJob} />
-          <PrimaryJobCard job={myJob} />
-          <PrimaryJobCard job={myJob} />
-        </HorizContainer>
-        <PrimaryJobCard job={myJob} /> */}
       </div>
       {changesApplied && (
         <Alert

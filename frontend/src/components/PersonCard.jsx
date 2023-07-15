@@ -88,43 +88,13 @@ export default function PersonCard({
               {"    "}
             </Typography>
           </div>
-          {/* <Typography style={{ display: "inline-block" }}>
-            <Unicons.UilUsdCircle />{" "}
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            className="whitespace-break-spaces"
-          >
-            {" "}
-            {Salary}
-          </Typography>
-          <Typography></Typography> */}
         </CardBody>
         <CardFooter className="absolute right-0 pt-6 mt-20 space-y-2 pl-0 pr-0 mr-6 ml-6">
           <div className="flex flex-col space-y-2">
-            <Button
-              className="w-40"
-              onClick={handleDetails}
-              // variant="outlined"
-            >
+            <Button className="w-40" onClick={handleDetails}>
               View Details
             </Button>
-            {/* <Button variant="outlined" className="w-40">
-              Details
-            </Button> */}
           </div>
-          {/* <div className="flex items-center justify-center absolute left-0">
-            <Typography style={{ display: "inline-block" }}>
-              <Unicons.UilUsdCircle className="w-4" />{" "}
-            </Typography>
-            <Typography
-              style={{ display: "inline-block" }}
-              className="whitespace-break-spaces text-sm"
-            >
-              {" "}
-              {Salary}
-            </Typography>
-          </div> */}
         </CardFooter>
       </Card>
     </>

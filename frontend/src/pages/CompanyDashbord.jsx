@@ -1,7 +1,6 @@
 import React from "react";
 import SidebarCompany from "../components/SidebarCompany";
 import { Route, Routes } from "react-router-dom";
-import SignUpSeekerForm from "../components/SignUpSeekerForm";
 import DetailsCompany from "../components/DetailsCompany";
 import CompanyHistory from "../components/CompanyHistory";
 import AddJob from "../components/AddJob";
@@ -10,8 +9,6 @@ import PersonDetails from "../components/PersonDetails";
 import JobDetailsInDashboard from "../components/JobDetailsInDashboard";
 
 export default function CompanyDashbord() {
-  // const location = useLocation();
-  // const { company } = location.state || {};
   return (
     <>
       <SidebarCompany />
@@ -24,10 +21,6 @@ export default function CompanyDashbord() {
             <Route path="/applicants" element={<ViewApplications />}></Route>
             <Route path="/person-detail" element={<PersonDetails />}></Route>
             <Route path="/details" element={<JobDetailsInDashboard />}></Route>
-            {/* <Route
-              path="/change-password"
-              element={<SignUpSeekerForm />}
-            ></Route> */}
           </Routes>
         </div>
       </div>

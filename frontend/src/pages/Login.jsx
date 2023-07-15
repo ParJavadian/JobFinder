@@ -1,11 +1,4 @@
 import React from "react";
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
 import MyNavbar from "../components/MyNavBar";
 import LoginCard from "../components/LoginCard";
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ImgUpload from "./ImgUpload";
 import { Input, Button, Textarea } from "@material-tailwind/react";
-import sampleAvatar from "../images/sample.png";
 
 export default function Form() {
   const state = JSON.parse(localStorage.state);
@@ -18,19 +17,9 @@ export default function Form() {
         file: file,
         imagePreviewUrl: reader.result,
       });
-      // setFormData((prevFormData) => ({
-      //   ...prevFormData,
-      //   img: reader.result,
-      // }));
-      // console.log("setformdata");
-      // console.log("file", reader);
       formData.img = reader.result;
-      // console.log("type", formData.img, typeof formData.img);
     };
     reader.readAsDataURL(file);
-    // handleChange(e);
-
-    // formData.img = imgState.imagePreviewUrl;
   };
   const [formData, setFormData] = useState({
     name: state.company.name,
@@ -44,20 +33,16 @@ export default function Form() {
     img: state.company.img,
   });
 
-  // const [changesApplied, setChangesApplied] = useState(false);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
-    // setChangesApplied(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData: ", formData);
     const formDataForm = new FormData();
 
     for (var key in formData) {
@@ -65,19 +50,13 @@ export default function Form() {
     }
     e.preventDefault();
 
-    let response = await fetch("http://localhost:8080/edit-profile/company", {
+    await fetch("http://localhost:8080/edit-profile/company", {
       headers: { Authorization: localStorage.token },
       method: "POST",
       body: formDataForm,
       enctype: "multipart/form-data",
     });
-    console.log(response);
     localStorage.setItem("state", JSON.stringify({ company: formData }));
-    // setChangesApplied(true);
-    // // disapear after 3 seconds
-    // setTimeout(() => {
-    //   setChangesApplied(false);
-    // }, 3000);
     window.location.reload(false);
   };
 
@@ -138,12 +117,7 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-        <ImgUpload
-          onChange={photoUpload}
-          src={imgState.imagePreviewUrl}
-          // name="img"
-          // value={formData.img}
-        />
+        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
         <Button font-size="xl" variant="gradient" onClick={handleSubmit}>
           Save changes
         </Button>

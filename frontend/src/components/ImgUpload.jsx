@@ -1,4 +1,4 @@
-import { Avatar, Input, Typography } from "@material-tailwind/react";
+import { Avatar, Typography } from "@material-tailwind/react";
 export default function ImgUpload({ onChange, src }) {
   return (
     <>
@@ -8,7 +8,6 @@ export default function ImgUpload({ onChange, src }) {
         </Typography>
         <Avatar size="lg" for="photo-upload" src={src} alt="avatar" />
         <input
-          // variant="static"
           id="photo-upload"
           type="file"
           onChange={onChange}

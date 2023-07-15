@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { Link, useNavigate } from "react-router-dom";
 import PersonDetailCard from "./PersonDetailCard";
 import { useLocation } from "react-router-dom";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function DetailsCompany() {
   const [changesApplied, setChangesApplied] = useState(false);
@@ -57,7 +57,6 @@ export default function DetailsCompany() {
     } else {
       console.log(result.error);
     }
-    console.log("formData: ", formData);
     setAcceptOpen(true);
     setChangesApplied(true);
     // disapear after 3 seconds
@@ -86,7 +85,6 @@ export default function DetailsCompany() {
     } else {
       console.log(result.error);
     }
-    console.log("formData: ", formData);
     setRejectOpen(true);
     setChangesApplied(true);
     // disapear after 3 seconds
@@ -123,7 +121,6 @@ export default function DetailsCompany() {
           <div className="flex w-5/6 flex-row items-center">
             <Button
               className="w-auto h-12 ml-auto"
-              // variant="outlined"
               color="green"
               onClick={accept}
             >
@@ -143,12 +140,6 @@ export default function DetailsCompany() {
               open={acceptOpen || rejectOpen}
               color="green"
               className="fixed right-16 w-auto h-auto"
-              // className={
-              //   "fixed top-16 right-4"
-              //   acceptOpen || rejectOpen
-              //     ? "max-w-screen-md"
-              //     : "max-w-screen-md hidden"
-              // }
               icon={<CheckCircleIcon className="mt-px h-6 w-6" />}
               onClose={() => {
                 setAcceptOpen(false);

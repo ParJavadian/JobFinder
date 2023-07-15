@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Input, Button, Textarea, Typography } from "@material-tailwind/react";
+import { Input, Button, Textarea } from "@material-tailwind/react";
 import ImgUpload from "./ImgUpload";
-import sampleAvatar from "../images/sample.png";
 export default function Form() {
   const state = JSON.parse(localStorage.state);
 
@@ -18,21 +17,10 @@ export default function Form() {
         file: file,
         imagePreviewUrl: reader.result,
       });
-      // setFormData((prevFormData) => ({
-      //   ...prevFormData,
-      //   img: reader.result,
-      // }));
-      // console.log("setformdata");
-      // console.log("file", reader);
       formData.img = reader.result;
-      // console.log("type", formData.img, typeof formData.img);
     };
     reader.readAsDataURL(file);
-    // handleChange(e);
-
-    // formData.img = imgState.imagePreviewUrl;
   };
-  console.log("statttt", state);
   const [formData, setFormData] = useState({
     img: state.user.img,
     firstname: state.user.firstname,
@@ -46,54 +34,30 @@ export default function Form() {
     id: state.user.id,
   });
 
-  // const [changesApplied, setChangesApplied] = useState(false);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
-    // setChangesApplied(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const form = e.currentTarget;
-    // formData.img = imgState.imagePreviewUrl;
-    // const formDataForm = new FormData(form);
-    // console.log("Formdataform", formDataForm);
-    // console.log("formData: ", formData);
     const formDataForm = new FormData();
 
     for (var key in formData) {
       formDataForm.append(key, formData[key]);
     }
     e.preventDefault();
-    console.log("Formdataform", formDataForm);
 
-    let response = await fetch("http://localhost:8080/edit-profile/user", {
+    await fetch("http://localhost:8080/edit-profile/user", {
       headers: { Authorization: localStorage.token },
       method: "POST",
       body: formDataForm,
       enctype: "multipart/form-data",
     });
-    console.log("sent", formData);
-    console.log(response);
-
-    // setFormData((prevFormData) => ({
-    //   ...prevFormData,
-    //   img: imgState.imagePreviewUrl,
-    // }));
-
-    //TODO this isn't clean but clean things don't work.
-    // formData.img = imgState.imagePreviewUrl;
     localStorage.setItem("state", JSON.stringify({ user: formData }));
-    // setChangesApplied(true);
-    // // disapear after 3 seconds
-    // setTimeout(() => {
-    //   setChangesApplied(false);
-    // }, 3000);
     window.location.reload(false);
   };
 
@@ -164,20 +128,8 @@ export default function Form() {
           variant="static"
           label="Details"
         />
-        {/* <form enctype="multipart/form-data"> */}
-        <ImgUpload
-          onChange={photoUpload}
-          src={imgState.imagePreviewUrl || sampleAvatar}
-          // name="img"
-          // value={formData.img}
-        />
-        {/* </form> */}
-        <Button
-          font-size="xl"
-          variant="gradient"
-          type="submit"
-          // onClick={handleSubmit}
-        >
+        <ImgUpload onChange={photoUpload} src={imgState.imagePreviewUrl} />
+        <Button font-size="xl" variant="gradient" type="submit">
           Save changes
         </Button>
       </form>

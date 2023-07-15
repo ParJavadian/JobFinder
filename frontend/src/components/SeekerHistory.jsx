@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Card, Typography } from "@material-tailwind/react";
 import ViewAppsSeekerCard from "./ViewAppsSeekerCard";
 import * as Unicons from "@iconscout/react-unicons";
-import sampleAvatar from "../images/sample.png";
 
 export default function SeekerHistory() {
-  // const state = JSON.parse(localStorage.state);
-  // const user = state.user;
   const [applications, setApplications] = useState([]);
   useEffect(() => {
     getApplications();
@@ -125,12 +122,7 @@ export default function SeekerHistory() {
                 >
                   Accepted
                 </Typography>
-                <ViewAppsSeekerCard
-                  job={card}
-                  colorIn={"rgb(240 253 250)"}
-                  // style={{ display: "inline-block" }}
-                  // className="flex-none"
-                />
+                <ViewAppsSeekerCard job={card} colorIn={"rgb(240 253 250)"} />
               </div>
             </Card>
           ) : (
@@ -146,12 +138,7 @@ export default function SeekerHistory() {
                 >
                   Rejected
                 </Typography>
-                <ViewAppsSeekerCard
-                  job={card}
-                  colorIn={"rgb(254 242 242)"}
-                  // style={{ display: "inline-block" }}
-                  // className="flex-none"
-                />
+                <ViewAppsSeekerCard job={card} colorIn={"rgb(254 242 242)"} />
               </div>
             </Card>
           )

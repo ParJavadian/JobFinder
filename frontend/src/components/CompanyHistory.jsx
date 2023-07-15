@@ -6,7 +6,6 @@ import * as Unicons from "@iconscout/react-unicons";
 export default function CompanyHistory() {
   const state = JSON.parse(localStorage.state);
   const company = state.company;
-  // console.log("company", company);
 
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
@@ -20,22 +19,6 @@ export default function CompanyHistory() {
     let primaryJobs = await response.json();
     const newJobs = await Promise.all(
       primaryJobs.map(async (job) => {
-        // let params = {
-        //   "company-id": job.company_id,
-        // };
-
-        // let query = Object.keys(params)
-        //   .map(
-        //     (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
-        //   )
-        //   .join("&");
-
-        // let url = "http://localhost:8080/company?" + query;
-        // let response2 = await fetch(url, {
-        //   headers: { Authorization: localStorage.token },
-        // });
-        // let company = await response2.json();
-        console.log(job, company);
         if (job.company_id === company.id) {
           const newJob = {
             Title: job.title,
@@ -64,7 +47,6 @@ export default function CompanyHistory() {
         return element !== null;
       })
     );
-    console.log(jobs);
   };
 
   return (
@@ -123,8 +105,6 @@ export default function CompanyHistory() {
                 <ViewApplicationsJobCard
                   job={card}
                   colorIn={"rgb(226 232 240)"}
-                  // style={{ display: "inline-block" }}
-                  // className="flex-none"
                 />
               </div>
             </Card>

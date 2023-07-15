@@ -25,22 +25,10 @@ export default function JobDetails() {
     CompEmail,
     Status,
   } = location1.state || {};
-  // console.log(state);
-  // const myJob = {
-  //   Title: Title,
-  //   Company: Company,
-  //   Field: Field,
-  //   Salary: Salary,
-  //   Location: Location,
-  //   Time: Time,
-  //   Remote: Remote,
-  //   Detail: Detail,
-  // };
   return (
     <>
       <div className="items-center justify-center">
         <div className="mt-5  m-auto flex-col m-auto space-y-5 w-1/2 items-center justify-center">
-          {/* <div className="flex flex-col  space-y-8 "> */}
           <div className="flex items-center ml-24">
             <Link
               onClick={() => {
@@ -59,8 +47,6 @@ export default function JobDetails() {
               Job Details
             </Typography>
           </div>
-          {/* </div> */}
-          {/* </div> */}
           <div className="flex items-center justify-center">
             <JobDetailCard
               job={{
