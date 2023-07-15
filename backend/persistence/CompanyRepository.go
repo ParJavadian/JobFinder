@@ -15,6 +15,7 @@ type Company struct {
 	Employees int
 	Location  string
 	Details   string
+	Img          string
 	CreatedAt time.Time
 }
 

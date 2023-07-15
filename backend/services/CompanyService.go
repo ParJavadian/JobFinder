@@ -88,6 +88,7 @@ func (s *CompanyService) EditProfile(
 	founded string,
 	location string,
 	employees int,
+	img string,
 	details string,
 ) error {
 	company, err := s.companyRepository.GetCompanyByID(companyId)
@@ -109,6 +110,9 @@ func (s *CompanyService) EditProfile(
 	if employees != 0 {
 		company.Employees = employees
 	}
+	if img != 0 {
+    		company.Img = img
+    	}
 	if details != "" {
 		company.Details = details
 	}

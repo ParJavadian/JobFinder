@@ -19,6 +19,7 @@ type User struct {
 	Language   string
 	Details    string
 	Password   string
+	Img          string
 	CreatedAt  time.Time
 }
 
@@ -96,6 +97,7 @@ func (r *UserRepository) EditProfile(
 	degree,
 	location,
 	language,
+	img,
 	details string,
 ) error {
 	// Get the user by ID
@@ -125,6 +127,9 @@ func (r *UserRepository) EditProfile(
 	if language != "" {
 		user.Language = language
 	}
+	if img != "" {
+    		user.Img = img
+    	}
 	if details != "" {
 		user.Details = details
 	}

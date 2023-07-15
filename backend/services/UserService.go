@@ -121,7 +121,7 @@ func (s *UserService) ChangePassword(email, currentPassword, newPassword string)
 }
 
 func (s *UserService) EditProfile(userId uint, firstname, lastname, profession, degree, location, language, details string) error {
-	err := s.userRepository.EditProfile(userId, firstname, lastname, profession, degree, location, language, details)
+	err := s.userRepository.EditProfile(userId, firstname, lastname, profession, degree, location, language,img , details)
 	if err != nil {
 		return err
 	}

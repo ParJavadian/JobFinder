@@ -70,6 +70,7 @@ func (h *Handler) RegisterUser(context *gin.Context) {
 		Profession: request.FormValue("profession"),
 		Location:   request.FormValue("location"),
 		Language:   request.FormValue("languages"),
+		Img:   request.FormValue("img"),
 		Details:    request.FormValue("details"),
 	}
 
@@ -139,6 +140,7 @@ func (h *Handler) EditUserProfile(context *gin.Context) {
 		request.FormValue("degree"),
 		request.FormValue("location"),
 		request.FormValue("languages"),
+		request.FormValue("img"),
 		request.FormValue("details"),
 	)
 	if err != nil {
@@ -201,6 +203,7 @@ func (h *Handler) RegisterCompany(context *gin.Context) {
 		Founded:   request.FormValue("founded"),
 		Employees: employees,
 		Location:  request.FormValue("location"),
+		Img:       request.FormValue("img"),
 		Details:   request.FormValue("details"),
 	}
 	err = validateCompanyRegistrationFields(company)
@@ -250,6 +253,7 @@ func (h *Handler) EditCompanyProfile(context *gin.Context) {
 		request.FormValue("founded"),
 		request.FormValue("location"),
 		employees,
+		request.FormValue("img"),
 		request.FormValue("details"),
 	)
 	if err != nil {
@@ -299,6 +303,7 @@ func (h *Handler) GetCompanyByID(context *gin.Context) {
 		"field":     company.Field,
 		"founded":   company.Founded,
 		"employees": company.Employees,
+		"img":       company.Img,
 		"details":   company.Details,
 	}
 	context.JSON(200, jsonResponse)
@@ -538,6 +543,7 @@ func (h *Handler) GetCompanyInfo(context *gin.Context) {
 		"field":     company.Field,
 		"founded":   company.Founded,
 		"employees": company.Employees,
+		"img":       company.Img,
 		"details":   company.Details,
 	}
 	context.JSON(200, jsonResponse)
@@ -567,6 +573,7 @@ func (h *Handler) GetUserInfo(context *gin.Context) {
 		"degree":     user.Degree,
 		"location":   user.Location,
 		"languages":  user.Language,
+		"img":        user.Img
 		"details":    user.Details,
 	}
 	context.JSON(200, jsonResponse)
@@ -601,6 +608,7 @@ func (h *Handler) GetUserInfoById(context *gin.Context) {
 		"degree":     user.Degree,
 		"location":   user.Location,
 		"languages":  user.Language,
+		"img":        user.Img,
 		"details":    user.Details,
 	}
 	context.JSON(200, jsonResponse)
