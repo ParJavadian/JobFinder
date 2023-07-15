@@ -12,9 +12,11 @@ import {
 import React, { useState, useEffect } from "react";
 import * as Unicons from "@iconscout/react-unicons";
 import { getCategoryById, jobCategories } from "../constants/Categories";
+import office from "../images/office.png";
 
-const SampleImgUrl =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMGuOzi8xiMxTHT0Oj1UQygOfwvkENepvfov3kZ45RQ&s";
+const SampleImgUrl = office;
+// const SampleImgUrl =
+//   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMGuOzi8xiMxTHT0Oj1UQygOfwvkENepvfov3kZ45RQ&s";
 export default function Home() {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -118,7 +120,9 @@ export default function Home() {
       <MyNavbar />
 
       <Container>
-        <img class="w-full h-64" src={SampleImgUrl} alt="sample" />
+        <div className="w-full flex flex-col p-0 m-0 items-center justify-center">
+          <img class="w-2/3 h-auto" src={SampleImgUrl} alt="sample" />
+        </div>
         <div className="flex items-center justify-center">
           <div className="flex bg-blue-50 flex-row gap-2 w-5/6 rounded-lg border-blue-300 border p-4">
             <Input

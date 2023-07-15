@@ -14,7 +14,7 @@ export default function MyNavbar() {
     <Navbar className="sticky top z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="/" className="ml-10 mr-4 cursor-pointer py-1.5 font-bold">
-          E & E
+          Job Finder
         </Link>
         <div className="flex mr-10 gap-10 lg:inline-block space-x-4">
           <Button
